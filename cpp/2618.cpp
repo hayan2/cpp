@@ -37,7 +37,7 @@ int main(void) {
 			bposy = y;
 			res.push_back(2);			
 		}
-		else if (abs(cacheA[aposx][aposy] - cacheA[x][y]) < abs(cacheB[bposx][bposy] - cacheB[x][y])) {			
+		else (abs(cacheA[aposx][aposy] - cacheA[x][y]) < abs(cacheB[bposx][bposy] - cacheB[x][y])) {			
 			dsum += abs(cacheA[aposx][aposy] - cacheA[x][y]);
 			aposx = x;
 			aposy = y;
