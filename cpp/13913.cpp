@@ -9,7 +9,7 @@
 using namespace std;
 
 vector<int> cache(MAX_LEN, MAX_LEN);
-int path[MAX_LEN] = { 0, };
+int prevPath[MAX_LEN] = { 0, };
 int visited[MAX_LEN] = { 0, };
 int N;
 
@@ -41,9 +41,9 @@ void solved(int K) {
 		pushPos = pos + 1;
 		if (pushPos < MAX_LEN && cache[pushPos] > pushTime) {
 			heap.push({ -pushTime, pushPos });
-			path[pushPos] = pos;
-			if (path[pushPos] == 0) {
-				path[pushPos] = pos;
+			prevPath[pushPos] = pos;
+			if (prevPath[pushPos] == 0) {
+				prevPath[pushPos] = pos;
 			}
 		}
 
@@ -52,8 +52,8 @@ void solved(int K) {
 		pushPos = pos - 1;
 		if (pushPos > -1 && cache[pushPos] > pushTime) {
 			heap.push({ -pushTime, pushPos });
-			if (path[pushPos] == 0) {
-				path[pushPos] = pos;
+			if (prevPath[pushPos] == 0) {
+				prevPath[pushPos] = pos;
 			}			
 		}
 
@@ -62,8 +62,8 @@ void solved(int K) {
 		pushPos = pos * 2;
 		if (pushPos < MAX_LEN && cache[pushPos] > pushTime) {
 			heap.push({ -pushTime, pushPos });
-			if (path[pushPos] == 0) {
-				path[pushPos] = pos;
+			if (prevPath[pushPos] == 0) {
+				prevPath[pushPos] = pos;
 			}
 		}
 	}
@@ -86,8 +86,8 @@ int main(void) {
 	int len = cache[K];
 	res.push(K);
 	for (int i = 0; i < len; i++) {
-		res.push(path[K]);
-		K = path[K];
+		res.push(prevPath[K]);
+		K = prevPath[K];
 	}
 
 	while (!res.empty()) {

@@ -10,7 +10,7 @@ using namespace std;
 
 vector<pair<int, int>> graph[MAX_LEN];
 vector<int> ret(MAX_LEN, INF);
-int path[MAX_LEN];
+int prevPath[MAX_LEN];
 int N, M;
 
 int solved(int u, int v) {	
@@ -35,7 +35,7 @@ int solved(int u, int v) {
 			if (ret[heapDest] > heapWeight) {
 				ret[heapDest] = heapWeight;
 				heap.push({ -heapWeight, heapDest });
-				path[heapDest] = dest;
+				prevPath[heapDest] = dest;
 			}			
 		}
 	}
@@ -65,8 +65,8 @@ int main(void) {
 
 	res.push(v2);
 	for (int i = v2; i != v1;) {
-		res.push(path[i]);
-		i = path[i];
+		res.push(prevPath[i]);
+		i = prevPath[i];
 	}
 
 	cout << res.size() << endl;
