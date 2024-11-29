@@ -1,5 +1,4 @@
-#define MAX_E 124751
-#define MAX_LEN 501
+#define MAX_LEN 502
 #define VISITED 1
 #include <iostream>
 #include <algorithm>
@@ -9,15 +8,28 @@
 
 using namespace std;
 
-typedef struct Edge {
-	int u, v;
-}Edge;
-
-Edge tree[MAX_LEN];
 int visited[MAX_LEN] = { 0, };
+int N, M;
 
-string solved(int N, int M) {
+bool solved(vector<vector<int>> tree, int s) {
+	queue<int> queue;
+	queue.push(s);
+	visited[s] = VISITED;
 
+	bool isTree = true;
+	while (!queue.empty()) {
+		int cur = queue.front();
+		queue.pop();
+
+		for (auto nxt : tree[cur]) {
+			if (visited[nxt] != 0 && visited[nxt] != visited[cur] - 1) isTree = false;
+			if (visited[nxt] != 0) continue;
+
+			visited[nxt] = visited[cur] + 1;
+			queue.push(nxt);
+		}
+	}
+	return isTree;
 }
 
 int main(void) {
@@ -25,22 +37,41 @@ int main(void) {
 	cin.tie(NULL);
 	cout.tie(NULL);
 
-	int N, M;
-		
-	while (1) {		
+	int cnt = 1;
+	while (1) {
 		cin >> N >> M;
-		if (N == 0 && M == 0) break;
+		if (!N && !M) break;
+
+		vector<vector<int>> tree(N + 1);
 		int u, v;
 
 		for (int i = 1; i <= M; i++) {
 			cin >> u >> v;
-			tree[i] = { u, v };
+
+			tree[u].push_back(v);
+			tree[v].push_back(u);
 		}
 
-		solved(N, M);
+		int res = 0;
+		for (int i = 1; i <= N; i++) {
+			if (!visited[i]) {
+				if (solved(tree, i)) res++;
+			}			
+		}
 
-		memset(tree, 0, sizeof(tree));
 		memset(visited, 0, sizeof(visited));
+
+		cout << "Case " << cnt++ << ": ";
+		if (res > 1) {
+			cout << "A forest of " << res << " trees.";
+		}
+		else if (res == 1) {
+			cout << "There is one trees.";
+		}
+		else {
+			cout << "No trees.";
+		}
+		cout << "\n";
 	}
 
 	return 0;
