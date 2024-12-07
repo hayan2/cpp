@@ -1,26 +1,26 @@
-#define MAX_LEN 101 * 101
+#define MAX_LEN 1001
+#define VISITED 1
 #include <iostream>
 #include <algorithm>
-#include <math.h>
 #include <vector>
 #include <cmath>
+#include <math.h>
 
 using namespace std;
 
+// 4% WA
+
 typedef struct Coordinate {
 	double x, y;
-} Coor;
+} Coordinate;
 
-typedef pair<double, pair<int, int>> type;
-vector<Coordinate> stars;
-vector<type> dist;
+typedef pair<double, pair<int, int>> Type;
+
+vector<Coordinate> pos;
+vector<Type> dist;
 int root[MAX_LEN];
-int N;
-
-double getDistance(Coordinate p, Coordinate q) {
-	if (p.x == q.x || p.y == q.y) return abs(q.x - p.x) + abs(q.y - p.y);
-	else return sqrt(pow((q.x - p.x), 2) + pow((q.y - p.y), 2));
-}
+double res = 0;
+int N, M;
 
 int find(int x) {
 	if (root[x] == x) return root[x];
@@ -32,14 +32,18 @@ void unionSet(int a, int b) {
 	b = find(b);
 
 	if (a > b) root[b] = a;
-	else if (a < b) root[a] = b;
+	else root[a] = b;
+}
+
+double getDistance(Coordinate P, Coordinate Q) {
+	return sqrt(pow(Q.x - P.x, 2) + pow(Q.y - P.y, 2));
 }
 
 double solved() {
 	double ret = 0.0;
 	int cnt = 0;
 
-	for (type cur : dist) {
+	for (Type cur : dist) {
 		int u = cur.second.first;
 		int v = cur.second.second;
 		double w = cur.first;
@@ -47,9 +51,11 @@ double solved() {
 		if (find(u) == find(v)) continue;
 
 		cnt++;
+		if (cnt == N - 1) break;
 		unionSet(u, v);
 		ret += w;
 	}
+
 	return ret;
 }
 
@@ -60,24 +66,30 @@ int main(void) {
 	cout << fixed;
 	cout.precision(2);
 
-	cin >> N;
-	for (int i = 0; i < MAX_LEN; i++) root[i] = i;
+	cin >> N >> M;
+	for (int i = 0; i < N + 1; i++) root[i] = i;
+	double x, y;
+	for (int i = 0; i < N; i++) {
+		cin >> x >> y;
+
+		pos.push_back({ x, y });
+	}
+
+	int p, q;
+	for (int i = 0; i < M; i++) {
+		cin >> p >> q;
+		unionSet(p - 1, q - 1);
+	}
 
 	for (int i = 0; i < N; i++) {
-		double x, y;
-		cin >> x >> y;
-		stars.push_back({ x, y });
-	}
-
-	for (int i = 0; i < stars.size(); i++) {
-		for (int j = i + 1; j < stars.size(); j++) {
-			dist.push_back({ getDistance(stars[i], stars[j]), { i, j } });
+		for (int j = i + 1; j < N; j++) {
+			dist.push_back({ getDistance(pos[i], pos[j]), { i, j } });
 		}
 	}
-
 	sort(dist.begin(), dist.end());
+	res += solved();
 
-	cout << solved();
+	cout << round(res * 100) / 100;
 
 	return 0;
 }

@@ -93,5 +93,11 @@
     <ClCompile Include="4386.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="1774.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="1774-1.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
