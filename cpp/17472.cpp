@@ -17,7 +17,6 @@ vector<Mst> cache;
 int map[MAX_LEN][MAX_LEN];
 int root[MAX_ILND];
 int visited[MAX_LEN][MAX_LEN];
-int isConnected[MAX_ILND][MAX_ILND];
 int dist[MAX_ILND][MAX_ILND];
 int dx[DIR_LEN] = { -1, 0, 1, 0 };
 int dy[DIR_LEN] = { 0, -1, 0, 1 };
@@ -78,7 +77,6 @@ void goWidth(int x, int y) {
 	int cx = min(curNum, map[x][y]);
 	int cy = max(curNum, map[x][y]);
 	if (cx >= 0 && cy < MAX_ILND) {
-		isConnected[cx][cy] = CONNECTED;
 		dist[cx][cy] = min(distance, dist[cx][cy]);
 	}
 }
@@ -96,7 +94,6 @@ void backWidth(int x, int y) {
 	int cx = min(curNum, map[x][y]);
 	int cy = max(curNum, map[x][y]);
 	if (cx >= 0 && cy < MAX_ILND) {
-		isConnected[cx][cy] = CONNECTED;
 		dist[cx][cy] = min(distance, dist[cx][cy]);
 	}
 }
@@ -115,7 +112,6 @@ void upHeight(int x, int y) {
 	int cx = min(curNum, map[x][y]);
 	int cy = max(curNum, map[x][y]);
 	if (cx >= 0 && cy < MAX_ILND) {
-		isConnected[cx][cy] = CONNECTED;
 		dist[cx][cy] = min(distance, dist[cx][cy]);
 	}
 }
@@ -134,14 +130,13 @@ void downHeight(int x, int y) {
 	int cx = min(curNum, map[x][y]);
 	int cy = max(curNum, map[x][y]);
 	if (cx >= 0 && cy < MAX_ILND) {
-		isConnected[cx][cy] = CONNECTED;
 		dist[cx][cy] = min(distance, dist[cx][cy]);
 	}
 }
 
 int solved() {
 	int ret = 0, cnt = 0;
-	
+
 	for (Mst cur : cache) {
 		int u = cur.second.first;
 		int v = cur.second.second;
@@ -155,18 +150,17 @@ int solved() {
 		unionSet(u, v);
 	}
 }
-
-int main(void) {
+int main(void) {	
 	ios::sync_with_stdio(false);
 	cin.tie(NULL);
 	cout.tie(NULL);
 
 	for (int i = 1; i < MAX_ILND; i++) root[i] = i;
 	cin >> N >> M;
-	memset(visited, 0, sizeof(visited));
-	memset(isConnected, 0, sizeof(isConnected));
-	fill(&dist[0][0], &dist[MAX_ILND - 1][MAX_ILND], MAX_LEN);
 
+	memset(visited, 0, sizeof(visited));
+	fill_n(&dist[0][0], MAX_LEN * MAX_LEN, MAX_LEN);
+	
 	for (int i = 1; i <= N; i++) {
 		for (int j = 1; j <= M; j++) {
 			cin >> map[i][j];
@@ -190,8 +184,8 @@ int main(void) {
 				downHeight(x, y);
 			}
 		}
-	}	
-
+	}
+	
 	for (int x = 1; x <= N; x++) {
 		for (int y = 1; y <= M; y++) {
 			if (dist[x][y] > 1 && dist[x][y] < MAX_LEN) {
