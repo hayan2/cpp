@@ -1,19 +1,18 @@
 #define MAX_LEN 11
-#define MAX_ILND 7
+#define MAX_ILND 51
 #define DIR_LEN 4
 #define VISITED 1
-#define CONNECTED 1
 #include <iostream>
 #include <algorithm>
 #include <vector>
 #include <queue>
 #include <string.h>
+#include <stdbool.h>
 
 using namespace std;
 
 typedef pair<int, pair<int, int>> Mst;
 
-vector<Mst> cache;
 int map[MAX_LEN][MAX_LEN];
 int root[MAX_ILND];
 int visited[MAX_LEN][MAX_LEN];
@@ -38,6 +37,7 @@ void unionSet(int a, int b) {
 void putIslandNum(int x, int y) {
 	queue<pair<int, int>> queue;
 	queue.push({ x, y });
+
 	map[x][y] += islandNum;
 	visited[x][y] = VISITED;
 
@@ -63,12 +63,12 @@ void putIslandNum(int x, int y) {
 	islandNum++;
 }
 
-void goWidth(int x, int y) {
+void downHeight(int x, int y) {
 	int distance = 0, curNum = map[x][y];
 	x++;
 
 	while (!map[x][y]) {
-		if (x < 1 || x > M) return;
+		if (x < 1 || x > N) return;
 
 		distance++;
 		x++;
@@ -76,34 +76,18 @@ void goWidth(int x, int y) {
 
 	int cx = min(curNum, map[x][y]);
 	int cy = max(curNum, map[x][y]);
-	if (cx >= 0 && cy < MAX_ILND) {
+
+	if (cy <= islandNum && distance > 1 && (cx != cy) && x < MAX_LEN) {
 		dist[cx][cy] = min(distance, dist[cx][cy]);
 	}
 }
 
-void backWidth(int x, int y) {
-	int distance = 1, curNum = map[x][y];
-
-	while (!map[x][y]) {
-		if (x < 1 || x > M) return;
-
-		distance++;
-		x--;
-	}
-
-	int cx = min(curNum, map[x][y]);
-	int cy = max(curNum, map[x][y]);
-	if (cx >= 0 && cy < MAX_ILND) {
-		dist[cx][cy] = min(distance, dist[cx][cy]);
-	}
-}
-
-void upHeight(int x, int y) {
+void goWidth(int x, int y) {
 	int distance = 0, curNum = map[x][y];
 	y++;
 
 	while (!map[x][y]) {
-		if (y < 1 || y > N) return;
+		if (y < 1 || y > M) return;
 
 		distance++;
 		y++;
@@ -111,30 +95,21 @@ void upHeight(int x, int y) {
 
 	int cx = min(curNum, map[x][y]);
 	int cy = max(curNum, map[x][y]);
-	if (cx >= 0 && cy < MAX_ILND) {
+	if (cy <= islandNum && distance > 1 && (cx != cy) && y < MAX_LEN) {
 		dist[cx][cy] = min(distance, dist[cx][cy]);
 	}
 }
 
-void downHeight(int x, int y) {
-	int distance = 0, curNum = map[x][y];
-	y--;
-
-	while (!map[x][y]) {
-		if (y < 1 || y > N) return;
-
-		distance++;
-		y--;
+int isConnected() {
+	int tmp = find(root[1]);
+	for (int i = 2; i <= islandNum; i++) {
+		if (tmp != find(root[i])) return 0;
 	}
 
-	int cx = min(curNum, map[x][y]);
-	int cy = max(curNum, map[x][y]);
-	if (cx >= 0 && cy < MAX_ILND) {
-		dist[cx][cy] = min(distance, dist[cx][cy]);
-	}
+	return 1;
 }
 
-int solved() {
+int solved(vector<Mst> cache) {
 	int ret = 0, cnt = 0;
 
 	for (Mst cur : cache) {
@@ -143,32 +118,33 @@ int solved() {
 		int w = cur.first;
 
 		if (find(u) == find(v)) continue;
-		if (cnt == islandNum - 1) return ret;
+		if (cnt == islandNum - 1) break;
 
 		cnt++;
 		ret += w;
 		unionSet(u, v);
 	}
+
+	return ret;
 }
+
 int main(void) {
 	ios::sync_with_stdio(false);
 	cin.tie(NULL);
 	cout.tie(NULL);
 
+	vector<Mst> cache;
+
 	for (int i = 1; i < MAX_ILND; i++) root[i] = i;
 	cin >> N >> M;
 
 	memset(visited, 0, sizeof(visited));
+	memset(map, 0, sizeof(map));
+	fill_n(&dist[0][0], MAX_ILND * MAX_ILND, MAX_LEN);
 
 	for (int x = 1; x <= N; x++) {
 		for (int y = 1; y <= M; y++) {
-			dist[x][y] = MAX_LEN;
-		}
-	}
-
-	for (int i = 1; i <= N; i++) {
-		for (int j = 1; j <= M; j++) {
-			cin >> map[i][j];
+			cin >> map[x][y];
 		}
 	}
 
@@ -179,28 +155,34 @@ int main(void) {
 			}
 		}
 	}
-
+	
 	for (int x = 1; x <= N; x++) {
 		for (int y = 1; y <= M; y++) {
 			if (map[x][y]) {
 				goWidth(x, y);
-				backWidth(x, y);
-				upHeight(x, y);
 				downHeight(x, y);
 			}
 		}
 	}
-
-	for (int x = 1; x <= N; x++) {
-		for (int y = 1; y <= M; y++) {
+	
+	int lim = (N > M) ? N : M;
+	for (int x = 1; x <= lim; x++) {
+		for (int y = 1; y <= lim; y++) {
 			if (dist[x][y] > 1 && dist[x][y] < MAX_LEN) {
 				cache.push_back({ dist[x][y], { x, y } });
 			}
 		}
 	}
 
+	sort(cache.begin(), cache.end());
 
-	cout << solved();
+	int res = solved(cache);
+	if (isConnected()) {
+		(res > 0) ? cout << res : cout << "-1";
+	}
+	else {
+		cout << "-1";
+	}
 
 	return 0;
 }
