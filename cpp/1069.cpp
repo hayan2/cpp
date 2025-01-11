@@ -12,24 +12,24 @@ int main(void) {
 	double X, Y, D, T;	
 
 	cin >> X >> Y >> D >> T;
-
-	double walk, jump, mixed, dist, leftOver;
 	
-	dist = sqrt(X * X + Y * Y);
+	double dist = sqrt(X * X + Y * Y);
+	double res = 0;
+	cout << fixed;
+	cout.precision(9);
 
-	walk = dist;
-	leftOver = fmod(dist, D);
-	
-	if (!leftOver) {
-		// use only walk or use only jump
-		jump = dist / D;
-		cout << min(walk, jump);
-	}
+	if (D < T) cout << dist;
 	else {
-		// can't get to destination just by jumping
-		
+		res = dist;
+
+		int jump = dist / D;
+		dist -= jump * D;
+
+		if (jump == 0) res = min(res, min(T + D - dist, 2.0 * T));
+		else res = min(res, min(jump * T + dist, (jump + 1.0) * T));
+
+		cout << res;
 	}
-	
 
 	return 0;
 }
