@@ -168,5 +168,8 @@
     <ClCompile Include="2098.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="2098-1.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
