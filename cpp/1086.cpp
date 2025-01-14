@@ -1,74 +1,67 @@
+#define ull unsigned long long
 #define MOD_LEN 104
+#define POW_LEN 52
 #define MAX_LEN 16
-#define all(x) (x).begin(), (x).end()
 #include <iostream>
 #include <algorithm>
 #include <cstring>
-#include <string.h>
+#include <string>
+#include <vector>
 
 using namespace std;
 
-string element[MAX_LEN];
-int cache[MAX_LEN];
-int dp[1 << MAX_LEN][MOD_LEN];
-int N, K, cnt = 0;
+string elements[MAX_LEN];
+ull cache[MAX_LEN];
+ull dp[1 << MAX_LEN][MOD_LEN];
+ull len[POW_LEN];
+ull tp[POW_LEN];
+ull N, K, q = 1;
 
-int gcd(int a, int b) {
+ull gcd(ull a, ull b) {
 	if (b == 0) return a;
 	return gcd(b, a % b);
 }
 
-int factorial(int x) {
-	if (x == 1) return 1;
-	return x * factorial(x - 1);
+void getPow() {
+	tp[0] = 1;
+	for (int i = 1; i < POW_LEN; i++) {
+		tp[i] = tp[i - 1] * 10 % K;
+	}
 }
 
-int getDigits(int x) {
-	int denominator = 10, tmp = x;
+ull solve(int state, int remainder) {
+	if (state == (1 << N) - 1) return (remainder == 0);
+	if (dp[state][remainder] != -1) return dp[state][remainder];
 
-	while (x > denominator) denominator *= 10;
-
-	return denominator;
-}
-
-int solved(int state, int remainder) {
-	if (state == (1 << N) - 1) return (remainder == 0);	
-
-	int& ret = dp[state][remainder];
-	if (ret != -1) return ret;
-	ret = 0;
+	dp[state][remainder] = 0;
 
 	for (int i = 0; i < N; i++) {
 		if (!(state & (1 << i))) {
-			int digit = getDigits(cache[i]);
-
-			ret += solved(state | (1 << i), (remainder * digit + cache[i]) % K);
+			dp[state][remainder] += solve(state | (1 << i), (remainder * tp[len[i]] + cache[i]) % K);
 		}
 	}
 
-	return ret;
+	return dp[state][remainder];
 }
 
-int main(void) {
+int main() {
 	ios::sync_with_stdio(false);
 	cin.tie(NULL);
 	cout.tie(NULL);
 
 	cin >> N;
-
 	for (int i = 0; i < N; i++) {
-		cin >> element[i];
+		cin >> elements[i];
+		q *= (i + 1);
 	}
-
 	cin >> K;
 
-	// scaled
 	for (int i = 0; i < N; i++) {
-		string x = element[i];
-		int len = x.length();
-		int idx = 0, tmp = 0;
+		string x = elements[i];
+		len[i] = (int)x.size();
+		int tmp = 0, idx = 0;
 
-		while (len != idx) {
+		while (len[i] != idx) {
 			tmp *= 10;
 			tmp += x[idx++] - '0';
 			tmp %= K;
@@ -77,12 +70,14 @@ int main(void) {
 		cache[i] = tmp;
 	}
 
+	getPow();
 	memset(dp, -1, sizeof(dp));
-	int res = solved(0, 0);
-	int d = factorial(N);
-	int g = gcd(d, res);
 
-	cout << res / g << "/" << d / g;
+	ull p = solve(0, 0);
+	ull g = gcd(p, q);
+
+	cout << p / g << "/" << q / g;
 
 	return 0;
 }
+
