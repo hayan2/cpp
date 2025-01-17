@@ -17,6 +17,8 @@ ull len[POW_LEN];
 ull tp[POW_LEN];
 ull N, K, q = 1;
 
+// AC
+
 ull gcd(ull a, ull b) {
 	if (b == 0) return a;
 	return gcd(b, a % b);
