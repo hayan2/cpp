@@ -4,7 +4,6 @@
 #include <string>
 
 #define MAX_LEN 26
-#define MOD 'a'
 
 using namespace std;
 
@@ -18,8 +17,6 @@ typedef struct Trie {
 		for (int i = 0; i < MAX_LEN; i++) cache[i] = NULL;
 		cnt = 0;
 	}
-
-
 }Trie;
 
 int main(void) {
