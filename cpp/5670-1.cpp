@@ -1,7 +1,5 @@
 #include <iostream>
 #include <algorithm>
-#include <map>
-#include <string>
 #include <vector>
 
 #define MAX_LEN 26
@@ -32,33 +30,35 @@ typedef struct Trie {
 		}
 
 		int cur = *s - 'a';
+
 		if (!cache[cur]) {
 			cache[cur] = new Trie;
 			cnt++;
 		}
 		cache[cur]->insert(s + 1);
 	}
-	
-	void find(const char* s, int k, bool root) {
+
+	void find(const char* s, int k, int root) {
 		if (!*s) {
 			res += k;
 			return;
 		}
+
 		int cur = *s - 'a';
+
 		if (root) cache[cur]->find(s + 1, k, false);
 		else {
 			if (cnt == 1 && !finish) cache[cur]->find(s + 1, k, false);
 			else cache[cur]->find(s + 1, k + 1, false);
 		}
 	}
-
 }Trie;
 
 int main(void) {
 	ios::sync_with_stdio(false);
 	cin.tie(NULL);
 	cout.tie(NULL);
-		
+	
 	while (cin >> N) {
 		Trie* root = new Trie;
 		res = 0;
@@ -78,6 +78,7 @@ int main(void) {
 
 		cout << fixed;
 		cout.precision(2);
+
 		cout << (double)res / (int)key.size() << "\n";
 		delete root;
 	}
