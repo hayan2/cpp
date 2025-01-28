@@ -5,7 +5,7 @@
 
 using namespace std;
 
-vector<int> inorder;
+vector<int> indegree;
 vector<int> postorder;
 int pos[MAX_LEN];
 int N;
@@ -36,7 +36,7 @@ int main(void) {
 	int node;
 	for (int i = 0; i < N; i++) {
 		cin >> node;
-		inorder.push_back(node);
+		indegree.push_back(node);
 		pos[node] = i;
 	}
 	for (int i = 0; i < N; i++) {
