@@ -64,7 +64,7 @@ int main(void) {
 				indegree[rank[j]]++;
 			}
 		}
-				
+		//
 		cin >> m;
 		for (int i = 1; i <= m; i++) {			
 			cin >> u >> v;
