@@ -222,5 +222,17 @@
     <ClCompile Include="3584-1.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="17435.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="17435-1.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="11438.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="11438-1.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
