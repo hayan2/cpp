@@ -19,7 +19,8 @@ int parent[MAX_LEN][MAX_LOG] = { 0, };
 int depth[MAX_LEN] = { 0, };
 int N, K, u, v, w, D, E;
 
-// WA
+// AC
+// MEM 32384 KB | TIME 136 ms
 
 void getDepth(int cur, int curDepth, int prev) {
 	depth[cur] = curDepth;
@@ -44,17 +45,17 @@ void dp() {
 	}
 }
 
-type solved(int a, int b) {	
+type solved(int a, int b) {
 	if (depth[a] < depth[b]) {
 		int tmp = a;
 		a = b;
 		b = tmp;
 	}
 
-	int amin = cache[a][0][SHORTEST], amax = cache[a][0][LONGEST], bmin = cache[b][0][SHORTEST], bmax = cache[b][0][LONGEST];
+	int amin = INF, amax = -INF, bmin = INF, bmax = -INF;
 	if (b == 1) {
 		bmin = INF;
-		bmax = -1;
+		bmax = -INF;
 	}
 
 	for (int i = MAX_LOG - 1; i > -1; i--) {
@@ -78,10 +79,9 @@ type solved(int a, int b) {
 		}
 	}
 
-	amax = max(amax, cache[a][0][LONGEST]);
-	amin = min(amin, cache[a][0][SHORTEST]);
-	bmax = max(bmax, cache[b][0][LONGEST]);
-	bmin = min(bmin, cache[b][0][SHORTEST]);
+	if (parent[a][0] == parent[b][0]) {
+		return { min(min(amin, bmin), min(cache[a][0][SHORTEST], cache[b][0][LONGEST])), max(max(amax, bmax), max(cache[b][0][LONGEST], cache[a][0][LONGEST])) };
+	}
 
 	return { min(amin, bmin), max(amax, bmax) };
 }
