@@ -8,20 +8,20 @@ using namespace std;
 
 // WA
 
-typedef struct Coordinate {
+typedef struct Coor {
 	lli x, y;
 }Coordinate;
 
-lli ccw(Coordinate p1, Coordinate p2, Coordinate p3) {
+lli ccw(Coor p1, Coor p2, Coor p3) {
 	return ((p2.x - p1.x) * (p3.y - p1.y) - (p3.x - p1.x) * (p2.y - p1.y));
 }
 
-bool compare(Coordinate p1, Coordinate p2) {
+bool compare(Coor p1, Coor p2) {
 	return (abs(p1.x) >= abs(p2.x) && abs(p1.y) >= abs(p2.y)) ? true : false;
 }
  
-void swap(Coordinate* p1, Coordinate* p2) {
-	Coordinate tmp;
+void swap(Coor* p1, Coor* p2) {
+	Coor tmp;
 	tmp.x = p1->x;
 	tmp.y = p1->y;
 	p1->x = p2->x;
@@ -35,7 +35,7 @@ int main(void) {
 	cin.tie(NULL);
 	cout.tie(NULL);
 
-	Coordinate p1, p2, p3, p4;
+	Coor p1, p2, p3, p4;
 
 	cin >> p1.x >> p1.y >> p2.x >> p2.y >> p3.x >> p3.y >> p4.x >> p4.y;
 

@@ -6,17 +6,17 @@
 
 using namespace std;
 
-typedef struct Coordinate {
+typedef struct Coor {
 	ll x, y;
 
 	void read() { cin >> x >> y; };
 }Coordinate;
 
-ll getDistance(Coordinate p1, Coordinate p2) {
+ll getDistance(Coor p1, Coor p2) {
 	return sqrt((p1.x - p2.x) * (p1.x - p2.x) + (p1.y - p2.y) * (p1.y - p2.y));
 }
 
-ll ccw(Coordinate p1, Coordinate p2, Coordinate p3) {
+ll ccw(Coor p1, Coor p2, Coor p3) {
 	long long ans = (p2.x - p1.x) * (p3.y - p1.y) - (p2.y - p1.y) * (p3.x - p1.x);
 
 	if (ans < 0) return 1;
@@ -25,7 +25,7 @@ ll ccw(Coordinate p1, Coordinate p2, Coordinate p3) {
 }
 
 int main(void) {
-	Coordinate p1, p2, p3, p4;
+	Coor p1, p2, p3, p4;
 
 	p1.read(), p2.read(), p3.read(), p4.read();
 

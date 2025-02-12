@@ -5,7 +5,7 @@
 
 using namespace std;
 
-typedef struct Coordinate {
+typedef struct Coor {
 	double x, y;
 }Coordinate;
 
@@ -21,7 +21,7 @@ int main(void) {
 	int N;
 
 	cin >> N;
-	vector<Coordinate> p;
+	vector<Coor> p;
 
 	for (int i = 0; i < N; i++) {
 		cin >> x >> y;

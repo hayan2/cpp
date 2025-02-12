@@ -10,13 +10,13 @@ using namespace std;
 
 // WA
 
-typedef struct Coordinate {
+typedef struct Coor {
 	ll x, y;
 	
 	void read() { cin >> x >> y; }
 }Coordinate;
 
-vector<pair<Coordinate, Coordinate>> line;
+vector<pair<Coor, Coor>> line;
 int cache[MAX_LEN];
 int visited[MAX_LEN] = { 0, };
 int root[MAX_LEN];
@@ -43,13 +43,13 @@ void unionSet(int a, int b) {
 	}
 }
 
-ll ccw(Coordinate p1, Coordinate p2, Coordinate p3) {
+ll ccw(Coor p1, Coor p2, Coor p3) {
 	return ((p2.x - p1.x) * (p3.y - p1.y) - (p3.x - p1.x) * (p2.y - p1.y));
 }
 
 // ret 0 : p1 is farther from the origin
 // ret 1 : p2 is farther from the origin
-ll compareDistance(Coordinate p1, Coordinate p2) {
+ll compareDistance(Coor p1, Coor p2) {
 	ll d1 = p1.x * p1.x + p1.y * p1.y;
 	ll d2 = p2.x * p2.x + p2.y * p2.y;
 
@@ -57,11 +57,11 @@ ll compareDistance(Coordinate p1, Coordinate p2) {
 	else return 1;
 }
 
-ll getDistance(Coordinate p1) {
+ll getDistance(Coor p1) {
 	return sqrt(p1.x * p1.x + p1.y * p1.y);
 }
 
-ll isBetween(Coordinate p1, Coordinate p2, Coordinate p3) {
+ll isBetween(Coor p1, Coor p2, Coor p3) {
 	return ((p1.x <= p3.x && p3.x <= p2.x) && (p1.y <= p3.y && p3.y <= p2.y)) || ((p1.x >= p3.x && p3.x >= p2.x) && (p1.y >= p3.y && p3.y >= p2.y));
 }
 
@@ -72,10 +72,10 @@ bool isOverlapped() {
 void solved(int s) {
 	for (int i = 0; i < N; i++) {
 		for (int j = 0; j < N; j++) {
-			Coordinate p1 = line[i].first;
-			Coordinate p2 = line[i].second;
-			Coordinate p3 = line[j].first;
-			Coordinate p4 = line[j].second;
+			Coor p1 = line[i].first;
+			Coor p2 = line[i].second;
+			Coor p3 = line[j].first;
+			Coor p4 = line[j].second;
 
 			ll abc = ccw(p1, p2, p3);
 			ll abd = ccw(p1, p2, p4);
@@ -140,7 +140,7 @@ int main(void) {
 	}
 
 	for (int i = 0; i < N; i++) {
-		Coordinate p1, p2;
+		Coor p1, p2;
 		
 		p1.read(), p2.read();
 		if (compareDistance(p1, p2)) line.push_back({ p1, p2 });

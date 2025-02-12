@@ -7,17 +7,17 @@
 
 using namespace std;
 
-typedef struct Coordinate {
+typedef struct Coor {
 	double x, y;
 } Coor;
 
 typedef pair<double, pair<int, int>> type;
-vector<Coordinate> stars;
+vector<Coor> stars;
 vector<type> dist;
 int root[MAX_LEN];
 int N;
 
-double getDistance(Coordinate p, Coordinate q) {
+double getDistance(Coor p, Coor q) {
 	if (p.x == q.x || p.y == q.y) return abs(q.x - p.x) + abs(q.y - p.y);
 	else return sqrt(pow((q.x - p.x), 2) + pow((q.y - p.y), 2));
 }

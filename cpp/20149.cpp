@@ -7,13 +7,13 @@ using namespace std;
 
 // WA?
 
-typedef struct Coordinate {
+typedef struct Coor {
 	lli x, y;
 
 	void read() { cin >> x >> y; }
 }Coordinate;
 
-int ccw(Coordinate p1, Coordinate p2, Coordinate p3) {
+int ccw(Coor p1, Coor p2, Coor p3) {
 	lli ret = (p1.x * p2.y) + (p2.x * p3.y) + (p3.x * p1.y);
 	ret -= (p1.x * p3.y) + (p2.x * p1.y) + (p3.x * p2.y);
 
@@ -22,7 +22,7 @@ int ccw(Coordinate p1, Coordinate p2, Coordinate p3) {
 	else return -1;
 }
 
-bool isStraight(Coordinate p1, Coordinate p2, Coordinate p3) {
+bool isStraight(Coor p1, Coor p2, Coor p3) {
 	if (p1.x < p2.x) return p2.x < p3.x;
 	else if (p2.x < p1.x) return p3.x < p2.x;
 	else {
@@ -31,11 +31,11 @@ bool isStraight(Coordinate p1, Coordinate p2, Coordinate p3) {
 	}
 }
 
-bool isBetween(Coordinate p1, Coordinate p2, Coordinate p3) {
+bool isBetween(Coor p1, Coor p2, Coor p3) {
 	return min(p1.x, p2.x) <= p3.x <= max(p1.x, p2.x) && min(p1.y, p2.y) <= p3.y <= max(p1.y, p2.y);
 }
 
-Coordinate isOverlapped(Coordinate p1, Coordinate p2, Coordinate p3, Coordinate p4) {
+Coor isOverlapped(Coor p1, Coor p2, Coor p3, Coor p4) {
 	int l1 = ccw(p1, p2, p3) * ccw(p1, p2, p4);
 	int l2 = ccw(p3, p4, p1) * ccw(p3, p4, p2);
 
@@ -93,11 +93,11 @@ int main(void) {
 	cin.tie(NULL);
 	cout.tie(NULL);
 
-	Coordinate p1, p2, p3, p4;
+	Coor p1, p2, p3, p4;
 
 	p1.read(), p2.read(), p3.read(), p4.read();
 
-	Coordinate ret = isOverlapped(p1, p2, p3, p4);
+	Coor ret = isOverlapped(p1, p2, p3, p4);
 
 	cout.precision(10);
 	if (!ret.x && !ret.y) cout << "0";

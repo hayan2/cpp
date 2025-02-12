@@ -10,13 +10,13 @@ using namespace std;
 
 // 4% WA
 
-typedef struct Coordinate {
+typedef struct Coor {
 	double x, y;
 } Coordinate;
 
 typedef pair<double, pair<int, int>> Type;
 
-vector<Coordinate> pos;
+vector<Coor> pos;
 vector<Type> dist;
 vector<Type> tmp;
 int visited[MAX_LEN][MAX_LEN];
@@ -37,7 +37,7 @@ void unionSet(int a, int b) {
 	else root[a] = b;
 }
 
-double getDistance(Coordinate P, Coordinate Q) {
+double getDistance(Coor P, Coor Q) {
 	return sqrt(pow(Q.x - P.x, 2) + pow(Q.y - P.y, 2));
 }
 
