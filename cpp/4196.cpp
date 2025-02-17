@@ -5,6 +5,8 @@
 
 using namespace std;
 
+// WA
+
 #define MAX_N 100001
 #define FINISHED true
 
