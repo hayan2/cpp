@@ -11,7 +11,7 @@ using namespace std;
 
 vector<int> tree[MAX_LEN];
 int visited[MAX_LEN] = { 0, };
-int N;
+int V;
 
 void preorder(char s) {
 	if (s == '.') {
@@ -49,9 +49,9 @@ int main(void) {
 	cout.tie(NULL);
 		
 	char u, l, r;
-	cin >> N;
+	cin >> V;
 
-	for (int i = 0; i < N; i++) {
+	for (int i = 0; i < V; i++) {
 		cin >> u >> l >> r;
 		tree[(int)u].push_back(l);
 		tree[(int)u].push_back(r);

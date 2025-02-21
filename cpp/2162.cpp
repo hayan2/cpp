@@ -20,7 +20,7 @@ vector<pair<Coor, Coor>> line;
 int cache[MAX_LEN];
 int visited[MAX_LEN] = { 0, };
 int root[MAX_LEN];
-int N, group, cnt = 0;
+int V, group, cnt = 0;
 
 int find(int x) {
 	if (root[x] == x) return root[x];
@@ -70,8 +70,8 @@ bool isOverlapped() {
 }
 
 void solved(int s) {
-	for (int i = 0; i < N; i++) {
-		for (int j = 0; j < N; j++) {
+	for (int i = 0; i < V; i++) {
+		for (int j = 0; j < V; j++) {
 			Coor p1 = line[i].first;
 			Coor p2 = line[i].second;
 			Coor p3 = line[j].first;
@@ -131,15 +131,15 @@ int main(void) {
 	cin.tie(NULL);
 	cout.tie(NULL);
 
-	cin >> N;
-	group = N;
+	cin >> V;
+	group = V;
 
-	for (int i = 0; i < N; i++) {
+	for (int i = 0; i < V; i++) {
 		cache[i] = 1;
 		root[i] = i;
 	}
 
-	for (int i = 0; i < N; i++) {
+	for (int i = 0; i < V; i++) {
 		Coor p1, p2;
 		
 		p1.read(), p2.read();
@@ -149,7 +149,7 @@ int main(void) {
 	
 	solved(0);
 
-	for (int i = 0; i < N; i++) cnt = (cnt > cache[i]) ? cnt : cache[i];
+	for (int i = 0; i < V; i++) cnt = (cnt > cache[i]) ? cnt : cache[i];
 
 	cout << group << "\n" << cnt;
 

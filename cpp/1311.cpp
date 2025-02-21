@@ -8,14 +8,14 @@ using namespace std;
 
 int cache[MAX_LEN][MAX_LEN];
 int dp[MAX_LEN][1 << 20];
-int N;
+int V;
 
 int solved(int cur, int state) {
-	if (state == (1 << N) - 1) return 0;
+	if (state == (1 << V) - 1) return 0;
 	if (dp[cur][state] != -1) return dp[cur][state];
 
 	dp[cur][state] = INF;
-	for (int i = 0; i < N; i++) {
+	for (int i = 0; i < V; i++) {
 		if (!(state & (1 << i))) {
 			dp[cur][state] = min(dp[cur][state], solved(cur + 1, state | (1 << i)) + cache[cur][i]);
 		}
@@ -29,10 +29,10 @@ int main(void) {
 	cin.tie(NULL);
 	cout.tie(NULL);
 
-	cin >> N;	
+	cin >> V;	
 
-	for (int i = 0; i < N; i++) {
-		for (int j = 0; j < N; j++) {
+	for (int i = 0; i < V; i++) {
+		for (int j = 0; j < V; j++) {
 			cin >> cache[i][j];
 		}
 	}

@@ -17,7 +17,7 @@ vector<type> tree[MAX_LEN];
 int cache[MAX_LEN][MAX_LOG][DISTANCE] = { 0, };
 int parent[MAX_LEN][MAX_LOG] = { 0, };
 int depth[MAX_LEN] = { 0, };
-int N, K, u, v, w, D, E;
+int V, K, u, v, w, D, E;
 
 // WA
 
@@ -36,7 +36,7 @@ void getDepth(int cur, int curDepth, int prev) {
 
 void dp() {
 	for (int i = 1; i < MAX_LOG; i++) {
-		for (int j = 1; j <= N; j++) {
+		for (int j = 1; j <= V; j++) {
 			parent[j][i] = parent[parent[j][i - 1]][i - 1];
 			cache[j][i][LONGEST] = max(cache[parent[j][i - 1]][i - 1][LONGEST], cache[j][i - 1][LONGEST]);
 			cache[j][i][SHORTEST] = min(cache[parent[j][i - 1]][i - 1][SHORTEST], cache[j][i - 1][SHORTEST]);
@@ -91,9 +91,9 @@ int main(void) {
 	cin.tie(NULL);
 	cout.tie(NULL);
 
-	cin >> N;
+	cin >> V;
 
-	for (int i = 0; i < N - 1; i++) {
+	for (int i = 0; i < V - 1; i++) {
 		cin >> u >> v >> w;
 
 		tree[u].push_back({ v, w });

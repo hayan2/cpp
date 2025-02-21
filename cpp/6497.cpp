@@ -13,7 +13,7 @@ typedef pair<ull, pair<int, int>> Mst;
 vector<Mst> cache;
 ull res = 0;
 int root[MAX_LEN];
-int N, M;
+int V, E;
 
 int find(int x) {
 	if (root[x] == x) return root[x];
@@ -39,7 +39,7 @@ ull solved() {
 
 		if (find(u) == find(v)) continue;
 
-		if (cnt == N - 1) break;
+		if (cnt == V - 1) break;
 		cnt++;
 		unionSet(u, v);
 		ret += w;
@@ -54,11 +54,11 @@ int main(void) {
 	cout.tie(NULL);
 	
 	while (1) {
-		cin >> N >> M;
-		if (!N && !M) break;
-		for (int i = 0; i < N; i++) root[i] = i;
+		cin >> V >> E;
+		if (!V && !E) break;
+		for (int i = 0; i < V; i++) root[i] = i;
 
-		for (int i = 0; i < M; i++) {
+		for (int i = 0; i < E; i++) {
 			ull w;
 			int u, v;
 

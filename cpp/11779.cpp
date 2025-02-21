@@ -11,7 +11,7 @@ using namespace std;
 vector<pair<int, int>> graph[MAX_LEN];
 vector<int> ret(MAX_LEN, INF);
 int prevPath[MAX_LEN];
-int N, M;
+int V, E;
 
 int solved(int u, int v) {	
 	priority_queue<pair<int, int>> heap;
@@ -48,10 +48,10 @@ int main(void) {
 	cin.tie(NULL);
 	cout.tie(NULL);
 
-	cin >> N >> M;
+	cin >> V >> E;
 
 	int u, v, w;
-	for (int i = 0; i < M; i++) {
+	for (int i = 0; i < E; i++) {
 		cin >> u >> v >> w;
 
 		graph[u].push_back({ v, w });

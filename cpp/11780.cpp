@@ -8,12 +8,12 @@ using namespace std;
 
 int graph[MAX_LEN][MAX_LEN];
 int prevPath[MAX_LEN][MAX_LEN];
-int N, M;
+int V, E;
 
 void solved() {
-	for (int k = 1; k <= N; k++) {
-		for (int i = 1; i <= N; i++) {
-			for (int j = 1; j <= N; j++) {
+	for (int k = 1; k <= V; k++) {
+		for (int i = 1; i <= V; i++) {
+			for (int j = 1; j <= V; j++) {
 				if (graph[i][j] > graph[i][k] + graph[k][j]) {
 					graph[i][j] = graph[i][k] + graph[k][j];
 					prevPath[i][j] = k;
@@ -42,14 +42,14 @@ int main(void) {
 	cin.tie(NULL);
 	cout.tie(NULL);
 
-	cin >> N >> M;
+	cin >> V >> E;
 	int u, v, w;
 
 	// initialize
 	fill_n(graph[0], MAX_LEN * MAX_LEN, INF);
 	for (int i = 1; i < MAX_LEN; i++) graph[i][i] = 0;
 
-	for (int i = 0; i < M; i++) {
+	for (int i = 0; i < E; i++) {
 		cin >> u >> v >> w;
 
 		graph[u][v] = graph[u][v] > w ? w : graph[u][v];
@@ -57,8 +57,8 @@ int main(void) {
 
 	solved();
 
-	for (int i = 1; i <= N; i++) {
-		for (int j = 1; j <= N; j++) {
+	for (int i = 1; i <= V; i++) {
+		for (int j = 1; j <= V; j++) {
 			if (graph[i][j] >= INF) {
 				cout << "0";
 			}
@@ -70,8 +70,8 @@ int main(void) {
 		cout << "\n";
 	}
 
-	for (int i = 1; i <= N; i++) {
-		for (int j = 1; j <= N; j++) {
+	for (int i = 1; i <= V; i++) {
+		for (int j = 1; j <= V; j++) {
 			if (graph[i][j] == INF || i == j) {
 				cout << "0";
 			}

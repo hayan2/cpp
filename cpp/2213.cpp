@@ -19,7 +19,7 @@ vector<int> res;
 TDP cache[MAX_LEN];
 int visited[MAX_LEN] = { 0, };
 int path[MAX_LEN] = { 0, };
-int N;
+int V;
 int u, v, w;
 
 TDP solved(int s) {
@@ -58,14 +58,14 @@ int main(void) {
 	cin.tie(NULL);
 	cout.tie(NULL);
 
-	cin >> N;
+	cin >> V;
 
-	for (int i = 1; i <= N; i++) {
+	for (int i = 1; i <= V; i++) {
 		cin >> w;
 		cache[i].contain = w;
 		cache[i].notContain = 0;
 	}
-	for (int i = 1; i < N; i++) {
+	for (int i = 1; i < V; i++) {
 		cin >> u >> v;
 		tree[u].push_back(v);
 		tree[v].push_back(u);

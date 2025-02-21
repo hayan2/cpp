@@ -15,7 +15,7 @@ typedef pair<double, pair<int, int>> type;
 vector<Coor> stars;
 vector<type> dist;
 int root[MAX_LEN];
-int N;
+int V;
 
 double getDistance(Coor p, Coor q) {
 	if (p.x == q.x || p.y == q.y) return abs(q.x - p.x) + abs(q.y - p.y);
@@ -60,10 +60,10 @@ int main(void) {
 	cout << fixed;
 	cout.precision(2);
 
-	cin >> N;
+	cin >> V;
 	for (int i = 0; i < MAX_LEN; i++) root[i] = i;
 
-	for (int i = 0; i < N; i++) {
+	for (int i = 0; i < V; i++) {
 		double x, y;
 		cin >> x >> y;
 		stars.push_back({ x, y });

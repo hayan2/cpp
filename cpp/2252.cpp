@@ -8,12 +8,12 @@ using namespace std;
 
 vector<int> cache[MAX_LEN];
 int indegree[MAX_LEN] = { 0, };
-int N, M, u, v;
+int V, E, u, v;
 
 void solved() {
 	queue<int> queue;
 
-	for (int i = 1; i <= N; i++) {
+	for (int i = 1; i <= V; i++) {
 		if (!indegree[i]) queue.push(i);
 	}
 	
@@ -33,9 +33,9 @@ int main(void) {
 	cin.tie(NULL);
 	cout.tie(NULL);
 
-	cin >> N >> M;
+	cin >> V >> E;
 
-	while (M--) {
+	while (E--) {
 		cin >> u >> v;
 
 		cache[u].push_back(v);

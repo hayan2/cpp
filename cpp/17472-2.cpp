@@ -19,7 +19,7 @@ int visited[MAX_LEN][MAX_LEN];
 int dist[MAX_ILND][MAX_ILND];
 int dx[DIR_LEN] = { -1, 0, 1, 0 };
 int dy[DIR_LEN] = { 0, -1, 0, 1 };
-int N, M, islandNum = 0;
+int V, E, islandNum = 0;
 
 int find(int x) {
 	if (root[x] == x) return root[x];
@@ -50,7 +50,7 @@ void putIslandNum(int x, int y) {
 			int nx = curX + dx[i];
 			int ny = curY + dy[i];
 
-			if (nx < 1 || ny < 1 || nx > N || ny > M) continue;
+			if (nx < 1 || ny < 1 || nx > V || ny > E) continue;
 
 			if (!visited[nx][ny] && map[nx][ny]) {
 				map[nx][ny] += islandNum;
@@ -68,7 +68,7 @@ void downHeight(int x, int y) {
 	x++;
 
 	while (!map[x][y]) {
-		if (x < 1 || x > N) return;
+		if (x < 1 || x > V) return;
 
 		distance++;
 		x++;
@@ -87,7 +87,7 @@ void goWidth(int x, int y) {
 	y++;
 
 	while (!map[x][y]) {
-		if (y < 1 || y > M) return;
+		if (y < 1 || y > E) return;
 
 		distance++;
 		y++;
@@ -136,28 +136,28 @@ int main(void) {
 	vector<Mst> cache;
 
 	for (int i = 1; i < MAX_ILND; i++) root[i] = i;
-	cin >> N >> M;
+	cin >> V >> E;
 
 	memset(visited, 0, sizeof(visited));
 	memset(map, 0, sizeof(map));
 	fill_n(&dist[0][0], MAX_ILND * MAX_ILND, MAX_LEN);
 
-	for (int x = 1; x <= N; x++) {
-		for (int y = 1; y <= M; y++) {
+	for (int x = 1; x <= V; x++) {
+		for (int y = 1; y <= E; y++) {
 			cin >> map[x][y];
 		}
 	}
 
-	for (int x = 1; x <= N; x++) {
-		for (int y = 1; y <= M; y++) {
+	for (int x = 1; x <= V; x++) {
+		for (int y = 1; y <= E; y++) {
 			if (!visited[x][y] && map[x][y]) {
 				putIslandNum(x, y);
 			}
 		}
 	}
 	
-	for (int x = 1; x <= N; x++) {
-		for (int y = 1; y <= M; y++) {
+	for (int x = 1; x <= V; x++) {
+		for (int y = 1; y <= E; y++) {
 			if (map[x][y]) {
 				goWidth(x, y);
 				downHeight(x, y);
@@ -165,7 +165,7 @@ int main(void) {
 		}
 	}
 	
-	int lim = (N > M) ? N : M;
+	int lim = (V > E) ? V : E;
 	for (int x = 1; x <= lim; x++) {
 		for (int y = 1; y <= lim; y++) {
 			if (dist[x][y] > 1 && dist[x][y] < MAX_LEN) {

@@ -8,7 +8,7 @@ using namespace std;
 
 int cache[MAX_LEN];
 bool visited[MAX_LEN] = { 0, };
-int T, N, A, B, u, v, res = 0;
+int T, V, A, B, u, v, res = 0;
 
 int main(void) {
 	ios::sync_with_stdio(false);
@@ -18,14 +18,14 @@ int main(void) {
 	cin >> T;
 
 	while (T--) {
-		cin >> N;
+		cin >> V;
 
-		for (int i = 1; i <= N; i++) {
+		for (int i = 1; i <= V; i++) {
 			cache[i] = i;
 			visited[i] = !VISITED;
 		}
 
-		for (int i = 1; i < N; i++) {
+		for (int i = 1; i < V; i++) {
 			cin >> A >> B;
 
 			cache[B] = A;

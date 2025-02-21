@@ -12,10 +12,10 @@ using namespace std;
 
 int cache[MAX_LEN][COLOR_LEN];
 int dp[1 << COLOR_LEN][MAX_LEN];
-int N;
+int V;
 
 int solved(int state, int prev, int cur) {
-	if (cur == N) return 0;
+	if (cur == V) return 0;
 	if (dp[state][cur] != -1) return dp[state][cur];
 
 	int& ret = dp[state][cur];
@@ -36,9 +36,9 @@ int main(void) {
 	cin.tie(NULL);
 	cout.tie(NULL);
 
-	cin >> N;
+	cin >> V;
 
-	for (int i = 0; i < N; i++) {
+	for (int i = 0; i < V; i++) {
 		cin >> cache[i][RED] >> cache[i][GREEN] >> cache[i][BLUE];
 	}
 

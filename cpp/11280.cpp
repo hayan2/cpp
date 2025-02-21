@@ -9,18 +9,18 @@ using namespace std;
 #define FINISHED 1
 
 vector<vector<int>> edge, scc;
-vector<int> finished, id;
+vector<int> finished, id, cache;
 stack<int> s;
-int V, E, u, v, idx = 1, cnt = 0;
+int V, E, u, v, idx = 1, cnt = 1;
 
-int notA(int a) {
-	return a > MAX ? a - MAX : a + MAX;
-}
+int notA(int a) { return a > MAX ? a - MAX : a + MAX; }
+int isNegative(int a) { return a < 0 ? -a : a + MAX; }
 
 void init() {
-	edge.resize(V * 2 + 1);
-	finished.assign(V * 2 + 1, 0);
-	id.assign(V * 2 + 1, 0);
+	edge.resize(MAX * 2 + 1);
+	finished.assign(MAX * 2 + 1, 0);
+	id.assign(MAX * 2 + 1, 0);
+	cache.assign(MAX * 2 + 1, 0);
 }
 
 int SCC(int cur) {
@@ -30,26 +30,34 @@ int SCC(int cur) {
 	int ret = id[cur];
 
 	for (auto nxt : edge[cur]) {
-		if (!id[nxt]) ret = max(ret, SCC(nxt));
-		else if (!finished[nxt]) ret = max(ret, id[nxt]);
+		if (!id[nxt]) ret = min(ret, SCC(nxt));
+		else if (!finished[nxt]) ret = min(ret, id[nxt]);
 	}
 
 	if (ret == id[cur]) {
 		vector<int> res;
+
 		while (1) {
 			int top = s.top();
 			s.pop();
 			finished[top] = FINISHED;
+			cache[top] = cnt;
 			res.push_back(top);
 			if (top == cur) break;
 		}
 		scc.push_back(res);
 		cnt++;
 	}
+
+	return ret;
 }
 
 int solved() {
+	for (int i = 1; i <= V; i++) {
+		if (cache[i] == cache[i + MAX]) return 0;
+	}
 
+	return 1;
 }
 
 int main(void) {
@@ -63,12 +71,19 @@ int main(void) {
 
 	while (E--) {
 		cin >> u >> v;
-		
+
+		u = isNegative(u);
+		v = isNegative(v);
 		edge[notA(u)].push_back(v);
 		edge[notA(v)].push_back(u);
 	}
 
-	for (int i = 1; i <= V * 2; i++) if (!id[i]) SCC(i);
+	for (int i = 1; i <= V; i++) {
+		if (!id[i]) SCC(i);
+		if (!id[notA(i)]) SCC(i);
+	}
+	
+	cout << solved();
 
 	return 0;
 }

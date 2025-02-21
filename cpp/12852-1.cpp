@@ -6,7 +6,7 @@ using namespace std;
 
 int cache[MAX_LEN];
 int way[MAX_LEN];
-int N;
+int V;
 
 // AC
 // MEM 9832kb  |  TIME 8ms
@@ -16,11 +16,11 @@ int main(void) {
 	cin.tie(NULL);
 	cout.tie(NULL);
 
-	cin >> N;
-	fill_n(cache, N + 1, -1);
+	cin >> V;
+	fill_n(cache, V + 1, -1);
 	cache[1] = 0;
 
-	for (int i = 2; i <= N; i++) {
+	for (int i = 2; i <= V; i++) {
 		if (cache[i] != -1) {
 			continue;
 		}
@@ -37,11 +37,11 @@ int main(void) {
 		}
 	}
 
-	cout << cache[N] << endl;
+	cout << cache[V] << endl;
 
-	while (N != 0) {
-		cout << N << " ";
-		N = way[N];
+	while (V != 0) {
+		cout << V << " ";
+		V = way[V];
 	}
 
 	return 0;

@@ -11,12 +11,12 @@ using namespace std;
 vector<int> cache(MAX_LEN, MAX_LEN);
 int prevPath[MAX_LEN] = { 0, };
 int visited[MAX_LEN] = { 0, };
-int N;
+int V;
 
 void solved(int K) {	
 	priority_queue<pair<int, int>> heap;
 
-	heap.push({ 0, N });
+	heap.push({ 0, V });
 
 	while (!heap.empty()) {
 		int time = -heap.top().first;
@@ -76,7 +76,7 @@ int main(void) {
 
 	int K;
 
-	cin >> N >> K;
+	cin >> V >> K;
 
 	solved(K);
 

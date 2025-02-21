@@ -6,7 +6,7 @@ using namespace std;
 #define MAX_LEN 42
 
 int cache[MAX_LEN] = { 0, 1, };
-int T, N;
+int T, V;
 
 void getFibonacci(int n) {
 	for (int i = 3; i < n; i++) cache[i] = cache[i - 1] + cache[i - 2];	
@@ -23,11 +23,11 @@ int main(void) {
 	cin >> T;
 
 	while (T--) {
-		cin >> N;
+		cin >> V;
 
-		if (!N) cout << "1 0\n";
-		else if (N == 1) cout << "0 1\n";
-		else cout << cache[N - 1] << " " << cache[N] << "\n";
+		if (!V) cout << "1 0\n";
+		else if (V == 1) cout << "0 1\n";
+		else cout << cache[V - 1] << " " << cache[V] << "\n";
 	}
 
 	return 0;

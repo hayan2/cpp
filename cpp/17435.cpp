@@ -6,7 +6,7 @@ using namespace std;
 
 // Time Limit Exceeded
 
-int M, Q, a, b;
+int E, Q, a, b;
 
 void solved(vector<int> cache) {
 	while (Q--) {
@@ -23,10 +23,10 @@ int main(void) {
 	cin.tie(NULL);
 	cout.tie(NULL);
 
-	cin >> M;
-	vector<int> cache(M + 1, 0);
+	cin >> E;
+	vector<int> cache(E + 1, 0);
 
-	for (int i = 1; i <= M; i++) {
+	for (int i = 1; i <= E; i++) {
 		cin >> cache[i];
 	}
 

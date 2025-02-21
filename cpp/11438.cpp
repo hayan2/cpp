@@ -11,7 +11,7 @@ using namespace std;
 vector<int> tree[MAX_LEN];
 int cache[MAX_LEN][MAX_LOG] = { 0, };
 int depth[MAX_LEN] = { 0, };
-int N, M, u, v;
+int V, E, u, v;
 
 void getDepth(int cur, int curDepth, int parent) {
 	depth[cur] = curDepth;
@@ -26,7 +26,7 @@ void getDepth(int cur, int curDepth, int parent) {
 
 void getParent() {	
 	for (int i = 1; i < MAX_LOG; i++) {
-		for (int j = 1; j <= N; j++) {
+		for (int j = 1; j <= V; j++) {
 			cache[j][i] = cache[cache[j][i - 1]][i - 1];
 		}
 	}
@@ -62,9 +62,9 @@ int main(void) {
 	cin.tie(NULL);
 	cout.tie(NULL);
 
-	cin >> N;
+	cin >> V;
 
-	for (int i = 0; i < N - 1; i++) {
+	for (int i = 0; i < V - 1; i++) {
 		cin >> u >> v;
 
 		tree[u].push_back(v);
@@ -74,9 +74,9 @@ int main(void) {
 	getDepth(ROOT, 1, 0);
 	getParent();
 
-	cin >> M;
+	cin >> E;
 	
-	while (M--) {
+	while (E--) {
 		int a, b;
 
 		cin >> a >> b;

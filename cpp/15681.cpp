@@ -10,7 +10,7 @@ using namespace std;
 vector<int> tree[MAX_LEN];
 int cache[MAX_LEN];
 int visited[MAX_LEN] = { 0, };
-int N, R, Q;
+int V, R, Q;
 int u, v, q;
 
 int solved(int s) {
@@ -30,10 +30,10 @@ int main(void) {
 	cin.tie(NULL);
 	cout.tie(NULL);
 
-	cin >> N >> R >> Q;
-	fill_n(&cache[0], N + 1, 1);
+	cin >> V >> R >> Q;
+	fill_n(&cache[0], V + 1, 1);
 
-	for (int i = 0; i < N - 1; i++) {
+	for (int i = 0; i < V - 1; i++) {
 		cin >> u >> v;
 
 		tree[u].push_back(v);

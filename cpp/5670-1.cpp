@@ -6,7 +6,7 @@
 
 using namespace std;
 
-int res, N;
+int res, V;
 
 typedef struct Trie {
 	Trie* cache[MAX_LEN];
@@ -59,12 +59,12 @@ int main(void) {
 	cin.tie(NULL);
 	cout.tie(NULL);
 	
-	while (cin >> N) {
+	while (cin >> V) {
 		Trie* root = new Trie;
 		res = 0;
 		vector<string> key;
 
-		for (int i = 1; i <= N; i++) {
+		for (int i = 1; i <= V; i++) {
 			string str;
 			cin >> str;
 

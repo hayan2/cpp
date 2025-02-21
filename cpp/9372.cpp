@@ -8,7 +8,7 @@
 using namespace std;
 
 int visited[MAX_LEN] = { 0, };
-int N, M, cnt = 0;
+int V, E, cnt = 0;
 
 void solved(vector<int>* cache, int x) {
 	visited[x] = VISITED;
@@ -32,11 +32,11 @@ int main(void) {
 	cin >> T;
 
 	while (T--) {
-		cin >> N >> M;
+		cin >> V >> E;
 		vector<int> cache[MAX_LEN];
 		memset(visited, 0, sizeof(visited));
 
-		while (M--) {
+		while (E--) {
 			int u, v;
 			cin >> u >> v;
 			cache[u].push_back(v);

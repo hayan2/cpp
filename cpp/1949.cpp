@@ -14,7 +14,7 @@ typedef struct Dp {
 vector<int> edge[MAX_LEN];
 Dp cache[MAX_LEN] = { 0, };
 int visited[MAX_LEN] = { 0, };
-int N;
+int V;
 int u, v, w;
 
 Dp solved(int s) {
@@ -36,14 +36,14 @@ int main(void) {
 	cin.tie(NULL);
 	cout.tie(NULL);
 
-	cin >> N;
+	cin >> V;
 
-	for (int i = 1; i <= N; i++) {
+	for (int i = 1; i <= V; i++) {
 		cin >> w;
 		cache[i].contain = w;
 		cache[i].notContain = 0;
 	}
-	for (int i = 1; i < N; i++) {
+	for (int i = 1; i < V; i++) {
 		cin >> u >> v;
 		edge[u].push_back(v);
 		edge[v].push_back(u);

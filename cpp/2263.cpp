@@ -8,7 +8,7 @@ using namespace std;
 vector<int> indegree;
 vector<int> postorder;
 int pos[MAX_LEN];
-int N;
+int V;
 
 void preorder(int inLow, int inHigh, int postLow, int postHigh) {
 	if (inLow > inHigh || postLow > postHigh) {
@@ -31,20 +31,20 @@ int main(void) {
 	cin.tie(NULL);
 	cout.tie(NULL);
 
-	cin >> N;
+	cin >> V;
 
 	int node;
-	for (int i = 0; i < N; i++) {
+	for (int i = 0; i < V; i++) {
 		cin >> node;
 		indegree.push_back(node);
 		pos[node] = i;
 	}
-	for (int i = 0; i < N; i++) {
+	for (int i = 0; i < V; i++) {
 		cin >> node;
 		postorder.push_back(node);
 	}
 
-	preorder(0, N - 1, 0, N - 1);
+	preorder(0, V - 1, 0, V - 1);
 
 	return 0;
 }

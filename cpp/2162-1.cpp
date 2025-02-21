@@ -15,7 +15,7 @@ typedef struct Coor {
 };
 
 vector<pair<Coor, Coor>> line;
-int N;
+int V;
 int root[MAX_LEN];
 
 int find(int x) {
@@ -74,9 +74,9 @@ int main() {
 	cin.tie(NULL);
 	cout.tie(NULL);
 
-	cin >> N;
+	cin >> V;
 
-	for (int i = 0; i < N; i++) {
+	for (int i = 0; i < V; i++) {
 		Coor p1, p2;
 
 		p1.read(), p2.read();
@@ -86,8 +86,8 @@ int main() {
 
 	memset(root, -1, sizeof(root));
 
-	for (int i = 0; i < N; i++) {
-		for (int j = 0; j < N; j++) {
+	for (int i = 0; i < V; i++) {
+		for (int j = 0; j < V; j++) {
 			if (i == j) continue;
 			if (isOverlapped(line[i].first, line[i].second, line[j].first, line[j].second)) {
 				unionSet(i, j);
@@ -97,7 +97,7 @@ int main() {
 
 	int group = 0, cnt = 1;
 
-	for (int i = 0; i < N; i++) {
+	for (int i = 0; i < V; i++) {
 		if (root[i] < 0) group++;
 		cnt = min(cnt, root[i]);
 	}

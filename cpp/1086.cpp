@@ -15,7 +15,7 @@ ull cache[MAX_LEN];
 ull dp[1 << MAX_LEN][MOD_LEN];
 ull len[POW_LEN];
 ull tp[POW_LEN];
-ull N, K, q = 1;
+ull V, K, q = 1;
 
 // AC
 
@@ -32,12 +32,12 @@ void getPow() {
 }
 
 ull solve(int state, int remainder) {
-	if (state == (1 << N) - 1) return (remainder == 0);
+	if (state == (1 << V) - 1) return (remainder == 0);
 	if (dp[state][remainder] != -1) return dp[state][remainder];
 
 	dp[state][remainder] = 0;
 
-	for (int i = 0; i < N; i++) {
+	for (int i = 0; i < V; i++) {
 		if (!(state & (1 << i))) {
 			dp[state][remainder] += solve(state | (1 << i), (remainder * tp[len[i]] + cache[i]) % K);
 		}
@@ -51,14 +51,14 @@ int main() {
 	cin.tie(NULL);
 	cout.tie(NULL);
 
-	cin >> N;
-	for (int i = 0; i < N; i++) {
+	cin >> V;
+	for (int i = 0; i < V; i++) {
 		cin >> elements[i];
 		q *= (i + 1);
 	}
 	cin >> K;
 
-	for (int i = 0; i < N; i++) {
+	for (int i = 0; i < V; i++) {
 		string x = elements[i];
 		len[i] = (int)x.size();
 		int tmp = 0, idx = 0;

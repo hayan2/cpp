@@ -7,7 +7,7 @@
 using namespace std;
 
 int A[MAX_LEN] = { 0, };
-int N, C;
+int V, C;
 
 void makeSet(vector<int>& set, int idx, int end, int x) {	
 	if (idx == end) {
@@ -31,14 +31,14 @@ int main(void) {
 	vector<int> setB;	
 	ull res = 0;
 
-	cin >> N >> C;
+	cin >> V >> C;
 
-	for (int i = 0; i < N; i++) {
+	for (int i = 0; i < V; i++) {
 		cin >> A[i];
 	}
 
-	makeSet(setA, 0, N / 2, 0);
-	makeSet(setB, N / 2, N, 0);
+	makeSet(setA, 0, V / 2, 0);
+	makeSet(setB, V / 2, V, 0);
 
 	sort(setB.begin(), setB.end());
 

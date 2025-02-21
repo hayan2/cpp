@@ -9,7 +9,7 @@
 using namespace std;
 
 int visited[MAX_LEN] = { 0, };
-int N, M;
+int V, E;
 
 bool solved(vector<vector<int>> tree, int s) {
 	queue<int> queue;
@@ -39,13 +39,13 @@ int main(void) {
 
 	int cnt = 1;
 	while (1) {
-		cin >> N >> M;
-		if (!N && !M) break;
+		cin >> V >> E;
+		if (!V && !E) break;
 
-		vector<vector<int>> tree(N + 1);
+		vector<vector<int>> tree(V + 1);
 		int u, v;
 
-		for (int i = 1; i <= M; i++) {
+		for (int i = 1; i <= E; i++) {
 			cin >> u >> v;
 
 			tree[u].push_back(v);
@@ -53,7 +53,7 @@ int main(void) {
 		}
 
 		int res = 0;
-		for (int i = 1; i <= N; i++) {
+		for (int i = 1; i <= V; i++) {
 			if (!visited[i]) {
 				if (solved(tree, i)) res++;
 			}			

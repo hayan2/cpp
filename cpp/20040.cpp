@@ -5,7 +5,7 @@
 using namespace std;
 
 int cache[MAX_LEN];
-int N, M;
+int V, E;
 
 int find(int x) {
 	if (cache[x] == x) return x;
@@ -26,10 +26,10 @@ int main(void) {
 	cout.tie(NULL);
 	
 	int u, v, res = 0;
-	cin >> N >> M;
-	for (int i = 0; i < N; i++) cache[i] = i;
+	cin >> V >> E;
+	for (int i = 0; i < V; i++) cache[i] = i;
 	
-	for (int i = 1; i <= M; i++) {
+	for (int i = 1; i <= E; i++) {
 		cin >> u >> v;
 
 		if (find(u) == find(v)) {

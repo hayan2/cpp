@@ -12,7 +12,7 @@ using namespace std;
 vector<pair<int, int>> tree[MAX_LEN];
 int cache[MAX_LEN] = { 0, };
 int visited[MAX_LEN] = { 0, };
-int N;
+int V;
 
 int getFurthestNode(int s) {
 	queue<pair<int, int>> queue;
@@ -77,10 +77,10 @@ int main(void) {
 	cin.tie(NULL);
 	cout.tie(NULL);
 
-	cin >> N;
+	cin >> V;
 
 	int u, v, w;
-	for (int i = 0; i < N - 1; i++) {
+	for (int i = 0; i < V - 1; i++) {
 		cin >> u >> v >> w;
 		
 		tree[u].push_back({ v, w });

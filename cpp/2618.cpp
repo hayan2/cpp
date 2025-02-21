@@ -7,26 +7,26 @@ using namespace std;
 
 int cacheA[MAX_LEN][MAX_LEN] = { 0, };
 int cacheB[MAX_LEN][MAX_LEN] = { 0, };
-int N, W;
+int V, W;
 
 int main(void) {
 	ios::sync_with_stdio(false);
 	cin.tie(NULL);
 	cout.tie(NULL);
 
-	cin >> N;
+	cin >> V;
 	cin >> W;
 
-	for (int i = 1; i <= N; i++) {
-		for (int j = 1; j <= N; j++) {
+	for (int i = 1; i <= V; i++) {
+		for (int j = 1; j <= V; j++) {
 			cacheA[i][j] = i + j - 2;
-			cacheB[N - i + 1][N - j + 1] = i + j - 2;
+			cacheB[V - i + 1][V - j + 1] = i + j - 2;
 		}
 	}
 	
 	vector<int> res;
 	int dsum = 0, x, y;	
-	int aposx = 1, aposy = 1, bposx = N, bposy = N;
+	int aposx = 1, aposy = 1, bposx = V, bposy = V;
 	
 	while (W--) {
 		cin >> x >> y;

@@ -6,7 +6,7 @@
 using namespace std;
 
 int cache[MAX_LEN];
-int N;
+int V;
 
 // AC
 // MEM 37056kb  |  TIME 32ms
@@ -35,26 +35,26 @@ int main(void) {
 	cin.tie(NULL);
 	cout.tie(NULL);
 	
-	cin >> N;
-	fill_n(cache, N + 1, -1);
+	cin >> V;
+	fill_n(cache, V + 1, -1);
 	cache[1] = 0;
 
-	sol(N);
+	sol(V);
 
-	cout << cache[N] << endl;
+	cout << cache[V] << endl;
 
-	while (N != 0) {
-		if (N % 3 == 0 && cache[N / 3] == cache[N] - 1) {
-			cout << N << " ";
-			N /= 3;
+	while (V != 0) {
+		if (V % 3 == 0 && cache[V / 3] == cache[V] - 1) {
+			cout << V << " ";
+			V /= 3;
 		}
-		else if (N % 2 == 0 && cache[N / 2] == cache[N] - 1) {
-			cout << N << " ";
-			N /= 2;
+		else if (V % 2 == 0 && cache[V / 2] == cache[V] - 1) {
+			cout << V << " ";
+			V /= 2;
 		}
 		else {
-			cout << N << " ";
-			N -= 1;
+			cout << V << " ";
+			V -= 1;
 		}
 	}	
 

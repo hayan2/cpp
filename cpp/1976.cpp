@@ -6,7 +6,7 @@
 using namespace std;
 
 int cache[MAX_LEN] = { 0, };
-int N, M;
+int V, E;
 
 int find(int x) {
 	if (cache[x] == x) return x;
@@ -26,11 +26,11 @@ int main(void) {
 	cout.tie(NULL);
 		
 	int x;
-	cin >> N >> M;
-	for (int i = 1; i <= N + 1; i++) cache[i] = i;
+	cin >> V >> E;
+	for (int i = 1; i <= V + 1; i++) cache[i] = i;
 
-	for (int i = 1; i <= N; i++) {
-		for (int j = 1; j <= N; j++) {			
+	for (int i = 1; i <= V; i++) {
+		for (int j = 1; j <= V; j++) {			
 			cin >> x;
 
 			if (x) {
@@ -40,7 +40,7 @@ int main(void) {
 	}
 
 	int root;
-	for (int i = 0; i < M; i++) {
+	for (int i = 0; i < E; i++) {
 		cin >> x;
 		if (!i) {
 			root = find(x);

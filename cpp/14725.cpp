@@ -10,7 +10,7 @@
 using namespace std;
 
 string cache;
-int N, K;
+int V, K;
 
 typedef struct Node {
 	map<string, Node*> element;
@@ -28,10 +28,10 @@ int main(void) {
 	cin.tie(NULL);
 	cout.tie(NULL);
 
-	cin >> N;
+	cin >> V;
 	Node* root = new Node;
 
-	while (N--) {
+	while (V--) {
 		cin >> K;
 
 		Node* cur = root;

@@ -12,7 +12,7 @@ typedef pair<ull, ull> type;
 
 vector<type> tree[MAX_N];
 ull dist[MAX_N] = { 0, }, cache[MAX_N][MAX_LOG] = { 0, }, depth[MAX_N] = { 0, };
-ull N, M, u, v, w, q;
+ull V, E, u, v, w, q;
 
 void getDepth(ull cur, ull prev) {
 	cache[cur][0] = prev;
@@ -28,7 +28,7 @@ void getDepth(ull cur, ull prev) {
 
 void getParnet() {
 	for (int i = 1; i < MAX_LOG; i++) {
-		for (int j = 1; j <= N; j++) {
+		for (int j = 1; j <= V; j++) {
 			cache[j][i] = cache[cache[j][i - 1]][i - 1];
 		}
 	}
@@ -62,9 +62,9 @@ int main(void) {
 	cin.tie(NULL);
 	cout.tie(NULL);
 
-	cin >> N;
+	cin >> V;
 
-	for (int i = 0; i < N - 1; i++) {
+	for (int i = 0; i < V - 1; i++) {
 		cin >> u >> v >> w;
 
 		tree[u].push_back({ v, w });
@@ -74,9 +74,9 @@ int main(void) {
 	getDepth(1, 0);
 	getParnet();
 
-	cin >> M;
+	cin >> E;
 
-	while (M--) {
+	while (E--) {
 		cin >> q;
 
 		if (q == 1) {

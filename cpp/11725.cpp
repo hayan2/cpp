@@ -10,10 +10,10 @@ using namespace std;
 
 vector<int> cache[MAX_LEN];
 int visited[MAX_LEN] = { 0, };
-int N;
+int V;
 
 vector<int> solved() {
-	vector<int> ret(N + 1, 0);
+	vector<int> ret(V + 1, 0);
 	queue<int> queue;
 
 	queue.push(ROOT);
@@ -40,10 +40,10 @@ int main(void) {
 	cin.tie(NULL);
 	cout.tie(NULL);
 		
-	cin >> N;
+	cin >> V;
 
 	int u, v;
-	for (int i = 0; i < N - 1; i++) {
+	for (int i = 0; i < V - 1; i++) {
 		cin >> u >> v;
 
 		cache[u].push_back(v);
@@ -52,7 +52,7 @@ int main(void) {
 
 	vector<int> ret = solved();
 
-	for (int i = 2; i <= N; i++) {
+	for (int i = 2; i <= V; i++) {
 		cout << ret[i] << "\n";
 	}
 

@@ -20,7 +20,7 @@ int visited[MAX_LEN][MAX_LEN];
 int dist[MAX_ILND][MAX_ILND];
 int dx[DIR_LEN] = { -1, 0, 1, 0 };
 int dy[DIR_LEN] = { 0, -1, 0, 1 };
-int N, M, islandNum = 0;
+int V, E, islandNum = 0;
 
 int find(int x) {
 	if (root[x] == x) return root[x];
@@ -50,7 +50,7 @@ void putIslandNum(int x, int y) {
 			int nx = curX + dx[i];
 			int ny = curY + dy[i];
 
-			if (nx < 1 || ny < 1 || nx > N || ny > M) continue;
+			if (nx < 1 || ny < 1 || nx > V || ny > E) continue;
 
 			if (!visited[nx][ny] && map[nx][ny]) {
 				map[nx][ny] += islandNum;
@@ -68,7 +68,7 @@ void goWidth(int x, int y) {
 	x++;
 
 	while (!map[x][y]) {
-		if (x < 1 || x > M) return;
+		if (x < 1 || x > E) return;
 
 		distance++;
 		x++;
@@ -85,7 +85,7 @@ void backWidth(int x, int y) {
 	int distance = 1, curNum = map[x][y];
 
 	while (!map[x][y]) {
-		if (x < 1 || x > M) return;
+		if (x < 1 || x > E) return;
 
 		distance++;
 		x--;
@@ -103,7 +103,7 @@ void upHeight(int x, int y) {
 	y++;
 
 	while (!map[x][y]) {
-		if (y < 1 || y > N) return;
+		if (y < 1 || y > V) return;
 
 		distance++;
 		y++;
@@ -121,7 +121,7 @@ void downHeight(int x, int y) {
 	y--;
 
 	while (!map[x][y]) {
-		if (y < 1 || y > N) return;
+		if (y < 1 || y > V) return;
 
 		distance++;
 		y--;
@@ -156,32 +156,32 @@ int main(void) {
 	cout.tie(NULL);
 
 	for (int i = 1; i < MAX_ILND; i++) root[i] = i;
-	cin >> N >> M;
+	cin >> V >> E;
 
 	memset(visited, 0, sizeof(visited));
 
-	for (int x = 1; x <= N; x++) {
-		for (int y = 1; y <= M; y++) {
+	for (int x = 1; x <= V; x++) {
+		for (int y = 1; y <= E; y++) {
 			dist[x][y] = MAX_LEN;
 		}
 	}
 
-	for (int i = 1; i <= N; i++) {
-		for (int j = 1; j <= M; j++) {
+	for (int i = 1; i <= V; i++) {
+		for (int j = 1; j <= E; j++) {
 			cin >> map[i][j];
 		}
 	}
 
-	for (int x = 1; x <= N; x++) {
-		for (int y = 1; y <= M; y++) {
+	for (int x = 1; x <= V; x++) {
+		for (int y = 1; y <= E; y++) {
 			if (!visited[x][y] && map[x][y]) {
 				putIslandNum(x, y);
 			}
 		}
 	}
 
-	for (int x = 1; x <= N; x++) {
-		for (int y = 1; y <= M; y++) {
+	for (int x = 1; x <= V; x++) {
+		for (int y = 1; y <= E; y++) {
 			if (map[x][y]) {
 				goWidth(x, y);
 				backWidth(x, y);
@@ -191,8 +191,8 @@ int main(void) {
 		}
 	}
 
-	for (int x = 1; x <= N; x++) {
-		for (int y = 1; y <= M; y++) {
+	for (int x = 1; x <= V; x++) {
+		for (int y = 1; y <= E; y++) {
 			if (dist[x][y] > 1 && dist[x][y] < MAX_LEN) {
 				cache.push_back({ dist[x][y], { x, y } });
 			}

@@ -6,7 +6,7 @@
 using namespace std;
 
 int cache[MAX_LEN];
-int N, M;
+int V, E;
 
 // get root node
 int find(int x) {
@@ -26,12 +26,12 @@ int main(void) {
 	cin.tie(NULL);
 	cout.tie(NULL);
 
-	cin >> N >> M;
+	cin >> V >> E;
 
-	for (int i = 1; i <= N; i++) cache[i] = i;
+	for (int i = 1; i <= V; i++) cache[i] = i;
 	int x, a, b;
 
-	while (M--) {
+	while (E--) {
 		cin >> x >> a >> b;
 
 		switch (x) {

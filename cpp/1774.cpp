@@ -22,7 +22,7 @@ vector<Type> tmp;
 int visited[MAX_LEN][MAX_LEN];
 int root[MAX_LEN];
 double res = 0;
-int N, M;
+int V, E;
 
 int find(int x) {
 	if (root[x] == x) return root[x];
@@ -53,7 +53,7 @@ double solved() {
 		if (find(u) == find(v)) continue;
 
 		cnt++;
-		if (cnt == N) break;
+		if (cnt == V) break;
 		unionSet(u, v);
 		ret += w;
 	}
@@ -68,17 +68,17 @@ int main(void) {
 	cout << fixed;
 	cout.precision(2);
 
-	cin >> N >> M;
-	for (int i = 0; i < N + 1; i++) root[i] = i;
+	cin >> V >> E;
+	for (int i = 0; i < V + 1; i++) root[i] = i;
 	double x, y;
-	for (int i = 0; i < N; i++) {
+	for (int i = 0; i < V; i++) {
 		cin >> x >> y;
 
 		pos.push_back({ x, y });
 	}
 
 	int p, q;
-	for (int i = 0; i < M; i++) {
+	for (int i = 0; i < E; i++) {
 		cin >> p >> q;
 		visited[p - 1][q - 1] = visited[q - 1][p - 1] = VISITED;
 		double retDistance = getDistance(pos[p - 1], pos[q - 1]);
@@ -86,8 +86,8 @@ int main(void) {
 		res -= retDistance;
 	}
 
-	for (int i = 0; i < N; i++) {
-		for (int j = i + 1; j < N; j++) {
+	for (int i = 0; i < V; i++) {
+		for (int j = i + 1; j < V; j++) {
 			if (!visited[i][j] && !visited[j][i]) {
 				tmp.push_back({ getDistance(pos[i], pos[j]), { i, j } });
 			}

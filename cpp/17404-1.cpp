@@ -13,13 +13,13 @@ using namespace std;
 
 int cache[MAX_LEN][3];
 int dp[MAX_LEN][3];
-int N;
+int V;
 
 int solve(int firstColor) {
     for (int i = 0; i < COLOR_LEN; i++) 
         dp[0][i] = (i == firstColor) ? dp[0][i] = cache[0][i] : dp[0][i] = INF;        
     
-    for (int i = 1; i < N; i++) {
+    for (int i = 1; i < V; i++) {
         dp[i][RED] = cache[i][RED] + min(dp[i - 1][GREEN], dp[i - 1][BLUE]);
         dp[i][GREEN] = cache[i][GREEN] + min(dp[i - 1][RED], dp[i - 1][BLUE]);
         dp[i][BLUE] = cache[i][BLUE] + min(dp[i - 1][RED], dp[i - 1][GREEN]);
@@ -29,7 +29,7 @@ int solve(int firstColor) {
 
     for (int i = 0; i < COLOR_LEN; i++) {
         if (i != firstColor) {
-            ret = min(ret, dp[N - 1][i]);
+            ret = min(ret, dp[V - 1][i]);
         }
     }
 
@@ -40,9 +40,9 @@ int main() {
     ios::sync_with_stdio(false);
     cin.tie(NULL);
 
-    cin >> N;
+    cin >> V;
 
-    for (int i = 0; i < N; i++) {
+    for (int i = 0; i < V; i++) {
         cin >> cache[i][RED] >> cache[i][GREEN] >> cache[i][BLUE];
     }
 

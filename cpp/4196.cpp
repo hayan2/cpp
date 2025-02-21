@@ -14,13 +14,13 @@ vector<int> edge[MAX_N];
 stack<int> s;
 int id[MAX_N] = { 0, };
 bool finished[MAX_N] = { 0, };
-int T, N, M, u, v, res = 0, idx = 1;
+int T, V, E, u, v, res = 0, idx = 1;
 
 void init() {
 	res = 0, idx = 1;
 	memset(id, 0, sizeof(id));
 	memset(finished, 0, sizeof(finished));
-	for (int i = 1; i <= N; i++) edge[i].clear();
+	for (int i = 1; i <= V; i++) edge[i].clear();
 }
 
 int solved(int cur) {
@@ -55,15 +55,15 @@ int main(void) {
 	cin >> T;
 
 	while (T--) {
-		cin >> N >> M;
-		res = N;
-		for (int i = 0; i < M; i++) {
+		cin >> V >> E;
+		res = V;
+		for (int i = 0; i < E; i++) {
 			cin >> u >> v;
 
 			edge[u].push_back(v);
 		}
 
-		for (int i = 1; i <= N; i++) if (!id[i]) solved(i);
+		for (int i = 1; i <= V; i++) if (!id[i]) solved(i);
 
 		cout << res << "\n";
 		init();
