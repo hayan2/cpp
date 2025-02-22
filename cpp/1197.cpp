@@ -8,7 +8,7 @@ using namespace std;
 
 typedef pair<int, pair<int, int>> type;
 
-vector<type> cache;
+vector<type> sccidx;
 int root[MAX_LEN];
 int V, E;
 
@@ -29,7 +29,7 @@ int solved() {
 	vector<type> mst;
 	int ret = 0;
 
-	for (type cur : cache) {
+	for (type cur : sccidx) {
 		int u = cur.second.first;
 		int v = cur.second.second;
 
@@ -54,11 +54,11 @@ int main(void) {
 	while (E--) {
 		cin >> u >> v >> w;
 
-		cache.push_back({ w, { u, v } });
+		sccidx.push_back({ w, { u, v } });
 	}
 
 	for (int i = 1; i <= V; i++) root[i] = i;
-	sort(cache.begin(), cache.end());
+	sort(sccidx.begin(), sccidx.end());
 
 	cout << solved();
 

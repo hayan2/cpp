@@ -16,26 +16,26 @@ typedef struct TDP {
 
 vector<int> tree[MAX_LEN];
 vector<int> res;
-TDP cache[MAX_LEN];
+TDP sccidx[MAX_LEN];
 int visited[MAX_LEN] = { 0, };
 int path[MAX_LEN] = { 0, };
 int V;
 int u, v, w;
 
 TDP solved(int s) {
-	if (visited[s]) return cache[s];
+	if (visited[s]) return sccidx[s];
 	visited[s] = VISITED;
 
 	for (auto nxt : tree[s]) {
 		if (visited[nxt]) continue;
 		TDP ret = solved(nxt);
-		cache[s].contain += ret.notContain;
-		cache[s].notContain += (ret.contain > ret.notContain) ? ret.contain : ret.notContain;
+		sccidx[s].contain += ret.notContain;
+		sccidx[s].notContain += (ret.contain > ret.notContain) ? ret.contain : ret.notContain;
 
-		(cache[nxt].contain > cache[nxt].notContain) ? path[nxt] = CONTAIN : path[nxt] = NOT_CONTAIN;
+		(sccidx[nxt].contain > sccidx[nxt].notContain) ? path[nxt] = CONTAIN : path[nxt] = NOT_CONTAIN;
 	}
 
-	return cache[s];
+	return sccidx[s];
 }
 
 void findPath(int cur, int pn) {
@@ -62,8 +62,8 @@ int main(void) {
 
 	for (int i = 1; i <= V; i++) {
 		cin >> w;
-		cache[i].contain = w;
-		cache[i].notContain = 0;
+		sccidx[i].contain = w;
+		sccidx[i].notContain = 0;
 	}
 	for (int i = 1; i < V; i++) {
 		cin >> u >> v;

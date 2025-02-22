@@ -11,6 +11,7 @@ using namespace std;
 vector<vector<int>> edge, scc;
 vector<int> finished, id, sccidx;
 stack<int> s;
+int cache[MAX * 2 + 1] = { 0, };
 int V, E, u, v, idx = 1, cnt = 1;
 
 int notA(int a) { return a > MAX ? a - MAX : a + MAX; }
@@ -82,8 +83,21 @@ int main(void) {
 		if (!id[i]) SCC(i);
 		if (!id[notA(i)]) SCC(i);
 	}
-	
-	cout << solved();
+
+	if (!solved()) cout << "0";
+	else {		
+		cout << "1\n";
+		for (auto x : scc) {
+			for (auto cur : x) {
+				if (!cache[cur]) {
+					cache[cur] = 0;
+					cache[notA(cur)] = 1;
+				}
+			}
+		}
+
+		for (int i = 1; i <= V; i++) cout << cache[i] << " ";
+	}
 
 	return 0;
 }

@@ -6,22 +6,22 @@
 
 using namespace std;
 
-int cache[MAX_LEN][MAX_LEN];
+int sccidx[MAX_LEN][MAX_LEN];
 int dp[MAX_LEN][1 << MAX_LEN];
 int V;
 
 int solved(int cur, int state) {
 	if (state == (1 << V) - 1) {
-		if (!cache[cur][0]) return INF;
-		return cache[cur][0];
+		if (!sccidx[cur][0]) return INF;
+		return sccidx[cur][0];
 	}
 	if (dp[cur][state] != -1) return dp[cur][state];
 
 	dp[cur][state] = INF;
 	for (int i = 0; i < V; i++) {
-		if (!cache[cur][i]) continue;
+		if (!sccidx[cur][i]) continue;
 		if (!(state & (1 << i))) {
-			dp[cur][state] = min(dp[cur][state], solved(i, state | (1 << i)) + cache[cur][i]);
+			dp[cur][state] = min(dp[cur][state], solved(i, state | (1 << i)) + sccidx[cur][i]);
 		}
 	}
 
@@ -37,7 +37,7 @@ int main(void) {
 
 	for (int i = 0; i < V; i++) {
 		for (int j = 0; j < V; j++) {
-			cin >> cache[i][j];
+			cin >> sccidx[i][j];
 		}
 	}
 

@@ -8,7 +8,7 @@
 
 using namespace std;
 
-vector<int> cache[MAX_LEN];
+vector<int> sccidx[MAX_LEN];
 int visited[MAX_LEN] = { 0, };
 int V;
 
@@ -23,11 +23,11 @@ vector<int> solved() {
 		int vertex = queue.front();
 		queue.pop();
 
-		for (int i = 0; i < cache[vertex].size(); i++) {			
-			if (!visited[cache[vertex][i]]) {
-				ret[cache[vertex][i]] = vertex;
+		for (int i = 0; i < sccidx[vertex].size(); i++) {			
+			if (!visited[sccidx[vertex][i]]) {
+				ret[sccidx[vertex][i]] = vertex;
 				visited[vertex] = VISITED;
-				queue.push(cache[vertex][i]);
+				queue.push(sccidx[vertex][i]);
 			}			
 		}
 	}
@@ -46,8 +46,8 @@ int main(void) {
 	for (int i = 0; i < V - 1; i++) {
 		cin >> u >> v;
 
-		cache[u].push_back(v);
-		cache[v].push_back(u);
+		sccidx[u].push_back(v);
+		sccidx[v].push_back(u);
 	}
 
 	vector<int> ret = solved();

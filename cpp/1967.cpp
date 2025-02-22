@@ -10,7 +10,7 @@
 using namespace std;
 
 vector<pair<int, int>> tree[MAX_LEN];
-int cache[MAX_LEN] = { 0, };
+int sccidx[MAX_LEN] = { 0, };
 int visited[MAX_LEN] = { 0, };
 int V;
 
@@ -31,9 +31,9 @@ int getFurthestNode(int s) {
 			if (!visited[v]) {
 				queue.push({ v, tree[u][i].second + w });
 				visited[v] = VISITED;
-				cache[v] = tree[u][i].second + w;
-				if (cache[v] > distance) {
-					distance = cache[v];
+				sccidx[v] = tree[u][i].second + w;
+				if (sccidx[v] > distance) {
+					distance = sccidx[v];
 					ret = v;
 				}
 			}
@@ -41,7 +41,7 @@ int getFurthestNode(int s) {
 	}
 	
 	memset(visited, 0, sizeof(visited));
-	memset(cache, 0, sizeof(cache));
+	memset(sccidx, 0, sizeof(sccidx));
 
 	return ret;
 }
@@ -63,8 +63,8 @@ int solved(int s) {
 			if (!visited[v]) {
 				queue.push({ v, tree[u][i].second + w });
 				visited[v] = VISITED;
-				cache[v] = tree[u][i].second + w;
-				ret = cache[v] > ret ? cache[v] : ret;
+				sccidx[v] = tree[u][i].second + w;
+				ret = sccidx[v] > ret ? sccidx[v] : ret;
 			}
 		}
 	}

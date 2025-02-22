@@ -6,7 +6,7 @@ using namespace std;
 #define MAX_LEN 500001
 #define MAX_LOG 19
 
-int cache[MAX_LOG][MAX_LEN];
+int sccidx[MAX_LOG][MAX_LEN];
 int m, Q, n, x;
 
 int main(void) {
@@ -18,12 +18,12 @@ int main(void) {
 
 	for (int i = 1; i <= m; i++) {
 		// 2^0
-		cin >> cache[0][i];
+		cin >> sccidx[0][i];
 	}
 
 	for (int i = 1; i < MAX_LOG; i++) {
 		for (int j = 1; j <= m; j++) {
-			cache[i][j] = cache[i - 1][cache[i - 1][j]];
+			sccidx[i][j] = sccidx[i - 1][sccidx[i - 1][j]];
 		}
 	}
 
@@ -36,7 +36,7 @@ int main(void) {
 			int cur = (1 << i);
 
 			if (n >= cur) {
-				x = cache[i][x];
+				x = sccidx[i][x];
 				n -= cur;
 				if (!n) break;
 			}

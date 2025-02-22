@@ -10,7 +10,7 @@ using namespace std;
 
 typedef pair<ull, pair<int, int>> Mst;
 
-vector<Mst> cache;
+vector<Mst> sccidx;
 ull res = 0;
 int root[MAX_LEN];
 int V, E;
@@ -32,7 +32,7 @@ ull solved() {
 	ull ret = 0;
 	int cnt = 0;
 
-	for (Mst cur : cache) {
+	for (Mst cur : sccidx) {
 		int u = cur.second.first;
 		int v = cur.second.second;
 		ull w = cur.first;
@@ -65,14 +65,14 @@ int main(void) {
 			cin >> u >> v;
 			cin >> w;
 
-			cache.push_back({ w, { u, v } });
+			sccidx.push_back({ w, { u, v } });
 			res += w;			
 		}
-		sort(cache.begin(), cache.end());
+		sort(sccidx.begin(), sccidx.end());
 
 		cout << res - solved() << "\n";
 
-		cache.clear();
+		sccidx.clear();
 		res = 0;
 	}
 	

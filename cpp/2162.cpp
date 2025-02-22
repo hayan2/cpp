@@ -17,7 +17,7 @@ typedef struct Coor {
 }Coordinate;
 
 vector<pair<Coor, Coor>> line;
-int cache[MAX_LEN];
+int sccidx[MAX_LEN];
 int visited[MAX_LEN] = { 0, };
 int root[MAX_LEN];
 int V, group, cnt = 0;
@@ -33,13 +33,13 @@ void unionSet(int a, int b) {
 
 	if (a > b) {
 		root[b] = a;
-		cache[a] += cache[b];
-		group -= cache[b];
+		sccidx[a] += sccidx[b];
+		group -= sccidx[b];
 	}
 	else if (a < b) {
 		root[a] = b;
-		cache[b] += cache[a];
-		group -= cache[a];
+		sccidx[b] += sccidx[a];
+		group -= sccidx[a];
 	}
 }
 
@@ -135,7 +135,7 @@ int main(void) {
 	group = V;
 
 	for (int i = 0; i < V; i++) {
-		cache[i] = 1;
+		sccidx[i] = 1;
 		root[i] = i;
 	}
 
@@ -149,7 +149,7 @@ int main(void) {
 	
 	solved(0);
 
-	for (int i = 0; i < V; i++) cnt = (cnt > cache[i]) ? cnt : cache[i];
+	for (int i = 0; i < V; i++) cnt = (cnt > sccidx[i]) ? cnt : sccidx[i];
 
 	cout << group << "\n" << cnt;
 

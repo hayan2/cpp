@@ -5,20 +5,20 @@
 
 using namespace std;
 
-int cache[MAX_LEN];
+int sccidx[MAX_LEN];
 int V, E;
 
 // get root node
 int find(int x) {
-	if (cache[x] == x) return x;
-	else return find(cache[x]);
+	if (sccidx[x] == x) return x;
+	else return find(sccidx[x]);
 }
 
 void unionSet(int a, int b) {
 	int rootA = find(a);
 	int rootB = find(b);
 
-	cache[rootB] = rootA;
+	sccidx[rootB] = rootA;
 }
 
 int main(void) {
@@ -28,7 +28,7 @@ int main(void) {
 
 	cin >> V >> E;
 
-	for (int i = 1; i <= V; i++) cache[i] = i;
+	for (int i = 1; i <= V; i++) sccidx[i] = i;
 	int x, a, b;
 
 	while (E--) {

@@ -11,7 +11,7 @@
 using namespace std;
 
 string elements[MAX_LEN];
-ull cache[MAX_LEN];
+ull sccidx[MAX_LEN];
 ull dp[1 << MAX_LEN][MOD_LEN];
 ull len[POW_LEN];
 ull tp[POW_LEN];
@@ -39,7 +39,7 @@ ull solve(int state, int remainder) {
 
 	for (int i = 0; i < V; i++) {
 		if (!(state & (1 << i))) {
-			dp[state][remainder] += solve(state | (1 << i), (remainder * tp[len[i]] + cache[i]) % K);
+			dp[state][remainder] += solve(state | (1 << i), (remainder * tp[len[i]] + sccidx[i]) % K);
 		}
 	}
 
@@ -69,7 +69,7 @@ int main() {
 			tmp %= K;
 		}
 
-		cache[i] = tmp;
+		sccidx[i] = tmp;
 	}
 
 	getPow();

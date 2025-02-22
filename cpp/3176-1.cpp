@@ -14,7 +14,7 @@ using namespace std;
 typedef pair<int, int> type;
 
 vector<type> tree[MAX_LEN];
-int cache[MAX_LEN][MAX_LOG][DISTANCE] = { 0, };
+int sccidx[MAX_LEN][MAX_LOG][DISTANCE] = { 0, };
 int parent[MAX_LEN][MAX_LOG] = { 0, };
 int depth[MAX_LEN] = { 0, };
 int V, K, u, v, w, D, E;
@@ -28,8 +28,8 @@ void getDepth(int cur, int curDepth, int prev) {
 	for (auto nxt : tree[cur]) {
 		if (nxt.first != prev) {
 			parent[nxt.first][0] = cur;
-			cache[nxt.first][0][LONGEST] = nxt.second;
-			cache[nxt.first][0][SHORTEST] = nxt.second;
+			sccidx[nxt.first][0][LONGEST] = nxt.second;
+			sccidx[nxt.first][0][SHORTEST] = nxt.second;
 			getDepth(nxt.first, curDepth + 1, cur);
 		}
 	}
@@ -39,8 +39,8 @@ void dp() {
 	for (int i = 1; i < MAX_LOG; i++) {
 		for (int j = 1; j <= V; j++) {
 			parent[j][i] = parent[parent[j][i - 1]][i - 1];
-			cache[j][i][LONGEST] = max(cache[parent[j][i - 1]][i - 1][LONGEST], cache[j][i - 1][LONGEST]);
-			cache[j][i][SHORTEST] = min(cache[parent[j][i - 1]][i - 1][SHORTEST], cache[j][i - 1][SHORTEST]);
+			sccidx[j][i][LONGEST] = max(sccidx[parent[j][i - 1]][i - 1][LONGEST], sccidx[j][i - 1][LONGEST]);
+			sccidx[j][i][SHORTEST] = min(sccidx[parent[j][i - 1]][i - 1][SHORTEST], sccidx[j][i - 1][SHORTEST]);
 		}
 	}
 }
@@ -60,8 +60,8 @@ type solved(int a, int b) {
 
 	for (int i = MAX_LOG - 1; i > -1; i--) {
 		if (depth[a] - depth[b] >= (1 << i)) {
-			amax = max(amax, cache[a][i][LONGEST]);
-			amin = min(amin, cache[a][i][SHORTEST]);
+			amax = max(amax, sccidx[a][i][LONGEST]);
+			amin = min(amin, sccidx[a][i][SHORTEST]);
 			a = parent[a][i];
 		}
 	}
@@ -70,17 +70,17 @@ type solved(int a, int b) {
 
 	for (int i = MAX_LOG - 1; i > -1; i--) {
 		if (parent[a][i] != parent[b][i]) {
-			amax = max(amax, cache[a][i][LONGEST]);
-			amin = min(amin, cache[a][i][SHORTEST]);
-			bmax = max(bmax, cache[b][i][LONGEST]);
-			bmin = min(bmin, cache[b][i][SHORTEST]);
+			amax = max(amax, sccidx[a][i][LONGEST]);
+			amin = min(amin, sccidx[a][i][SHORTEST]);
+			bmax = max(bmax, sccidx[b][i][LONGEST]);
+			bmin = min(bmin, sccidx[b][i][SHORTEST]);
 			a = parent[a][i];
 			b = parent[b][i];
 		}
 	}
 
 	if (parent[a][0] == parent[b][0]) {
-		return { min(min(amin, bmin), min(cache[a][0][SHORTEST], cache[b][0][LONGEST])), max(max(amax, bmax), max(cache[b][0][LONGEST], cache[a][0][LONGEST])) };
+		return { min(min(amin, bmin), min(sccidx[a][0][SHORTEST], sccidx[b][0][LONGEST])), max(max(amax, bmax), max(sccidx[b][0][LONGEST], sccidx[a][0][LONGEST])) };
 	}
 
 	return { min(amin, bmin), max(amax, bmax) };

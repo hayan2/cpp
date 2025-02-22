@@ -5,7 +5,7 @@
 
 using namespace std;
 
-int cache[MAX_LEN];
+int sccidx[MAX_LEN];
 int V;
 
 // AC
@@ -15,19 +15,19 @@ int sol(int x) {
 	if (x == 1) {
 		return 0;
 	}
-	if (cache[x] != -1) {
-		return cache[x];
+	if (sccidx[x] != -1) {
+		return sccidx[x];
 	}
 
-	cache[x] = sol(x - 1) + 1;
+	sccidx[x] = sol(x - 1) + 1;
 	if (x % 3 == 0) {
-		cache[x] = min(cache[x], sol(x / 3) + 1);
+		sccidx[x] = min(sccidx[x], sol(x / 3) + 1);
 	}
 	if (x % 2 == 0) {
-		cache[x] = min(cache[x], sol(x / 2) + 1);
+		sccidx[x] = min(sccidx[x], sol(x / 2) + 1);
 	}
 	
-	return cache[x];
+	return sccidx[x];
 }
 
 int main(void) {
@@ -36,19 +36,19 @@ int main(void) {
 	cout.tie(NULL);
 	
 	cin >> V;
-	fill_n(cache, V + 1, -1);
-	cache[1] = 0;
+	fill_n(sccidx, V + 1, -1);
+	sccidx[1] = 0;
 
 	sol(V);
 
-	cout << cache[V] << endl;
+	cout << sccidx[V] << endl;
 
 	while (V != 0) {
-		if (V % 3 == 0 && cache[V / 3] == cache[V] - 1) {
+		if (V % 3 == 0 && sccidx[V / 3] == sccidx[V] - 1) {
 			cout << V << " ";
 			V /= 3;
 		}
-		else if (V % 2 == 0 && cache[V / 2] == cache[V] - 1) {
+		else if (V % 2 == 0 && sccidx[V / 2] == sccidx[V] - 1) {
 			cout << V << " ";
 			V /= 2;
 		}

@@ -4,7 +4,7 @@
 
 using namespace std;
 
-int cache[MAX_LEN];
+int sccidx[MAX_LEN];
 int way[MAX_LEN];
 int V;
 
@@ -17,27 +17,27 @@ int main(void) {
 	cout.tie(NULL);
 
 	cin >> V;
-	fill_n(cache, V + 1, -1);
-	cache[1] = 0;
+	fill_n(sccidx, V + 1, -1);
+	sccidx[1] = 0;
 
 	for (int i = 2; i <= V; i++) {
-		if (cache[i] != -1) {
+		if (sccidx[i] != -1) {
 			continue;
 		}
 
-		cache[i] = cache[i - 1] + 1;
+		sccidx[i] = sccidx[i - 1] + 1;
 		way[i] = i - 1;
-		if (i % 2 == 0 && cache[i / 2] + 1 < cache[i]) {
-			cache[i] = cache[i / 2] + 1;
+		if (i % 2 == 0 && sccidx[i / 2] + 1 < sccidx[i]) {
+			sccidx[i] = sccidx[i / 2] + 1;
 			way[i] = i / 2;
 		}
-		if (i % 3 == 0 && cache[i / 3] + 1 < cache[i]) {
-			cache[i] = cache[i / 3] + 1;
+		if (i % 3 == 0 && sccidx[i / 3] + 1 < sccidx[i]) {
+			sccidx[i] = sccidx[i / 3] + 1;
 			way[i] = i / 3;
 		}
 	}
 
-	cout << cache[V] << endl;
+	cout << sccidx[V] << endl;
 
 	while (V != 0) {
 		cout << V << " ";

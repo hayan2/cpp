@@ -5,11 +5,11 @@ using namespace std;
 
 #define MAX_LEN 42
 
-int cache[MAX_LEN] = { 0, 1, };
+int sccidx[MAX_LEN] = { 0, 1, };
 int T, V;
 
 void getFibonacci(int n) {
-	for (int i = 3; i < n; i++) cache[i] = cache[i - 1] + cache[i - 2];	
+	for (int i = 3; i < n; i++) sccidx[i] = sccidx[i - 1] + sccidx[i - 2];	
 }
 
 int main(void) {
@@ -17,7 +17,7 @@ int main(void) {
 	cin.tie(NULL);
 	cout.tie(NULL);
 	
-	cache[1] = cache[2] = 1;
+	sccidx[1] = sccidx[2] = 1;
 	getFibonacci(MAX_LEN);	
 	
 	cin >> T;
@@ -27,7 +27,7 @@ int main(void) {
 
 		if (!V) cout << "1 0\n";
 		else if (V == 1) cout << "0 1\n";
-		else cout << cache[V - 1] << " " << cache[V] << "\n";
+		else cout << sccidx[V - 1] << " " << sccidx[V] << "\n";
 	}
 
 	return 0;

@@ -9,7 +9,7 @@
 
 using namespace std;
 
-string cache;
+string sccidx;
 int V, K;
 
 typedef struct Node {
@@ -36,12 +36,12 @@ int main(void) {
 
 		Node* cur = root;
 		while (K--) {
-			cin >> cache;
+			cin >> sccidx;
 
-			if (cur->element.find(cache) == cur->element.end()) {
-				cur->element[cache] = new Node;
+			if (cur->element.find(sccidx) == cur->element.end()) {
+				cur->element[sccidx] = new Node;
 			}
-			cur = cur->element[cache];
+			cur = cur->element[sccidx];
 		}
 	}
 

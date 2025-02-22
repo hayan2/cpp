@@ -6,7 +6,7 @@
 
 using namespace std;
 
-int cache[MAX_LEN][MAX_LEN] = { 0, };
+int sccidx[MAX_LEN][MAX_LEN] = { 0, };
 
 int main(void) {
 	ios::sync_with_stdio(false);
@@ -26,11 +26,11 @@ int main(void) {
 	for (int i = 1; i <= sizeA; i++) {
 		for (int j = 1; j <= sizeB; j++) {
 			if (A[i - 1] == B[j - 1]) {
-				cache[i][j] = cache[i - 1][j - 1] + 1;
-				cnt = cache[i][j] > cnt ? cache[i][j] : cnt;
+				sccidx[i][j] = sccidx[i - 1][j - 1] + 1;
+				cnt = sccidx[i][j] > cnt ? sccidx[i][j] : cnt;
 			}
 			else {
-				cache[i][j] = cache[i - 1][j] > cache[i][j - 1] ? cache[i - 1][j] : cache[i][j - 1];
+				sccidx[i][j] = sccidx[i - 1][j] > sccidx[i][j - 1] ? sccidx[i - 1][j] : sccidx[i][j - 1];
 			}
 		}
 	}
@@ -38,10 +38,10 @@ int main(void) {
 	int i = sizeA, j = sizeB;
 
 	while (i > 0 && j > 0) {
-		if (cache[i][j] == cache[i - 1][j]) {
+		if (sccidx[i][j] == sccidx[i - 1][j]) {
 			i--;
 		}
-		else if (cache[i][j] == cache[i][j - 1]) {
+		else if (sccidx[i][j] == sccidx[i][j - 1]) {
 			j--;
 		}
 		else {

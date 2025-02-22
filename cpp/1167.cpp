@@ -11,7 +11,7 @@
 using namespace std;
 
 vector<pair<int, int>> tree[MAX_LEN];
-int cache[MAX_LEN] = { 0, };
+int sccidx[MAX_LEN] = { 0, };
 int visited[MAX_LEN] = { 0, };
 int V;
 
@@ -31,20 +31,20 @@ int getFurthestNode(int s) {
 			if (!visited[tree[u][i].first]) {
 				visited[tree[u][i].first] = VISITED;
 				queue.push({ tree[u][i].first, tree[u][i].second + w });
-				cache[tree[u][i].first] = w + tree[u][i].second; // > cache[tree[u][i].first] ? cache[u] + w : cache[tree[u][i].first];
+				sccidx[tree[u][i].first] = w + tree[u][i].second; // > cache[tree[u][i].first] ? cache[u] + w : cache[tree[u][i].first];
 			}
 		}
 	}
 
 	for (int i = 1; i <= V; i++) {
-		if (distance < cache[i]) {
+		if (distance < sccidx[i]) {
 			ret = i;
-			distance = cache[i];
+			distance = sccidx[i];
 		}		
 	}
 		
 	memset(visited, 0, sizeof(visited));
-	memset(cache, 0, sizeof(cache));
+	memset(sccidx, 0, sizeof(sccidx));
 
 	return ret;
 }
@@ -65,13 +65,13 @@ int solved(int s) {
 			if (!visited[tree[u][i].first]) {
 				visited[tree[u][i].first] = VISITED;
 				queue.push({ tree[u][i].first, tree[u][i].second + w });
-				cache[tree[u][i].first] = w + tree[u][i].second; // > cache[tree[u][i].first] ? cache[u] + w : cache[tree[u][i].first];
+				sccidx[tree[u][i].first] = w + tree[u][i].second; // > cache[tree[u][i].first] ? cache[u] + w : cache[tree[u][i].first];
 			}
 		}
 	}
 
 	for (int i = 1; i <= V; i++) {
-		ret = cache[i] > ret ? cache[i] : ret;
+		ret = sccidx[i] > ret ? sccidx[i] : ret;
 	}
 
 	return ret;

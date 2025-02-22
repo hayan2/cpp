@@ -8,7 +8,7 @@
 
 using namespace std;
 
-vector<int> cache(MAX_LEN, MAX_LEN);
+vector<int> sccidx(MAX_LEN, MAX_LEN);
 int prevPath[MAX_LEN] = { 0, };
 int visited[MAX_LEN] = { 0, };
 int V;
@@ -26,11 +26,11 @@ void solved(int K) {
 
 		int pushTime, pushPos;
 
-		if (cache[pos] < time) {
+		if (sccidx[pos] < time) {
 			continue;
 		}
 
-		cache[pos] = time;		
+		sccidx[pos] = time;		
 
 		if (visited[K]) {
 			break;
@@ -39,7 +39,7 @@ void solved(int K) {
 		// go
 		pushTime = time + 1;
 		pushPos = pos + 1;
-		if (pushPos < MAX_LEN && cache[pushPos] > pushTime) {
+		if (pushPos < MAX_LEN && sccidx[pushPos] > pushTime) {
 			heap.push({ -pushTime, pushPos });
 			prevPath[pushPos] = pos;
 			if (prevPath[pushPos] == 0) {
@@ -50,7 +50,7 @@ void solved(int K) {
 		// back
 		pushTime = time + 1;
 		pushPos = pos - 1;
-		if (pushPos > -1 && cache[pushPos] > pushTime) {
+		if (pushPos > -1 && sccidx[pushPos] > pushTime) {
 			heap.push({ -pushTime, pushPos });
 			if (prevPath[pushPos] == 0) {
 				prevPath[pushPos] = pos;
@@ -60,7 +60,7 @@ void solved(int K) {
 		// teleport
 		pushTime = time + 1;
 		pushPos = pos * 2;
-		if (pushPos < MAX_LEN && cache[pushPos] > pushTime) {
+		if (pushPos < MAX_LEN && sccidx[pushPos] > pushTime) {
 			heap.push({ -pushTime, pushPos });
 			if (prevPath[pushPos] == 0) {
 				prevPath[pushPos] = pos;
@@ -80,10 +80,10 @@ int main(void) {
 
 	solved(K);
 
-	cout << cache[K] << endl;	
+	cout << sccidx[K] << endl;	
 
 	stack<int> res;
-	int len = cache[K];
+	int len = sccidx[K];
 	res.push(K);
 	for (int i = 0; i < len; i++) {
 		res.push(prevPath[K]);

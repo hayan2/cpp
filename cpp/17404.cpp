@@ -10,7 +10,7 @@
 
 using namespace std;
 
-int cache[MAX_LEN][COLOR_LEN];
+int sccidx[MAX_LEN][COLOR_LEN];
 int dp[1 << COLOR_LEN][MAX_LEN];
 int V;
 
@@ -25,7 +25,7 @@ int solved(int state, int prev, int cur) {
 		if (state & (1 << i)) continue;
 
 		state &= ~prev;
-		ret += min(ret, solved(state | (1 << i), 1 << i, cur + 1) + cache[cur][i]);
+		ret += min(ret, solved(state | (1 << i), 1 << i, cur + 1) + sccidx[cur][i]);
 	}
 
 	return dp[state][cur];
@@ -39,7 +39,7 @@ int main(void) {
 	cin >> V;
 
 	for (int i = 0; i < V; i++) {
-		cin >> cache[i][RED] >> cache[i][GREEN] >> cache[i][BLUE];
+		cin >> sccidx[i][RED] >> sccidx[i][GREEN] >> sccidx[i][BLUE];
 	}
 
 	// start house color red	(1 << 0) + (1 << 1) && (1 << 0) + (1 << 2)

@@ -7,7 +7,7 @@
 
 using namespace std;
 
-vector<int> cache[MAX_LEN];
+vector<int> sccidx[MAX_LEN];
 int indegree[MAX_LEN] = { 0, };
 int V, E, u, v;
 
@@ -22,7 +22,7 @@ void solved() {
 
 		cout << cur << " ";
 
-		for (auto x : cache[cur]) {
+		for (auto x : sccidx[cur]) {
 			indegree[x]--;
 			if (!indegree[x]) queue.push(-x);
 		}
@@ -39,7 +39,7 @@ int main(void) {
 	while (E--) {
 		cin >> u >> v;
 
-		cache[u].push_back(v);
+		sccidx[u].push_back(v);
 		indegree[v]++;
 	}
 

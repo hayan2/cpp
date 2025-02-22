@@ -6,7 +6,7 @@
 
 using namespace std;
 
-int cache[MAX_LEN];
+int sccidx[MAX_LEN];
 bool visited[MAX_LEN] = { 0, };
 int T, V, A, B, u, v, res = 0;
 
@@ -21,21 +21,21 @@ int main(void) {
 		cin >> V;
 
 		for (int i = 1; i <= V; i++) {
-			cache[i] = i;
+			sccidx[i] = i;
 			visited[i] = !VISITED;
 		}
 
 		for (int i = 1; i < V; i++) {
 			cin >> A >> B;
 
-			cache[B] = A;
+			sccidx[B] = A;
 		}
 
 		cin >> u >> v;
 		visited[u] = VISITED;
 
-		while (u != cache[u]) {
-			u = cache[u];
+		while (u != sccidx[u]) {
+			u = sccidx[u];
 			visited[u] = VISITED;			
 		}
 
@@ -44,7 +44,7 @@ int main(void) {
 				cout << v << "\n";
 				break;
 			}
-			v = cache[v];
+			v = sccidx[v];
 		}
 	}
 

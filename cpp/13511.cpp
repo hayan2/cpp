@@ -11,11 +11,11 @@ using namespace std;
 typedef pair<ull, ull> type;
 
 vector<type> tree[MAX_N];
-ull dist[MAX_N] = { 0, }, cache[MAX_N][MAX_LOG] = { 0, }, depth[MAX_N] = { 0, };
+ull dist[MAX_N] = { 0, }, sccidx[MAX_N][MAX_LOG] = { 0, }, depth[MAX_N] = { 0, };
 ull V, E, u, v, w, q;
 
 void getDepth(ull cur, ull prev) {
-	cache[cur][0] = prev;
+	sccidx[cur][0] = prev;
 	depth[cur] = depth[prev] + 1;
 
 	for (type nxt : tree[cur]) {
@@ -29,7 +29,7 @@ void getDepth(ull cur, ull prev) {
 void getParnet() {
 	for (int i = 1; i < MAX_LOG; i++) {
 		for (int j = 1; j <= V; j++) {
-			cache[j][i] = cache[cache[j][i - 1]][i - 1];
+			sccidx[j][i] = sccidx[sccidx[j][i - 1]][i - 1];
 		}
 	}
 }
@@ -42,19 +42,19 @@ ull LCA(ull a, ull b) {
 	}
 
 	for (int i = MAX_LOG - 1; i > -1; i--) {
-		if (depth[a] - depth[b] >= (1LL << i)) a = cache[a][i];
+		if (depth[a] - depth[b] >= (1LL << i)) a = sccidx[a][i];
 	}
 
 	if (a == b) return a;
 
 	for (int i = MAX_LOG - 1; i > -1; i--) {
-		if (cache[a][i] != cache[b][i]) {
-			a = cache[a][i];
-			b = cache[b][i];
+		if (sccidx[a][i] != sccidx[b][i]) {
+			a = sccidx[a][i];
+			b = sccidx[b][i];
 		}
 	}
 
-	return cache[a][0];
+	return sccidx[a][0];
 }
 
 int main(void) {
@@ -93,7 +93,7 @@ int main(void) {
 				for (int i = MAX_LOG - 1; i > -1; i--) {
 					if (w >= (1LL << i)) {
 						w -= (1LL << i);
-						v = cache[v][i];
+						v = sccidx[v][i];
 					}
 				}
 				cout << v << "\n";
@@ -103,7 +103,7 @@ int main(void) {
 				for (int i = MAX_LOG - 1; i > -1; i--) {
 					if (w >= (1LL << i)) {
 						w -= (1LL << i);
-						u = cache[u][i];
+						u = sccidx[u][i];
 					}
 				}
 				cout << u << "\n";

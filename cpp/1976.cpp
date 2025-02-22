@@ -5,19 +5,19 @@
 
 using namespace std;
 
-int cache[MAX_LEN] = { 0, };
+int sccidx[MAX_LEN] = { 0, };
 int V, E;
 
 int find(int x) {
-	if (cache[x] == x) return x;
-	else return find(cache[x]);
+	if (sccidx[x] == x) return x;
+	else return find(sccidx[x]);
 }
 
 void unionSet(int a, int b) {
 	int rootA = find(a);
 	int rootB = find(b);
 
-	cache[rootB] = rootA;
+	sccidx[rootB] = rootA;
 }
 
 int main(void) {
@@ -27,7 +27,7 @@ int main(void) {
 		
 	int x;
 	cin >> V >> E;
-	for (int i = 1; i <= V + 1; i++) cache[i] = i;
+	for (int i = 1; i <= V + 1; i++) sccidx[i] = i;
 
 	for (int i = 1; i <= V; i++) {
 		for (int j = 1; j <= V; j++) {			

@@ -8,7 +8,7 @@
 using namespace std;
 
 vector<double> dist(LEN_STAT);
-vector<double> cache(LEN_STAT);
+vector<double> sccidx(LEN_STAT);
 vector<bool> visited(LEN_STAT, 0);
 int res = 0;
 
@@ -17,7 +17,7 @@ int isConvex() {
 		int p1 = i;
 		int p2 = (i + 1) % LEN_STAT;
 		int p3 = (i + 2) % LEN_STAT;
-		if (cache[p1] * cache[p3] * sqrt(2) > cache[p2] * (cache[p1] + cache[p3])) return 0;
+		if (sccidx[p1] * sccidx[p3] * sqrt(2) > sccidx[p2] * (sccidx[p1] + sccidx[p3])) return 0;
 	}
 	return 1;
 }
@@ -31,7 +31,7 @@ int solved(int cnt) {
 	for (int i = 0; i < LEN_STAT; i++) {
 		if (visited[i]) continue;
 		visited[i] = VISITED;
-		cache[cnt] = dist[i];
+		sccidx[cnt] = dist[i];
 		solved(cnt + 1);
 		visited[i] = 0;
 	}

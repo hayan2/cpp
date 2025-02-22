@@ -11,7 +11,7 @@ using namespace std;
 #define LOOP 1
 
 vector<vector<int>> sccEdge, edge, scc;
-vector<int> finished, indegree, sccidx, cache, cost, id, dp, restaurant;
+vector<int> finished, indegree, sccidx, sccidx, cost, id, dp, restaurant;
 stack<int> s;
 queue<int> q;
 int V, E, S, P, u, v, w, n, idx = 1, cnt = 1;
@@ -20,7 +20,7 @@ void init() {
 	edge.resize(V + 1);
 	sccidx.assign(V + 1, 0);
 	finished.assign(V + 1, 0);
-	cache.assign(V + 1, 0);
+	sccidx.assign(V + 1, 0);
 	cost.assign(V + 1, 0);
 	id.assign(V + 1, 0);
 	dp.assign(V + 1, 0);
@@ -45,7 +45,7 @@ int SCC(int cur) {
 			s.pop();
 			finished[top] = FINISHED;
 			sccidx[top] = cnt;
-			cache[cnt] += cost[top];
+			sccidx[cnt] += cost[top];
 			res.push_back(top);
 			if (top == cur) break;
 		}
@@ -76,7 +76,7 @@ void solved() {
 
 	bool flag = false;
 
-	dp[sccidx[S]] = cache[sccidx[S]];
+	dp[sccidx[S]] = sccidx[sccidx[S]];
 
 	while (!q.empty()) {
 		int cur = q.front();
@@ -85,7 +85,7 @@ void solved() {
 		if (cur == sccidx[S]) flag = true;
 
 		for (auto nxt : sccEdge[cur]) {
-			if (flag) dp[nxt] = max(dp[nxt], dp[cur] + cache[nxt]);			
+			if (flag) dp[nxt] = max(dp[nxt], dp[cur] + sccidx[nxt]);			
 			if (!(--indegree[nxt])) q.push(nxt);
 		}
 	}	

@@ -9,7 +9,7 @@
 using namespace std;
 
 vector<int> tree[MAX_LEN];
-int cache[MAX_LEN][MAX_LOG] = { 0, };
+int sccidx[MAX_LEN][MAX_LOG] = { 0, };
 int depth[MAX_LEN] = { 0, };
 int V, E, u, v;
 
@@ -18,7 +18,7 @@ void getDepth(int cur, int curDepth, int parent) {
 
 	for (auto nxt : tree[cur]) {
 		if (nxt != parent) {
-			cache[nxt][0] = cur;
+			sccidx[nxt][0] = cur;
 			getDepth(nxt, curDepth + 1, cur);
 		}
 	}
@@ -27,7 +27,7 @@ void getDepth(int cur, int curDepth, int parent) {
 void getParent() {	
 	for (int i = 1; i < MAX_LOG; i++) {
 		for (int j = 1; j <= V; j++) {
-			cache[j][i] = cache[cache[j][i - 1]][i - 1];
+			sccidx[j][i] = sccidx[sccidx[j][i - 1]][i - 1];
 		}
 	}
 }
@@ -41,20 +41,20 @@ int solved(int a, int b) {
 
 	for (int i = MAX_LOG - 1; i > -1; i--) {
 		if (depth[a] - depth[b] >= (1 << i)) {
-			a = cache[a][i];
+			a = sccidx[a][i];
 		}
 	}
 
 	if (a == b) return a;
 
 	for (int i = MAX_LOG - 1; i > -1; i--) {
-		if (cache[a][i] != cache[b][i]) {
-			a = cache[a][i];
-			b = cache[b][i];
+		if (sccidx[a][i] != sccidx[b][i]) {
+			a = sccidx[a][i];
+			b = sccidx[b][i];
 		}
 	}
 
-	return cache[a][0];
+	return sccidx[a][0];
 }
 
 int main(void) {

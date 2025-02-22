@@ -8,21 +8,21 @@
 using namespace std;
 
 vector<int> tree[MAX_LEN];
-int cache[MAX_LEN];
+int sccidx[MAX_LEN];
 int visited[MAX_LEN] = { 0, };
 int V, R, Q;
 int u, v, q;
 
 int solved(int s) {
-	if (visited[s]) return cache[s];
+	if (visited[s]) return sccidx[s];
 	visited[s] = VISITED;
 
 	for (auto nxt : tree[s]) {
 		if (visited[nxt]) continue;
-		cache[s] += solved(nxt);
+		sccidx[s] += solved(nxt);
 	}
 
-	return cache[s];
+	return sccidx[s];
 }
 
 int main(void) {
@@ -31,7 +31,7 @@ int main(void) {
 	cout.tie(NULL);
 
 	cin >> V >> R >> Q;
-	fill_n(&cache[0], V + 1, 1);
+	fill_n(&sccidx[0], V + 1, 1);
 
 	for (int i = 0; i < V - 1; i++) {
 		cin >> u >> v;
@@ -45,7 +45,7 @@ int main(void) {
 	while (Q--) {
 		cin >> q;
 
-		cout << cache[q] << "\n";
+		cout << sccidx[q] << "\n";
 	}
 
 	return 0;

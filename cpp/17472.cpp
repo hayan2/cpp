@@ -13,7 +13,7 @@ using namespace std;
 
 typedef pair<int, pair<int, int>> Mst;
 
-vector<Mst> cache;
+vector<Mst> sccidx;
 int map[MAX_LEN][MAX_LEN];
 int root[MAX_ILND];
 int visited[MAX_LEN][MAX_LEN];
@@ -137,7 +137,7 @@ void downHeight(int x, int y) {
 int solved() {
 	int ret = 0, cnt = 0;
 
-	for (Mst cur : cache) {
+	for (Mst cur : sccidx) {
 		int u = cur.second.first;
 		int v = cur.second.second;
 		int w = cur.first;
@@ -194,7 +194,7 @@ int main(void) {
 	for (int x = 1; x <= V; x++) {
 		for (int y = 1; y <= E; y++) {
 			if (dist[x][y] > 1 && dist[x][y] < MAX_LEN) {
-				cache.push_back({ dist[x][y], { x, y } });
+				sccidx.push_back({ dist[x][y], { x, y } });
 			}
 		}
 	}

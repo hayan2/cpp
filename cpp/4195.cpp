@@ -6,11 +6,11 @@
 using namespace std;
 
 unordered_map<string, int> hashmap;
-vector<int> cache, fnum;
+vector<int> sccidx, fnum;
 
 int find(int x) {
-	if (cache[x] == x) return x;
-	else return cache[x] = find(cache[x]);
+	if (sccidx[x] == x) return x;
+	else return sccidx[x] = find(sccidx[x]);
 }
 
 void unionSet(int a, int b) {
@@ -18,19 +18,19 @@ void unionSet(int a, int b) {
 	b = find(b);
 
 	if (a < b) {
-		cache[b] = a;
+		sccidx[b] = a;
 		fnum[a] += fnum[b];
 	}
 	else if (a > b) {
-		cache[a] = b;
+		sccidx[a] = b;
 		fnum[b] += fnum[a];
 	}
 }
 
 void initVector(int n) {
-	cache.assign(n * 2 + 1, 0);
+	sccidx.assign(n * 2 + 1, 0);
 	fnum.assign(n * 2 + 1, 1);
-	for (int i = 1; i <= n * 2; i++) cache[i] = i;	
+	for (int i = 1; i <= n * 2; i++) sccidx[i] = i;	
 }
 
 int main(void) {

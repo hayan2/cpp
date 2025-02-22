@@ -8,7 +8,7 @@
 
 using namespace std;
 
-bool cache[MAX_LEN][MAX_LEN];
+bool sccidx[MAX_LEN][MAX_LEN];
 int indegree[MAX_LEN] = { 0, };
 int T, n, m, u, v;
 
@@ -28,7 +28,7 @@ void solved() {
 		indegree[cur]--;
 
 		for (int i = 1; i <= n; i++) {
-			if (cache[cur][i]) indegree[i]--;
+			if (sccidx[cur][i]) indegree[i]--;
 			if (!indegree[i]) queue.push(i);
 		}
 	}
@@ -48,7 +48,7 @@ int main(void) {
 	cin >> T;
 
 	while (T--) {
-		memset(cache, false, sizeof(cache));
+		memset(sccidx, false, sizeof(sccidx));
 		memset(indegree, 0, sizeof(indegree));
 
 		cin >> n;
@@ -60,7 +60,7 @@ int main(void) {
 
 		for (int i = 1; i < n; i++) {
 			for (int j = i + 1; j <= n; j++) {
-				cache[rank[i]][rank[j]] = true;
+				sccidx[rank[i]][rank[j]] = true;
 				indegree[rank[j]]++;
 			}
 		}
@@ -69,15 +69,15 @@ int main(void) {
 		for (int i = 1; i <= m; i++) {			
 			cin >> u >> v;
 			
-			if (cache[u][v]) {
-				cache[u][v] = false;
-				cache[v][u] = true;
+			if (sccidx[u][v]) {
+				sccidx[u][v] = false;
+				sccidx[v][u] = true;
 				indegree[u]++;
 				indegree[v]--;
 			}
 			else {
-				cache[v][u] = false;
-				cache[u][v] = true;
+				sccidx[v][u] = false;
+				sccidx[u][v] = true;
 				indegree[v]++;
 				indegree[u]--;
 			}

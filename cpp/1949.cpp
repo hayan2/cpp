@@ -12,23 +12,23 @@ typedef struct Dp {
 }Dp;
 
 vector<int> edge[MAX_LEN];
-Dp cache[MAX_LEN] = { 0, };
+Dp sccidx[MAX_LEN] = { 0, };
 int visited[MAX_LEN] = { 0, };
 int V;
 int u, v, w;
 
 Dp solved(int s) {
-	if (visited[s]) return cache[s];
+	if (visited[s]) return sccidx[s];
 	visited[s] = VISITED;
 
 	for (auto nxt : edge[s]) {
 		if (visited[nxt]) continue;
 		Dp ret = solved(nxt);
-		cache[s].contain += ret.notContain;
-		cache[s].notContain += (ret.contain > ret.notContain) ? ret.contain : ret.notContain;
+		sccidx[s].contain += ret.notContain;
+		sccidx[s].notContain += (ret.contain > ret.notContain) ? ret.contain : ret.notContain;
 	}
 
-	return cache[s];
+	return sccidx[s];
 }
 
 int main(void) {
@@ -40,8 +40,8 @@ int main(void) {
 
 	for (int i = 1; i <= V; i++) {
 		cin >> w;
-		cache[i].contain = w;
-		cache[i].notContain = 0;
+		sccidx[i].contain = w;
+		sccidx[i].notContain = 0;
 	}
 	for (int i = 1; i < V; i++) {
 		cin >> u >> v;
