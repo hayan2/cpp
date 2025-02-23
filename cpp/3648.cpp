@@ -1,6 +1,7 @@
 #include <iostream>
 #include <algorithm>
 #include <vector>
+#include <string.h>
 
 using namespace std;
 
@@ -21,12 +22,12 @@ void dfs(vector<vector<int>>& edge, vector<int>& visited, vector<int>& st, int c
 
 void dfs(vector<vector<int>>& edge, vector<int>& visited, int cur) {
 	visited[cur] = VISITED;
-	id[cur] = idx++;
+	id[cur] = idx;
 	for (auto nxt : edge[cur]) if (!visited[nxt]) dfs(edge, visited, nxt);
 }
 
 int solved() {
-	for (int i = 1; i <= N * 2; i++) if (id[i] == id[i + N]) return 0;
+	for (int i = 1; i <= N; i++) if (id[i] == id[i + N]) return 0;
 	return 1;
 }
 
@@ -40,27 +41,23 @@ int main(void) {
 		vector<int> visited(N * 2 + 1);
 		vector<int> st;
 		memset(id, 0, sizeof(id));
+
+		idx = 0;
 		
-		for (int i = 1; i <= M; i++) {
+		while (M--) {
 			cin >> u >> v;
 
 			u = isNegative(u);
 			v = isNegative(v);
 			edge[notA(u)].push_back(v);
 			edge[notA(v)].push_back(u);
-		}
-
+		}		
 		edge[1].push_back(1 + N);
-		edge[1 + N].push_back(1);
-		idx = 1;
 
-		for (int i = 1; i <= N * 2; i++) if (!visited[i]) dfs(edge, visited, st, i);		
+		for (int i = 1; i <= N * 2; i++) if (!visited[i]) dfs(edge, visited, st, i);
 		fill(visited.begin(), visited.end(), 0);
 		reverse(st.begin(), st.end());
-		for (auto x : st) if (!visited[x]) dfs(edge, visited, x);
-		for (int i = 1; i <= N * 2; i++) {
-			cout << id[i] << " ";
-		}
+		for (auto x : st) if (!visited[x]) idx++, dfs(edge, visited, x);
 
 		solved() ? cout << "yes\n" : cout << "no\n";
 	}
