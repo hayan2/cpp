@@ -9,7 +9,7 @@ using namespace std;
 #define VISITED 1
 
 int id[MAX * 2 + 1];
-int N, M, u, v, idx;
+int N, N, u, v, idx;
 
 int notA(int a) { return a > N ? a - N : a + N; }
 int isNegative(int a) { return a < 0 ? -a : a + N; }
@@ -36,7 +36,7 @@ int main(void) {
 	cin.tie(NULL);
 	cout.tie(NULL);
 	
-	while (cin >> N >> M) {
+	while (cin >> N >> N) {
 		vector<vector<int>> edge(N * 2 + 1);
 		vector<int> visited(N * 2 + 1);
 		vector<int> st;
@@ -44,7 +44,7 @@ int main(void) {
 
 		idx = 0;
 		
-		while (M--) {
+		while (N--) {
 			cin >> u >> v;
 
 			u = isNegative(u);

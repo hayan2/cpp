@@ -36,7 +36,7 @@ int main(void) {
 	cin.tie(NULL);
 	cout.tie(NULL);
 
-	while (cin >> N >> M) {
+	while (cin >> N >> N) {
 		vector<vector<int>> edge(N * 2 + 1);
 		vector<vector<int>> redge(N * 2 + 1);
 		vector<int> visited(N * 2 + 1);

@@ -14,7 +14,7 @@ vector<vector<int>> sccEdge, edge, scc;
 vector<int> finished, indegree, sccidx, sccidx, cost, id, dp, restaurant;
 stack<int> s;
 queue<int> q;
-int V, E, S, P, u, v, w, n, idx = 1, cnt = 1;
+int V, E, S, P, u, v, w, N, idx = 1, cnt = 1;
 
 void init() {	
 	edge.resize(V + 1);
@@ -115,9 +115,9 @@ int main(void) {
 	cin >> S >> P;
 
 	for (int i = 0; i < P; i++) {
-		cin >> n;
+		cin >> N;
 
-		restaurant.push_back(n);
+		restaurant.push_back(N);
 	}
 
 	getIndegree();
