@@ -1,46 +1,35 @@
 #include <iostream>
 #include <algorithm>
 #include <vector>
-#include <stack>
+#include <string.h>
 
 using namespace std;
 
 #define MAX_N 10000
 #define MAX_K 5000
+#define VISITED 1
+
+typedef pair<int, int> type;
 
 vector<int> edge[MAX_N * 2 + 1], redge[MAX_N * 2 + 1];
 vector<vector<int>> scc;
-stack<int> s;
-int id[MAX_N * 2 + 1] = { 0, }, finished[MAX_N * 2 + 1], cache[MAX_N * 2 + 1];
+vector<int> st;
+int visited[MAX_N * 2 + 1], id[MAX_N * 2 + 1];
 int N, M, idx = 1, cnt = 1;
 
 int notA(int a) { return a > N ? a - N : a + N; }
 int isNegative(int a) { return a < 0 ? -a : a + N; }
 
-int SCC(int cur) {
-	int ret = id[cur] = idx++;
-	s.push(cur);
+void dfs(int cur) {
+	visited[cur] = VISITED;
+	for (auto nxt : edge[cur]) if (!visited[nxt]) dfs(nxt);
+	st.push_back(cur);
+}
 
-	for (auto nxt : edge[cur]) {
-		if (!id[nxt]) ret = min(ret, SCC(nxt));
-		else if (!finished[nxt]) ret = min(ret, id[nxt]);
-	}
-
-	if (ret == id[cur]) {
-		vector<int> res;
-
-		while (1) {
-			int top = s.top();
-			s.pop();
-			cache[top] = cnt;
-			res.push_back(top);
-			if (top == cur) break;
-		}
-		cnt++;
-		scc.push_back(res);
-	}
-
-	return ret;
+void rdfs(int cur) {
+	visited[cur] = VISITED;
+	id[cur] = idx;
+	for (auto nxt : redge[cur]) if (!visited[nxt]) rdfs(nxt);
 }
 
 int main(void) {
@@ -79,7 +68,41 @@ int main(void) {
 		redge[l1].push_back(notA(l3));
 	}
 
+	for (int i = 1; i <= N * 2; i++) if (!visited[i]) dfs(i);
+	reverse(st.begin(), st.end());
+	memset(visited, 0, sizeof(visited));
+	for (auto x : st) {
+		if (!visited[x]) {
+			rdfs(x);
+			idx++;
+		}
+	}
 
+	for (int i = 1; i <= N; i++) {
+		if (id[i] == id[i + N]) {
+			cout << "-1";
+			return 0;
+		}
+	}
+
+	vector<type> tmp;
+
+	for (int i = 1; i <= N * 2; i++) tmp.push_back({ id[i], i });
+	sort(tmp.begin(), tmp.end(), greater<type>());
+
+	vector<int> res(N * 2 + 1, -1);
+	for (int i = 0; i < tmp.size(); i++) {
+		int cur = tmp[i].second;
+		if (res[cur] == -1) {
+			res[cur] = 0;
+			res[notA(cur)] = 1;
+		}
+	}
+	
+	for (int i = 1; i <= N; i++) {
+		if (!res[i]) cout << "B";
+		else cout << "R";
+	}
 
 	return 0;
 }

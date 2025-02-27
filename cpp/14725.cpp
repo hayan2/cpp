@@ -10,7 +10,7 @@
 using namespace std;
 
 string sccidx;
-int V, K;
+int V, N;
 
 typedef struct Node {
 	map<string, Node*> element;
@@ -32,10 +32,10 @@ int main(void) {
 	Node* root = new Node;
 
 	while (V--) {
-		cin >> K;
+		cin >> N;
 
 		Node* cur = root;
-		while (K--) {
+		while (N--) {
 			cin >> sccidx;
 
 			if (cur->element.find(sccidx) == cur->element.end()) {

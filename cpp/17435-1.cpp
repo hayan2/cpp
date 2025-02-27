@@ -7,7 +7,7 @@ using namespace std;
 #define MAX_LOG 19
 
 int sccidx[MAX_LOG][MAX_LEN];
-int m, Q, n, x;
+int m, Q, N, x;
 
 int main(void) {
 	ios::sync_with_stdio(false);
@@ -30,15 +30,15 @@ int main(void) {
 	cin >> Q;
 
 	while (Q--) {
-		cin >> n >> x;
+		cin >> N >> x;
 
 		for (int i = MAX_LOG - 1; i > -1; i--) {
 			int cur = (1 << i);
 
-			if (n >= cur) {
+			if (N >= cur) {
 				x = sccidx[i][x];
-				n -= cur;
-				if (!n) break;
+				N -= cur;
+				if (!N) break;
 			}
 		}
 

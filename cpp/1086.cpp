@@ -15,7 +15,7 @@ ull sccidx[MAX_LEN];
 ull dp[1 << MAX_LEN][MOD_LEN];
 ull len[POW_LEN];
 ull tp[POW_LEN];
-ull V, K, q = 1;
+ull V, N, q = 1;
 
 // AC
 
@@ -27,7 +27,7 @@ ull gcd(ull a, ull b) {
 void getPow() {
 	tp[0] = 1;
 	for (int i = 1; i < POW_LEN; i++) {
-		tp[i] = tp[i - 1] * 10 % K;
+		tp[i] = tp[i - 1] * 10 % N;
 	}
 }
 
@@ -39,7 +39,7 @@ ull solve(int state, int remainder) {
 
 	for (int i = 0; i < V; i++) {
 		if (!(state & (1 << i))) {
-			dp[state][remainder] += solve(state | (1 << i), (remainder * tp[len[i]] + sccidx[i]) % K);
+			dp[state][remainder] += solve(state | (1 << i), (remainder * tp[len[i]] + sccidx[i]) % N);
 		}
 	}
 
@@ -56,7 +56,7 @@ int main() {
 		cin >> elements[i];
 		q *= (i + 1);
 	}
-	cin >> K;
+	cin >> N;
 
 	for (int i = 0; i < V; i++) {
 		string x = elements[i];
@@ -66,7 +66,7 @@ int main() {
 		while (len[i] != idx) {
 			tmp *= 10;
 			tmp += x[idx++] - '0';
-			tmp %= K;
+			tmp %= N;
 		}
 
 		sccidx[i] = tmp;

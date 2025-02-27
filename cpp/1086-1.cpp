@@ -6,7 +6,7 @@
 using namespace std;
 using ll = long long;
 string num[55];
-ll M, N, a[55], len[55], mul[55], dp[1 << 15][101];
+ll N, N, a[55], len[55], mul[55], dp[1 << 15][101];
 
 int gcd(int a, int b) {
 	if (b == 0) return a;
@@ -21,11 +21,11 @@ void make_table(int k) {
 }
 
 ll go(int bit, ll v) {
-	if (bit + 1 == (1 << M)) return (v == 0); // base case
+	if (bit + 1 == (1 << N)) return (v == 0); // base case
 	ll& ret = dp[bit][v];
 	if (~ret) return ret;
 	ret = 0;
-	for (int i = 0; i < M; i++) {
+	for (int i = 0; i < N; i++) {
 		if (bit & (1 << i)) continue;
 		ret += go(bit | (1 << i), (v * mul[len[i]] + a[i]) % N);
 	}
@@ -34,14 +34,14 @@ ll go(int bit, ll v) {
 
 int main() {
 	ios::sync_with_stdio(0); cin.tie(0);
-	cin >> M;
+	cin >> N;
 	ll fac = 1;
-	for (ll i = 0; i < M; i++) {
+	for (ll i = 0; i < N; i++) {
 		cin >> num[i];
 		fac *= (i + 1);
 	}
 	cin >> N;
-	for (int i = 0; i < M; i++) {
+	for (int i = 0; i < N; i++) {
 		len[i] = (int)num[i].size();
 		int t = 0;
 

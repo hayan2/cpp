@@ -17,7 +17,7 @@ vector<type> tree[MAX_LEN];
 int sccidx[MAX_LEN][MAX_LOG][DISTANCE] = { 0, };
 int parent[MAX_LEN][MAX_LOG] = { 0, };
 int depth[MAX_LEN] = { 0, };
-int V, K, u, v, w, D, E;
+int V, N, u, v, w, D, E;
 
 // AC
 // MEM 32384 KB | TIME 136 ms
@@ -103,9 +103,9 @@ int main(void) {
 	getDepth(1, 1, 0);
 	dp();
 
-	cin >> K;
+	cin >> N;
 
-	while (K--) {
+	while (N--) {
 		cin >> D >> E;
 
 		type ret = solved(D, E);
