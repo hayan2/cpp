@@ -9,7 +9,7 @@ int main(void) {
 	cout.tie(NULL);
 
 	int S = 5;
-
+	//
 	S &= ~(1 << 2);
 
 	cout << S;
