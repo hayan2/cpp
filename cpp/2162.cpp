@@ -1,4 +1,4 @@
-#define ll long long
+#define lli long long
 #define MAX_LEN 3001
 #define VISITED 1
 #include <iostream>
@@ -11,7 +11,7 @@ using namespace std;
 // WA
 
 typedef struct Coor {
-	ll x, y;
+	lli x, y;
 	
 	void read() { cin >> x >> y; }
 }Coordinate;
@@ -43,25 +43,25 @@ void unionSet(int a, int b) {
 	}
 }
 
-ll ccw(Coor p1, Coor p2, Coor p3) {
+lli ccw(Coor p1, Coor p2, Coor p3) {
 	return ((p2.x - p1.x) * (p3.y - p1.y) - (p3.x - p1.x) * (p2.y - p1.y));
 }
 
 // ret 0 : p1 is farther from the origin
 // ret 1 : p2 is farther from the origin
-ll compareDistance(Coor p1, Coor p2) {
-	ll d1 = p1.x * p1.x + p1.y * p1.y;
-	ll d2 = p2.x * p2.x + p2.y * p2.y;
+lli compareDistance(Coor p1, Coor p2) {
+	lli d1 = p1.x * p1.x + p1.y * p1.y;
+	lli d2 = p2.x * p2.x + p2.y * p2.y;
 
 	if (d1 > d2) return 0;
 	else return 1;
 }
 
-ll getDistance(Coor p1) {
+lli getDistance(Coor p1) {
 	return sqrt(p1.x * p1.x + p1.y * p1.y);
 }
 
-ll isBetween(Coor p1, Coor p2, Coor p3) {
+lli isBetween(Coor p1, Coor p2, Coor p3) {
 	return ((p1.x <= p3.x && p3.x <= p2.x) && (p1.y <= p3.y && p3.y <= p2.y)) || ((p1.x >= p3.x && p3.x >= p2.x) && (p1.y >= p3.y && p3.y >= p2.y));
 }
 
@@ -77,13 +77,13 @@ void solved(int s) {
 			Coor p3 = line[j].first;
 			Coor p4 = line[j].second;
 
-			ll abc = ccw(p1, p2, p3);
-			ll abd = ccw(p1, p2, p4);
-			ll cda = ccw(p3, p4, p1);
-			ll cdb = ccw(p3, p4, p2);
+			lli abc = ccw(p1, p2, p3);
+			lli abd = ccw(p1, p2, p4);
+			lli cda = ccw(p3, p4, p1);
+			lli cdb = ccw(p3, p4, p2);
 
-			ll l1 = abc * abd;
-			ll l2 = cda * cdb;
+			lli l1 = abc * abd;
+			lli l2 = cda * cdb;
 
 			if (i == j) continue;
 

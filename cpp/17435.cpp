@@ -6,15 +6,15 @@ using namespace std;
 
 // Time Limit Exceeded
 
-int E, Q, a, b;
+int E, Q, a, s;
 
 void solved(vector<int> cache) {
 	while (Q--) {
-		cin >> a >> b;
+		cin >> a >> s;
 
-		while (a--) b = cache[b];
+		while (a--) s = cache[s];
 
-		cout << b << endl;
+		cout << s << endl;
 	}
 }
 

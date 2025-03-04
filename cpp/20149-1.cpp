@@ -1,4 +1,4 @@
-#define ll long long
+#define lli long long
 #define ld long double
 #include <iostream>
 #include <algorithm>
@@ -7,16 +7,16 @@
 using namespace std;
 
 typedef struct Coor {
-	ll x, y;
+	lli x, y;
 
 	void read() { cin >> x >> y; };
 }Coordinate;
 
-ll getDistance(Coor p1, Coor p2) {
+lli getDistance(Coor p1, Coor p2) {
 	return sqrt((p1.x - p2.x) * (p1.x - p2.x) + (p1.y - p2.y) * (p1.y - p2.y));
 }
 
-ll ccw(Coor p1, Coor p2, Coor p3) {
+lli ccw(Coor p1, Coor p2, Coor p3) {
 	long long ans = (p2.x - p1.x) * (p3.y - p1.y) - (p2.y - p1.y) * (p3.x - p1.x);
 
 	if (ans < 0) return 1;
@@ -29,10 +29,10 @@ int main(void) {
 
 	p1.read(), p2.read(), p3.read(), p4.read();
 
-	ll abc = ccw(p1, p2, p3);
-	ll abd = ccw(p1, p2, p4);
-	ll cda = ccw(p3, p4, p1);
-	ll cdb = ccw(p3, p4, p2);
+	lli abc = ccw(p1, p2, p3);
+	lli abd = ccw(p1, p2, p4);
+	lli cda = ccw(p3, p4, p1);
+	lli cdb = ccw(p3, p4, p2);
 
 
 	if ((abc * abd < 0) && (cda * cdb < 0)) {

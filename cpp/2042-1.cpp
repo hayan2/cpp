@@ -7,8 +7,7 @@ using namespace std;
 
 #define lli long long int
 
-// AC 
-// 26240 kb | 192 ms
+// AC
 
 vector<lli> segmentTree, cache;
 lli mod, q, s, e;
@@ -37,14 +36,14 @@ lli getSum(int low, int high, int idx) {
 }
 
 void modify(int low, int high, int idx) {
-	if (s < low || s > high) return;	
+	if (s < low || s > high) return;
 	segmentTree[idx] += mod;
-	if (low == high) return;
-
-	int mid = (low + high) / 2;
-	modify(low, mid, idx * 2);
-	modify(mid + 1, high, idx * 2 + 1);
-
+	
+	if (low != high) {
+		int mid = (low + high) / 2;
+		modify(low, mid, idx * 2);
+		modify(mid + 1, high, idx * 2 + 1);
+	}
 }
 
 int main(void) {
