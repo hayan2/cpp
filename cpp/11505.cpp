@@ -6,6 +6,7 @@
 using namespace std;
 
 #define lli long long int
+#define MOD 1000000007
 
 // AC
 
@@ -24,26 +25,23 @@ lli getSegmentTree(int low, int high, int idx) {
 	if (low == high) return segmentTree[idx] = cache[low];
 
 	int mid = (low + high) / 2;
-	return segmentTree[idx] = getSegmentTree(low, mid, idx * 2) + getSegmentTree(mid + 1, high, idx * 2 + 1);
+	return segmentTree[idx] = getSegmentTree(low, mid, idx * 2) * getSegmentTree(mid + 1, high, idx * 2 + 1) % MOD;
 }
 
 lli getResult(int low, int high, int idx) {
-	if (s > high || e < low) return 0;
+	if (s > high || e < low) return 1;
 	else if (s <= low && high <= e) return segmentTree[idx];
 
 	int mid = (low + high) / 2;
-	return getResult(low, mid, idx * 2) + getResult(mid + 1, high, idx * 2 + 1);
+	return getResult(low, mid, idx * 2) * getResult(mid + 1, high, idx * 2 + 1) % MOD;
 }
 
-void modify(int low, int high, int idx) {
-	if (s < low || s > high) return;
-	segmentTree[idx] += mod;
-	
-	if (low != high) {
-		int mid = (low + high) / 2;
-		modify(low, mid, idx * 2);
-		modify(mid + 1, high, idx * 2 + 1);
-	}
+lli modify(int low, int high, int idx) {
+	if (s < low || s > high) return segmentTree[idx];
+	if (low == high) return segmentTree[idx] = e;
+
+	int mid = (low + high) / 2;
+	return segmentTree[idx] = modify(low, mid, idx * 2) * modify(mid + 1, high, idx * 2 + 1) % MOD;	
 }
 
 int main(void) {
@@ -62,9 +60,8 @@ int main(void) {
 		cin >> q >> s >> e;
 
 		if (q == 1) {
-			mod = e - cache[--s];
-			cache[s] = e;
-			modify(0, N - 1, 1);
+			s--;
+			lli tmp = modify(0, N - 1, 1);
 		}
 		else if (q == 2) {
 			s--, e--;

@@ -28,12 +28,12 @@ lli getSegmentTree(int low, int high, int idx) {
 	return segmentTree[idx] = getSegmentTree(low, mid, idx * 2) + getSegmentTree(mid + 1, high, idx * 2 + 1);
 }
 
-lli getSum(int low, int high, int idx) {
+lli getResult(int low, int high, int idx) {
 	if (s > high || e < low) return 0;
 	else if (s <= low && high <= e) return segmentTree[idx];
 
 	int mid = (low + high) / 2;
-	return getSum(low, mid, idx * 2) + getSum(mid + 1, high, idx * 2 + 1);
+	return getResult(low, mid, idx * 2) + getResult(mid + 1, high, idx * 2 + 1);
 }
 
 void modify(int low, int high, int idx) {
@@ -69,7 +69,7 @@ int main(void) {
 		}
 		else if (q == 2) {
 			s--, e--;
-			cout << getSum(0, N - 1, 1) << "\n";
+			cout << getResult(0, N - 1, 1) << "\n";
 		}
 	}
 
