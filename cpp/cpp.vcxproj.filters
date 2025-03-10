@@ -309,5 +309,11 @@
     <ClCompile Include="2357.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="1517.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="1517-1.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
