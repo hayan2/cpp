@@ -84,7 +84,10 @@ int main(void) {
 				update(0, N - 1, 1, cache[e], s);
 				swap(cache[s], cache[e]);
 			}
-			else solved(getResult(0, N - 1, 1)) ? cout << "YES\n" : cout << "NO\n";
+			else {
+				if (solved(getResult(0, N - 1, 1))) printf("YES\n");				
+				else printf("NO\n");				
+			}
 		}
 	}
 
