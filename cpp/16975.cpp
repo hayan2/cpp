@@ -8,7 +8,7 @@ using namespace std;
 #define ll long long
 
 vector<ll> cache, segmentTree;
-int N, M, q, s, e, k, x, depth;
+int N, M, query, s, e, k, x, depth;
 
 void init() {
 	depth = (1 << (int)(ceil(log2(N)) + 1));
@@ -58,9 +58,9 @@ int main(void) {
 	cin >> M;
 	
 	while (M--) {
-		cin >> q;
+		cin >> query;
 
-		if (q == 1) {
+		if (query == 1) {
 			cin >> s >> e >> k;
 			s--, e--;
 			modify(0, N - 1, 1);
@@ -72,7 +72,7 @@ int main(void) {
 			cout << "\n";	
 			*/
 		}
-		else if (q == 2) {
+		else if (query == 2) {
 			cin >> x;
 
 			cout << getResult(0, N - 1, 1) << "\n";

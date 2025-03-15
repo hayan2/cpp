@@ -11,7 +11,7 @@ using namespace std;
 
 // MLE
 
-int T, N, K, q, s, e;
+int T, N, K, query, s, e;
 
 void init(vector<int>& smin, vector<int>& smax) {
 	int depth = (1 << (int)(ceil(log2(N)) + 1));
@@ -71,9 +71,9 @@ int main(void) {
 		getMinSegmentTree(0, N - 1, 1, cache, smin);
 
 		for (int i = 0; i < K; i++) {
-			cin >> q >> s >> e;
+			cin >> query >> s >> e;
 
-			if (!q) {
+			if (!query) {
 				// swap
 				swap(cache[s], cache[e]);
 

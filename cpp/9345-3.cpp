@@ -15,7 +15,7 @@ typedef pair<int, int> pii;
 
 pii segmentTree[MAX_LEN];
 int cache[MAX_N];
-int T, N, K, q, s, e;
+int T, N, K, query, s, e;
 
 void init() {
 	memset(segmentTree, 0, sizeof(segmentTree));
@@ -77,9 +77,9 @@ int main(void) {
 		getSegmentTree(0, N - 1, 1);
 
 		while (K--) {
-			scanf("%d %d %d", &q, &s, &e);
+			scanf("%d %d %d", &query, &s, &e);
 
-			if (!q) {
+			if (!query) {
 				update(0, N - 1, 1, cache[s], e);
 				update(0, N - 1, 1, cache[e], s);
 				swap(cache[s], cache[e]);

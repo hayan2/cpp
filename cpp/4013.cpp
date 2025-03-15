@@ -13,7 +13,7 @@ using namespace std;
 vector<vector<int>> sccEdge, edge, scc;
 vector<int> finished, indegree, sccidx, sccidx, cost, id, dp, restaurant;
 stack<int> s;
-queue<int> q;
+queue<int> query;
 int V, E, S, P, u, v, w, N, idx = 1, cnt = 1;
 
 void init() {	
@@ -72,21 +72,21 @@ void getIndegree() {
 }
 
 void solved() {
-	for (int i = 1; i < cnt; i++) if (!indegree[i]) q.push(i);
+	for (int i = 1; i < cnt; i++) if (!indegree[i]) query.push(i);
 
 	bool flag = false;
 
 	dp[sccidx[S]] = sccidx[sccidx[S]];
 
-	while (!q.empty()) {
-		int cur = q.front();
-		q.pop();
+	while (!query.empty()) {
+		int cur = query.front();
+		query.pop();
 
 		if (cur == sccidx[S]) flag = true;
 
 		for (auto nxt : sccEdge[cur]) {
 			if (flag) dp[nxt] = max(dp[nxt], dp[cur] + sccidx[nxt]);			
-			if (!(--indegree[nxt])) q.push(nxt);
+			if (!(--indegree[nxt])) query.push(nxt);
 		}
 	}	
 }

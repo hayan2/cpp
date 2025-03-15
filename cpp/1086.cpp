@@ -15,7 +15,7 @@ ull sccidx[MAX_LEN];
 ull dp[1 << MAX_LEN][MOD_LEN];
 ull len[POW_LEN];
 ull tp[POW_LEN];
-ull V, N, q = 1;
+ull V, N, query = 1;
 
 // AC
 
@@ -54,7 +54,7 @@ int main() {
 	cin >> V;
 	for (int i = 0; i < V; i++) {
 		cin >> elements[i];
-		q *= (i + 1);
+		query *= (i + 1);
 	}
 	cin >> N;
 
@@ -76,9 +76,9 @@ int main() {
 	memset(dp, -1, sizeof(dp));
 
 	ull p = solve(0, 0);
-	ull g = gcd(p, q);
+	ull g = gcd(p, query);
 
-	cout << p / g << "/" << q / g;
+	cout << p / g << "/" << query / g;
 
 	return 0;
 }

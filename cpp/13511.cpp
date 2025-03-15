@@ -12,7 +12,7 @@ typedef pair<ull, ull> type;
 
 vector<type> tree[MAX_N];
 ull dist[MAX_N] = { 0, }, sccidx[MAX_N][MAX_LOG] = { 0, }, depth[MAX_N] = { 0, };
-ull V, E, u, v, w, q;
+ull V, E, u, v, w, query;
 
 void getDepth(ull cur, ull prev) {
 	sccidx[cur][0] = prev;
@@ -77,9 +77,9 @@ int main(void) {
 	cin >> E;
 
 	while (E--) {
-		cin >> q;
+		cin >> query;
 
-		if (q == 1) {
+		if (query == 1) {
 			cin >> u >> v;
 
 			cout << dist[u] + dist[v] - 2 * dist[LCA(u, v)] << "\n";

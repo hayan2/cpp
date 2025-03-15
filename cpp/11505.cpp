@@ -11,7 +11,7 @@ using namespace std;
 // AC
 
 vector<lli> segmentTree, cache;
-lli mod, q, s, e;
+lli mod, query, s, e;
 int N, M, K, x;
 
 void init() {
@@ -57,13 +57,13 @@ int main(void) {
 	getSegmentTree(0, N - 1, 1);
 
 	for (int i = 0; i < M + K; i++) {
-		cin >> q >> s >> e;
+		cin >> query >> s >> e;
 
-		if (q == 1) {
+		if (query == 1) {
 			s--;
 			lli tmp = modify(0, N - 1, 1);
 		}
-		else if (q == 2) {
+		else if (query == 2) {
 			s--, e--;
 			cout << getResult(0, N - 1, 1) << "\n";
 		}

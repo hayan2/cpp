@@ -11,7 +11,7 @@ vector<int> tree[MAX_LEN];
 int sccidx[MAX_LEN];
 int visited[MAX_LEN] = { 0, };
 int V, R, Q;
-int u, v, q;
+int u, v, query;
 
 int solved(int s) {
 	if (visited[s]) return sccidx[s];
@@ -43,9 +43,9 @@ int main(void) {
 	solved(R);
 
 	while (Q--) {
-		cin >> q;
+		cin >> query;
 
-		cout << sccidx[q] << "\n";
+		cout << sccidx[query] << "\n";
 	}
 
 	return 0;
