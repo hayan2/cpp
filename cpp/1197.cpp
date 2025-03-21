@@ -1,5 +1,5 @@
 #define MAX_LEN 10001
-#define ull unsigned long long
+#define ll unsigned long long
 #include <iostream>
 #include <algorithm>
 #include <vector>

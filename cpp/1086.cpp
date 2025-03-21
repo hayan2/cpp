@@ -1,4 +1,4 @@
-#define ull unsigned long long
+#define ll unsigned long long
 #define MOD_LEN 104
 #define POW_LEN 52
 #define MAX_LEN 16
@@ -11,15 +11,15 @@
 using namespace std;
 
 string elements[MAX_LEN];
-ull sccidx[MAX_LEN];
-ull dp[1 << MAX_LEN][MOD_LEN];
-ull len[POW_LEN];
-ull tp[POW_LEN];
-ull V, N, query = 1;
+ll sccidx[MAX_LEN];
+ll dp[1 << MAX_LEN][MOD_LEN];
+ll len[POW_LEN];
+ll tp[POW_LEN];
+ll V, N, query = 1;
 
 // AC
 
-ull gcd(ull a, ull b) {
+ll gcd(ll a, ll b) {
 	if (b == 0) return a;
 	return gcd(b, a % b);
 }
@@ -31,7 +31,7 @@ void getPow() {
 	}
 }
 
-ull solve(int state, int remainder) {
+ll solve(int state, int remainder) {
 	if (state == (1 << V) - 1) return (remainder == 0);
 	if (dp[state][remainder] != -1) return dp[state][remainder];
 
@@ -75,8 +75,8 @@ int main() {
 	getPow();
 	memset(dp, -1, sizeof(dp));
 
-	ull p = solve(0, 0);
-	ull g = gcd(p, query);
+	ll p = solve(0, 0);
+	ll g = gcd(p, query);
 
 	cout << p / g << "/" << query / g;
 

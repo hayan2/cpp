@@ -5,7 +5,7 @@
 
 using namespace std;
 
-#define ull unsigned long long
+#define ll unsigned long long
 #define INF 1e9
 
 vector<int> smax, smin, cache;

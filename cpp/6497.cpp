@@ -1,5 +1,5 @@
 #define MAX_LEN 200015
-#define ull unsigned long long
+#define ll unsigned long long
 #include <iostream>
 #include <algorithm>
 #include <vector>
@@ -8,10 +8,10 @@
 
 using namespace std;
 
-typedef pair<ull, pair<int, int>> Mst;
+typedef pair<ll, pair<int, int>> Mst;
 
 vector<Mst> sccidx;
-ull res = 0;
+ll res = 0;
 int root[MAX_LEN];
 int V, E;
 
@@ -28,14 +28,14 @@ void unionSet(int a, int b) {
 	else root[a] = b;
 }
 
-ull solved() {
-	ull ret = 0;
+ll solved() {
+	ll ret = 0;
 	int cnt = 0;
 
 	for (Mst cur : sccidx) {
 		int u = cur.second.first;
 		int v = cur.second.second;
-		ull w = cur.first;
+		ll w = cur.first;
 
 		if (find(u) == find(v)) continue;
 
@@ -59,7 +59,7 @@ int main(void) {
 		for (int i = 0; i < V; i++) root[i] = i;
 
 		for (int i = 0; i < E; i++) {
-			ull w;
+			ll w;
 			int u, v;
 
 			cin >> u >> v;

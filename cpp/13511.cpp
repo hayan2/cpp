@@ -6,15 +6,15 @@ using namespace std;
 
 #define MAX_N 100001
 #define MAX_LOG 18
-#define ull unsigned long long
+#define ll unsigned long long
 
-typedef pair<ull, ull> type;
+typedef pair<ll, ll> type;
 
 vector<type> tree[MAX_N];
-ull dist[MAX_N] = { 0, }, sccidx[MAX_N][MAX_LOG] = { 0, }, depth[MAX_N] = { 0, };
-ull V, E, u, v, w, query;
+ll dist[MAX_N] = { 0, }, sccidx[MAX_N][MAX_LOG] = { 0, }, depth[MAX_N] = { 0, };
+ll V, E, u, v, w, query;
 
-void getDepth(ull cur, ull prev) {
+void getDepth(ll cur, ll prev) {
 	sccidx[cur][0] = prev;
 	depth[cur] = depth[prev] + 1;
 
@@ -34,9 +34,9 @@ void getParnet() {
 	}
 }
 
-ull LCA(ull a, ull b) {
+ll LCA(ll a, ll b) {
 	if (depth[a] < depth[b]) {
-		ull tmp = a;
+		ll tmp = a;
 		a = b;
 		b = tmp;
 	}
@@ -87,7 +87,7 @@ int main(void) {
 		else {
 			cin >> u >> v >> w;
 
-			ull l = LCA(u, v);
+			ll l = LCA(u, v);
 			if (depth[u] - depth[l] + 1 < w) {
 				w = depth[u] + depth[v] - 2 * depth[l] - w + 1;
 				for (int i = MAX_LOG - 1; i > -1; i--) {

@@ -1,5 +1,5 @@
 #define MAX_LEN 31
-#define ull unsigned long long
+#define ll unsigned long long
 #include <iostream>
 #include <algorithm>
 #include <vector>
@@ -29,7 +29,7 @@ int main(void) {
 
 	vector<int> setA;	
 	vector<int> setB;	
-	ull res = 0;
+	ll res = 0;
 
 	cin >> V >> C;
 

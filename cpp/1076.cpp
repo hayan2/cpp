@@ -4,7 +4,7 @@
 
 using namespace std;
 
-#define ull unsigned long long
+#define ll unsigned long long
 #define MAX_LEN 10
 #define TIMES 3
 
@@ -16,7 +16,7 @@ int main(void) {
 	string color[MAX_LEN] = { "black", "brown", "red", "orange", "yellow", "green", "blue", "violet", "grey", "white" };
 	string x;
 	int cache[TIMES] = { 0, };
-	ull res = 0;
+	ll res = 0;
 
 	for (int i = 0; i < TIMES; i++) {
 		cin >> x;
