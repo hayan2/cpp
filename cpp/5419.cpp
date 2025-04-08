@@ -52,6 +52,7 @@ int main() {
 		}
 		for (ll i = 0; i < N; i++) cache[i].second = tmp[i];
 
+
 		sort(cache.begin(), cache.end(), [](pll& a, pll& b) {
 			if (a.first == b.first) return a.second > b.second;
 			return a.first < b.first;
@@ -65,4 +66,3 @@ int main() {
 		cout << res << "\n";
 	}
 }
-//
