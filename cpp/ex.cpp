@@ -8,11 +8,10 @@ int main(void) {
 	cin.tie(NULL);
 	cout.tie(NULL);
 
-	int S = 5;
-	//
-	S &= ~(1 << 2);
+	int S = 4;
+	
 
-	cout << S;
+	cout << (S & 1);
 
 	return 0;
 }
