@@ -27,9 +27,9 @@ Y y[MAX_N * 2];
 ull res = 0;
 int N;
 
-void update(int low, int high, int s, int e, int node, int x) {
+void update(int low, int high, int s, int e, int node, int x) {	
 	int mid = (low + high) >> 1;
-	if (s <= low && high <= e) segmentTree[node].count += x;
+	if (low >= s && high <= e) segmentTree[node].count += x;
 	else {
 		if (s <= mid) update(low, mid, s, e, node * 2, x);
 		if (e > mid) update(mid + 1, high, s, e, node * 2 + 1, x);
@@ -56,11 +56,6 @@ int main(void) {
 		cache[r].idx = y[r].idx = r;
 	}
 	sort(y, y + N * 2, [](Y& a, Y& b) { return a.val < b.val; });
-	
-	for (int i = 0; i < N * 2; i++) {
-		cout << y[i].idx << ", " << y[i].val << "\n";
-	}
-	cout << "----\n";
 
 	for (int i = 0; i < N * 2; i++) {
 		int idx = y[i].idx / 2;
@@ -75,11 +70,6 @@ int main(void) {
 	}
 
 	sort(cache, cache + N * 2, [](Coordinate& a, Coordinate& b) { return a.val < b.val; });
-
-	for (int i = 0; i < N * 2; i++) {
-		cout << cache[i].idx << ", " << cache[i].val << ", " << cache[i].y1 << ", " << cache[i].y2 << "\n";
-	}
-	cout << "------\n";
 
 	for (int i = 0; i < N * 2; i++) {
 		if (i > 0) res += segmentTree[1].length * (cache[i].val - cache[i - 1].val);

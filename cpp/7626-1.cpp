@@ -1,96 +1,78 @@
+#define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
+#include <vector>
 #include <algorithm>
 
 using namespace std;
+using ll = long long;
+using pii = pair<int, int>;
 
-using ull = unsigned long long;
-
-ull res = 0;
-int N;
+const int MAX_N = 400001;
 
 typedef struct Coordinate {
-	int val, idx, y1, y2;
+	int x;
+	pii y;
+	bool flag;
 }Coordinate;
 
-typedef struct Y {
-	int val, idx;
-}Y;
+ll segmentTree[MAX_N * 4], cnt[MAX_N * 4], res = 0;
+vector<Coordinate> cache;
+vector<ll> y;
+int N;
 
-Coordinate x[400002];
-Y y[400002];
-
-long long int cnt[1600000];
-long long int sum[1600000];
-class Tree {
-public:
-	Tree() {
-		for (int i = 0; i < N * 8; i++) {
-			cnt[i] = 0;
-			sum[i] = 0;
-		}
-
+void update(int node, int low, int high, int s, int e, int x) {
+	if (s > high || e < low) return;
+	if (s <= low && high <= e) cnt[node] += x;
+	else {		
+		int mid = (low + high) >> 1;
+		update(node * 2, low, mid, s, e, x);
+		update(node * 2 + 1, mid + 1, high, s, e, x);
 	}
-	void update(int left, int right, int start, int end, int k, int val) {
-		int mid = (start + end) / 2;
-		int ret = 0;
-		if (start >= left && end <= right) {
-			cnt[k] += val;
-		}
-		else {
-			if (left <= mid) update(left, right, start, mid, k * 2, val);
-			if (right > mid) update(left, right, mid + 1, end, k * 2 + 1, val);
-		}
 
-		if (cnt[k]) {
-			sum[k] = y[end + 1].val - y[start].val;
-		}
-		else {
-			if (start == end) sum[k] = 0;
-			else sum[k] = sum[k * 2] + sum[k * 2 + 1];
-		}
+	if (cnt[node]) segmentTree[node] = y[high] - y[low - 1];
+	else {
+		if (low == high) segmentTree[node] = 0;
+		else segmentTree[node] = segmentTree[node * 2] + segmentTree[node * 2 + 1];
 	}
-};
-int main(void) {	
+}
+
+Coordinate generateCache(int x, int y1, int y2, bool flag) {
+	Coordinate tmp;
+	tmp.x = x;
+	tmp.y.first = y1; tmp.y.second = y2;
+	tmp.flag = flag;
+
+	return tmp;
+}
+
+int main(void) {
+	ios::sync_with_stdio(false);
+	cin.tie(NULL);
+	cout.tie(NULL);
+
+	int x1, x2, y1, y2;
 	cin >> N;
-
 	for (int i = 0; i < N; i++) {
-		int a = 2 * i, b = 2 * i + 1;
-		cin >> x[a].val >> x[b].val >> y[a].val >> y[b].val;		
-		x[a].idx = y[a].idx = a;
-		x[b].idx = y[b].idx = b;
-	}
-	sort(y, y + 2 * N);
-
-	//Coordinate compression
-	for (int i = 0; i < 2 * N; i++) {
-		int arr_idx = y[i].idx / 2;
-		if (y[i].idx % 2 == 0) {
-			x[arr_idx * 2].y1 = i;
-			x[arr_idx * 2 + 1].y1 = i;
-		}
-		else {
-			x[arr_idx * 2].y2 = i;
-			x[arr_idx * 2 + 1].y2 = i;
-		}
+		cin >> x1 >> x2 >> y1 >> y2;
+		cache.push_back(generateCache(x1, y1 + 1, y2 + 1, true));
+		cache.push_back(generateCache(x2, y1 + 1, y2 + 1, false));
+		y.push_back(y1 + 1);
+		y.push_back(y2 + 1);
 	}
 
-	sort(x, x + 2 * N);
-	for (int i = 0; i < 2 * N; i++) {
+	sort(y.begin(), y.end());
+	y.erase(unique(y.begin(), y.end()), y.end());
+	sort(cache.begin(), cache.end(), [](Coordinate& a, Coordinate& b) { return a.x < b.x; });
+		
+	for (int i = 0; i < cache.size(); i++) {
+		if (i > 0) res += segmentTree[1] * (cache[i].x - cache[i - 1].x);
+		int x = cache[i].flag == true ? 1 : -1;
+		int y1 = lower_bound(y.begin(), y.end(), cache[i].y.first) - y.begin();
+		int y2 = lower_bound(y.begin(), y.end(), cache[i].y.second) - y.begin();
+		update(1, 1, y.size(), y1 + 1, y2, x);
 	}
 
-	Tree* t = new Tree();
-	for (int i = 0; i < 2 * N; i++) {
-		if (i > 0) {
-			res += sum[1] * (x[i].val - x[i - 1].val);
-		}
-		if (x[i].idx % 2 == 0) { //Rectangle start
-			t->update(x[i].y1, x[i].y2 - 1, 0, 2 * N - 1, 1, 1);
-		}
-		else {//Rectangle end
-			t->update(x[i].y1, x[i].y2 - 1, 0, 2 * N - 1, 1, -1);
-		}
+	cout << res;
 
-	}
-	printf("%lld\n", res);
 	return 0;
 }
