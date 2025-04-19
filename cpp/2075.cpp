@@ -26,4 +26,4 @@ int main(void) {
 	cout << cache[N * N - N];
 
 	return 0;
-}
+}//
