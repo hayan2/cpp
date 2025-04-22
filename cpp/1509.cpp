@@ -33,7 +33,6 @@ int main(void) {
 		}
 	}
 	
-
 	for (int i = 1; i <= len; i++) {
 		dp[i] = INF;
 		for (int j = 1; j <= i; j++) {
