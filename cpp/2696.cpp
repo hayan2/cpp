@@ -39,7 +39,7 @@ int main(void) {
 			}
 			if (i & 1) res.push_back(max.top());
 		}
-
+		//
 		cout << res.size() << "\n";
 		for (auto x : res) cout << x << " ";
 		cout << "\n";
