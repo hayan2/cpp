@@ -11,7 +11,7 @@ using pll = pair<ll, ll>;
 const int MAX_N = 100003;
 
 vector<int> xpos[MAX_N];
-int T, N, M, x, y, l, r, b, t;
+int T, N, w, x, y, l, r, b, t;
 
 struct Node {
 	ll val;
@@ -65,7 +65,7 @@ int main(void) {
 
 	cin >> T;
 	while (T--) {
-		cin >> N >> M;
+		cin >> N >> w;
 
 		for (int i = 0; i < MAX_N; i++) xpos[i].clear();
 		for (int i = 0; i < N; i++) {
@@ -88,7 +88,7 @@ int main(void) {
 		}
 
 		ll res = 0;
-		while (M--) {
+		while (w--) {
 			cin >> l >> r >> b >> t;
 			l++, r++, b++, t++;
 
