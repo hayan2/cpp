@@ -16,7 +16,7 @@ int ccw(pll p1, pll p2, pll p3) {
 	if (tmp < 0) return -1;
 	return 0;
 }
-
+//
 int solved(pll a, pll b, pll c, pll d) {
 	int l1 = ccw(a, b, c) * ccw(a, b, d);
 	int l2 = ccw(c, d, a) * ccw(c, d, b);
