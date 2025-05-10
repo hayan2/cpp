@@ -1,61 +1,77 @@
-#include<iostream>
-#include<algorithm>
+#include <iostream>
+#include <algorithm>
+
 using namespace std;
 
-int n, arr[100000];
+const int DIGITS = 31;
+const int MAX_SIZE = 100001;
+const bool FINISHED = true;
+
+int N, cache[MAX_SIZE];
 
 struct Trie {
-	Trie* next[2];
+	Trie* node[2];
 
-	bool finished = false;
-	bool existed = false;
+	bool finished = !FINISHED;
 
 	Trie() {
-		for (int i = 0; i < 2; i++) next[i] = nullptr;
+		for (int i = 0; i < 2; i++) node[i] = NULL;
 		finished = false;
-		existed = false;
 	}
 
 	~Trie() {
-		for (int i = 0; i < 2; i++)if (next[i]) delete next[i];
+		for (int i = 0; i < 2; i++) if (node[i]) delete node[i];
 	}
+
 	void add(int key, int digit) {
 		if (digit < 0) {
-			finished = true;
+			finished = FINISHED;
 			return;
 		}
+
 		int nxt = key & (1 << digit);
-		if (nxt)nxt = 1;
-		if (next[nxt] == nullptr)
-			next[nxt] = new Trie;
-		existed = true;
-		next[nxt]->add(key & ~(1 << digit), digit - 1);
+
+		if (nxt) nxt = 1;
+		if (node[nxt] == NULL) node[nxt] = new Trie;
+				
+		node[nxt]->add(key & ~(1 << digit), digit - 1);
 	}
-	int solve(int key, int digit) {
-		if (digit < 0)return 0;
+
+	int solved(int key, int digit) {
+		if (digit < 0) return 0;
+
 		int nxt = key & (1 << digit);
-		if (nxt)nxt = 1;
+
+		if (nxt) nxt = 1;
 		nxt = (nxt + 1) % 2;
+
 		int ret = 0;
-		if (next[nxt] == nullptr) nxt = (nxt + 1) % 2;
+
+		if (node[nxt] == NULL) nxt = (nxt + 1) % 2;
 		else ret = 1 << digit;
-		return ret + next[nxt]->solve(key & ~(1 << digit), digit - 1);
+
+		return ret + node[nxt]->solved(key & ~(1 << digit), digit - 1);
 	}
 };
 
 int main() {
-	ios::sync_with_stdio(false), cin.tie(0), cout.tie(0);
+	ios::sync_with_stdio(false);
+	cin.tie(NULL);
+	cout.tie(NULL);
 
-	cin >> n;
+	cin >> N;
+
 	Trie* T = new Trie;
-	for (int i = 0; i < n; i++) {
-		cin >> arr[i];
-		T->add(arr[i], 31);
+
+	for (int i = 0; i < N; i++) {
+		cin >> cache[i];
+		T->add(cache[i], DIGITS);
 	}
+
 	int ret = 0;
-	for (int i = 0; i < n; i++) {
-		ret = max(ret, T->solve(arr[i], 31));
-	}
+	for (int i = 0; i < N; i++) ret = max(ret, T->solved(cache[i], DIGITS));
+
 	cout << ret;
-	delete T;
+
+	return 0;
 }

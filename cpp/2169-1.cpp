@@ -3,7 +3,7 @@
 
 using namespace std;
 
-int n, m;
+int N, m;
 int board[1001][1001];
 int dp[1001][1001];
 
@@ -12,9 +12,9 @@ int main()
     ios::sync_with_stdio(0);
     cin.tie(0);
 
-    cin >> n >> m;
+    cin >> N >> m;
 
-    for (int i = 0; i < n; ++i)
+    for (int i = 0; i < N; ++i)
         for (int j = 0; j < m; ++j)
             cin >> board[i][j];
 
@@ -25,7 +25,7 @@ int main()
         dp[0][j] = dp[0][j - 1] + board[0][j];
 
     // 각 행별로 최대 탐사 가치 계산
-    for (int i = 1; i < n; ++i)
+    for (int i = 1; i < N; ++i)
     {
         // 왼쪽에서 오는 값 계산
         vector<int> left(m), right(m);
@@ -47,7 +47,7 @@ int main()
     }
 
     // 결과 출력
-    cout << dp[n - 1][m - 1] << "\n";
+    cout << dp[N - 1][m - 1] << "\n";
 
     return 0;
 }
