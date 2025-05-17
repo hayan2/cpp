@@ -19,7 +19,7 @@ int solved(int x, int y) {
 	return cache - (x + n);
 }
 
-int getValue(int x) { return x ? getValue(x / 10) + 1 : 0; }
+int getDigits(int x) { return x ? getDigits(x / 10) + 1 : 0; }
 
 int main() {
 	int r1, c1, r2, c2;
@@ -27,7 +27,7 @@ int main() {
 
 	int x = 0;
 	for (int row = r1; row <= r2; row++)
-		for (int col = c1; col <= c2; col++) x = max(x, getValue(solved(row, col)));
+		for (int col = c1; col <= c2; col++) x = max(x, getDigits(solved(row, col)));
 
 	for (int row = r1; row <= r2; row++) {
 		for (int col = c1; col <= c2; col++) printf("%*d ", x, solved(row, col));
