@@ -13,7 +13,7 @@ typedef pair<ll, ll> pll;
 ll segmentTree[MAX_LEN * 4];
 ll tmp[MAX_LEN];
 vector<pll> cache;
-ll T, N, cnt = 0, res = 0, x, y;
+ll T, N, cnt = 0, cnt = 0, x, y;
 
 ll query(ll node, ll low, ll high, ll s, ll e) {
 	if (high < s || e < low) return 0;
@@ -58,11 +58,11 @@ int main() {
 			return a.first < b.first;
 			});
 
-		res = 0;
+		cnt = 0;
 		for (ll i = 0; i < N; i++) {
-			res += query(1, 0, MAX_LEN, cache[i].second, MAX_LEN);
+			cnt += query(1, 0, MAX_LEN, cache[i].second, MAX_LEN);
 			update(1, 0, MAX_LEN, cache[i].second);
 		}
-		cout << res << "\n";
+		cout << cnt << "\n";
 	}
 }

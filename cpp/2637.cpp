@@ -8,7 +8,7 @@ using pii = pair<int, int>;
 const int MAX_SIZE = 101;
 
 vector<pii> cache[MAX_SIZE];
-vector<int> res;
+vector<int> cnt;
 queue<int> q;
 int dp[MAX_SIZE] = { 0, }, indegree[MAX_SIZE] = { 0, };
 int N, M, X, Y, K;
@@ -32,7 +32,7 @@ int main(void) {
 
 	while (!q.empty()) {
 		int cur = q.front(); q.pop();
-		if (cache[cur].empty()) res.push_back(cur);
+		if (cache[cur].empty()) cnt.push_back(cur);
 
 		for (auto x : cache[cur]) {
 			int nxt = x.first;
@@ -41,8 +41,8 @@ int main(void) {
 			if (!(--indegree[nxt])) q.push(nxt);
 		}
 	}
-	sort(res.begin(), res.end());
-	for (auto x : res) cout << x << " " << dp[x] << "\n";
+	sort(cnt.begin(), cnt.end());
+	for (auto x : cnt) cout << x << " " << dp[x] << "\n";
 
 	return 0;
 }

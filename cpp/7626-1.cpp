@@ -15,7 +15,7 @@ typedef struct Coordinate {
 	bool flag;
 }Coordinate;
 
-ll segmentTree[MAX_N * 4], cnt[MAX_N * 4], res = 0;
+ll segmentTree[MAX_N * 4], cnt[MAX_N * 4], cnt = 0;
 vector<Coordinate> cache;
 vector<ll> y;
 int N;
@@ -65,14 +65,14 @@ int main(void) {
 	sort(cache.begin(), cache.end(), [](Coordinate& a, Coordinate& b) { return a.x < b.x; });
 		
 	for (int i = 0; i < cache.size(); i++) {
-		if (i > 0) res += segmentTree[1] * (cache[i].x - cache[i - 1].x);
+		if (i > 0) cnt += segmentTree[1] * (cache[i].x - cache[i - 1].x);
 		int x = cache[i].flag == true ? 1 : -1;
 		int y1 = lower_bound(y.begin(), y.end(), cache[i].y.first) - y.begin();
 		int y2 = lower_bound(y.begin(), y.end(), cache[i].y.second) - y.begin();
 		update(1, 1, y.size(), y1 + 1, y2, x);
 	}
 
-	cout << res;
+	cout << cnt;
 
 	return 0;
 }

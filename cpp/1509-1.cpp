@@ -9,7 +9,7 @@ using namespace std;
 
 bool dp[2501][2501];
 string str;
-int N, res[2501];
+int N, cnt[2501];
 
 bool is_palin(int st, int ed) {
 	if (ed > N) return false;
@@ -39,18 +39,18 @@ void fill_dptable() {
 void solve() {
 	fill_dptable();
 
-	res[0] = 0;
+	cnt[0] = 0;
 	for (int i = 1; i <= N; i++) {
-		res[i] = INF;
+		cnt[i] = INF;
 		for (int j = 1; j <= i; j++) {
 			if (dp[j][i]) {
-				if (res[i] > res[j - 1] + 1) {
-					res[i] = res[j - 1] + 1;
+				if (cnt[i] > cnt[j - 1] + 1) {
+					cnt[i] = cnt[j - 1] + 1;
 				}
 			}
 		}
 	}
-	cout << res[N];
+	cout << cnt[N];
 }
 
 int main() {

@@ -24,7 +24,7 @@ typedef struct Y {
 SegmentTree segmentTree[MAX_N * 8];
 Coordinate cache[MAX_N * 2];
 Y y[MAX_N * 2];
-ull res = 0;
+ull cnt = 0;
 int N;
 
 void update(int low, int high, int s, int e, int node, int x) {	
@@ -72,12 +72,12 @@ int main(void) {
 	sort(cache, cache + N * 2, [](Coordinate& a, Coordinate& b) { return a.val < b.val; });
 
 	for (int i = 0; i < N * 2; i++) {
-		if (i > 0) res += segmentTree[1].length * (cache[i].val - cache[i - 1].val);
+		if (i > 0) cnt += segmentTree[1].length * (cache[i].val - cache[i - 1].val);
 		if (!(cache[i].val & 1)) update(0, N * 2 - 1, cache[i].y1, cache[i].y2 - 1, 1, 1);
 		else update(0, N * 2 - 1, cache[i].y1, cache[i].y2 - 1, 1, -1);
 	}
 
-	cout << res;
+	cout << cnt;
 
 	return 0;
 }

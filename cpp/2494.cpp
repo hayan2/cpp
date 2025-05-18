@@ -9,7 +9,7 @@ using namespace std;
 const int MAX_SIZE = 10001;
 
 string str, cache;
-int dp[MAX_SIZE][10], res[MAX_SIZE][10], N;
+int dp[MAX_SIZE][10], cnt[MAX_SIZE][10], N;
 
 int solved(int n, int s) {
 	if (n == N) return 0;
@@ -19,8 +19,8 @@ int solved(int n, int s) {
 	int l = solved(n + 1, s) + x;
 	int r = solved(n + 1, (s + 10 - x) % 10) + 10 - x;
 
-	if (l < r) dp[n][s] = l, res[n][s] = -x;
-	else dp[n][s] = r, res[n][s] = 10 - x;
+	if (l < r) dp[n][s] = l, cnt[n][s] = -x;
+	else dp[n][s] = r, cnt[n][s] = 10 - x;
 	return dp[n][s];
 }
 
@@ -36,8 +36,8 @@ int main(void) {
 
 	int s = 0;
 	for (int i = 0; i < N; i++) {
-		cout << i + 1 << " " << res[i][s] << "\n";
-		if (res[i][s] > -1) s = (s + res[i][s]) % 10;
+		cout << i + 1 << " " << cnt[i][s] << "\n";
+		if (cnt[i][s] > -1) s = (s + cnt[i][s]) % 10;
 	}
 
 	return 0;

@@ -10,7 +10,7 @@ using ll = long long;
 typedef pair<int, int> pii;
 
 priority_queue<int> pq;
-ll res = 0;
+ll cnt = 0;
 int N, K, w, c, idx = 0;
 
 int main(void) {
@@ -35,10 +35,10 @@ int main(void) {
 
 	for (auto x : pack) {
 		while (idx < N && cache[idx].first <= x) pq.push(cache[idx++].second);
-		if (!pq.empty()) res += (ll)pq.top(), pq.pop();
+		if (!pq.empty()) cnt += (ll)pq.top(), pq.pop();
 	}
 
-	cout << res;
+	cout << cnt;
 
 	return 0;
 }

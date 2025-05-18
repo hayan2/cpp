@@ -16,7 +16,7 @@ vector<pll> cache;
 vector<pll> batch;
 vector<ll> segmentTree;
 ll tmp[MAX_N];
-ll N, x, y, cnt = 0, res = 0;
+ll N, x, y, cnt = 0, cnt = 0;
 
 ll query(ll node, ll low, ll high, ll s, ll e) {
 	if (high < s || e < low) return 0;
@@ -70,11 +70,11 @@ int main(void) {
 			batch.clear();
 			prev = cache[i].second;
 		}
-		res += query(1, 0, cnt, 0, cache[i].first - 1) * query(1, 0, cnt, cache[i].first + 1, cnt) % MOD;
+		cnt += query(1, 0, cnt, 0, cache[i].first - 1) * query(1, 0, cnt, cache[i].first + 1, cnt) % MOD;
 		batch.push_back(cache[i]);
 	}
 
-	cout << res % MOD;
+	cout << cnt % MOD;
 
 	return 0;
 }

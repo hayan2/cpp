@@ -10,7 +10,7 @@ using ll = long long;
 const int MAX_SIZE = 10;
 
 vector<string> cache;
-int N, M, res = -1;
+int N, M, cnt = -1;
 
 bool isPerfectSquare(int n) { return sqrt(n) == (int)sqrt(n); }
 
@@ -21,7 +21,7 @@ void solved(int x, int y, string val, int xd, int yd) {
 
 	if (!val.empty()) {
 		int cur = stoi(val);
-		if (isPerfectSquare(cur)) res = max(res, cur);
+		if (isPerfectSquare(cur)) cnt = max(cnt, cur);
 	}
 
 	solved(x + xd, y + yd, val, xd, yd);
@@ -47,7 +47,7 @@ int main(void) {
 		}
 	}
 	
-	(N == 1 && M == 1) && isPerfectSquare(stoi(cache[0])) ? cout << cache[0] : cout << res;
+	(N == 1 && M == 1) && isPerfectSquare(stoi(cache[0])) ? cout << cache[0] : cout << cnt;
 	
 	return 0;
 }
