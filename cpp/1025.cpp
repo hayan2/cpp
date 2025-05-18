@@ -46,8 +46,8 @@ int main(void) {
 			}
 		}
 	}
-
-	cout << res;
-
+	
+	(N == 1 && M == 1) && isPerfectSquare(stoi(cache[0])) ? cout << cache[0] : cout << res;
+	
 	return 0;
 }
