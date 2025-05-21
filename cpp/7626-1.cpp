@@ -16,7 +16,7 @@ typedef struct Coordinate {
 }Coordinate;
 
 ll segmentTree[MAX_N * 4], cnt[MAX_N * 4], cnt = 0;
-vector<Coordinate> cache;
+vector<Coordinate> root;
 vector<ll> y;
 int N;
 
@@ -54,21 +54,21 @@ int main(void) {
 	cin >> N;
 	for (int i = 0; i < N; i++) {
 		cin >> x1 >> x2 >> y1 >> y2;
-		cache.push_back(generateCache(x1, y1 + 1, y2 + 1, true));
-		cache.push_back(generateCache(x2, y1 + 1, y2 + 1, false));
+		root.push_back(generateCache(x1, y1 + 1, y2 + 1, true));
+		root.push_back(generateCache(x2, y1 + 1, y2 + 1, false));
 		y.push_back(y1 + 1);
 		y.push_back(y2 + 1);
 	}
 
 	sort(y.begin(), y.end());
 	y.erase(unique(y.begin(), y.end()), y.end());
-	sort(cache.begin(), cache.end(), [](Coordinate& a, Coordinate& b) { return a.x < b.x; });
+	sort(root.begin(), root.end(), [](Coordinate& a, Coordinate& b) { return a.x < b.x; });
 		
-	for (int i = 0; i < cache.size(); i++) {
-		if (i > 0) cnt += segmentTree[1] * (cache[i].x - cache[i - 1].x);
-		int x = cache[i].flag == true ? 1 : -1;
-		int y1 = lower_bound(y.begin(), y.end(), cache[i].y.first) - y.begin();
-		int y2 = lower_bound(y.begin(), y.end(), cache[i].y.second) - y.begin();
+	for (int i = 0; i < root.size(); i++) {
+		if (i > 0) cnt += segmentTree[1] * (root[i].x - root[i - 1].x);
+		int x = root[i].flag == true ? 1 : -1;
+		int y1 = lower_bound(y.begin(), y.end(), root[i].y.first) - y.begin();
+		int y2 = lower_bound(y.begin(), y.end(), root[i].y.second) - y.begin();
 		update(1, 1, y.size(), y1 + 1, y2, x);
 	}
 

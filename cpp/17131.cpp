@@ -12,7 +12,7 @@ const int MOD = 1e9 + 7;
 
 typedef pair<ll, ll> pll;
 
-vector<pll> cache;
+vector<pll> root;
 vector<pll> batch;
 vector<ll> segmentTree;
 ll tmp[MAX_N];
@@ -47,31 +47,31 @@ int main(void) {
 	for (ll i = 0; i < N; i++) {
 		cin >> x >> y;
 
-		cache.push_back({ x, y });
+		root.push_back({ x, y });
 	}
-	sort(cache.begin(), cache.end(), [](pll& a, pll& b) { return a.first < b.first; });
+	sort(root.begin(), root.end(), [](pll& a, pll& b) { return a.first < b.first; });
 
 	for (ll i = 0; i < N; i++) {
-		if (i > 0 && cache[i].first != cache[i - 1].first) cnt++;
+		if (i > 0 && root[i].first != root[i - 1].first) cnt++;
 		tmp[i] = cnt;
 	}
-	for (ll i = 0; i < N; i++) cache[i].first = tmp[i];
+	for (ll i = 0; i < N; i++) root[i].first = tmp[i];
 
-	sort(cache.begin(), cache.end(), [](pll& a, pll& b) {
+	sort(root.begin(), root.end(), [](pll& a, pll& b) {
 		return (a.second == b.second) ? a.first < b.first : a.second > b.second;
 		});
 	ll depth = (1 << (ll)ceil(log2(cnt + 1) + 1));
 	segmentTree.assign(depth, 0);
 	
-	ll prev = cache[0].second;
+	ll prev = root[0].second;
 	for (ll i = 0; i < N; i++) {		
-		if (prev != cache[i].second) {
+		if (prev != root[i].second) {
 			for (auto x : batch) update(1, 0, cnt, x.first);
 			batch.clear();
-			prev = cache[i].second;
+			prev = root[i].second;
 		}
-		cnt += query(1, 0, cnt, 0, cache[i].first - 1) * query(1, 0, cnt, cache[i].first + 1, cnt) % MOD;
-		batch.push_back(cache[i]);
+		cnt += query(1, 0, cnt, 0, root[i].first - 1) * query(1, 0, cnt, root[i].first + 1, cnt) % MOD;
+		batch.push_back(root[i]);
 	}
 
 	cout << cnt % MOD;

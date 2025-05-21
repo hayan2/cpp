@@ -12,7 +12,7 @@ typedef pair<ll, ll> pll;
 
 ll segmentTree[MAX_LEN * 4];
 ll tmp[MAX_LEN];
-vector<pll> cache;
+vector<pll> root;
 ll T, N, cnt = 0, cnt = 0, x, y;
 
 ll query(ll node, ll low, ll high, ll s, ll e) {
@@ -40,28 +40,28 @@ int main() {
 		for (ll i = 0; i < N; i++) {
 			cin >> x >> y;
 
-			cache.push_back({ x, y });
+			root.push_back({ x, y });
 		}
-		sort(cache.begin(), cache.end(), [](pll& a, pll& b) { return a.second < b.second; });
+		sort(root.begin(), root.end(), [](pll& a, pll& b) { return a.second < b.second; });
 
 		cnt = 0;
 		// coordinate compression
 		for (ll i = 0; i < N; i++) {
-			if (i > 0 && cache[i].second != cache[i - 1].second) cnt++;
+			if (i > 0 && root[i].second != root[i - 1].second) cnt++;
 			tmp[i] = cnt;
 		}
-		for (ll i = 0; i < N; i++) cache[i].second = tmp[i];
+		for (ll i = 0; i < N; i++) root[i].second = tmp[i];
 
 
-		sort(cache.begin(), cache.end(), [](pll& a, pll& b) {
+		sort(root.begin(), root.end(), [](pll& a, pll& b) {
 			if (a.first == b.first) return a.second > b.second;
 			return a.first < b.first;
 			});
 
 		cnt = 0;
 		for (ll i = 0; i < N; i++) {
-			cnt += query(1, 0, MAX_LEN, cache[i].second, MAX_LEN);
-			update(1, 0, MAX_LEN, cache[i].second);
+			cnt += query(1, 0, MAX_LEN, root[i].second, MAX_LEN);
+			update(1, 0, MAX_LEN, root[i].second);
 		}
 		cout << cnt << "\n";
 	}

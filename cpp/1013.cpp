@@ -5,7 +5,7 @@
 
 using namespace std;
 
-string cache;
+string root;
 regex re("(100+1+|01)+");
 
 int main(void) {
@@ -18,9 +18,9 @@ int main(void) {
 	cin >> T;
 
 	while (T--) {		
-		cin >> cache;
+		cin >> root;
 
-		cout << (regex_match(cache, re) ? "YES\n" : "NO\n");
+		cout << (regex_match(root, re) ? "YES\n" : "NO\n");
 	}
 
 	return 0;

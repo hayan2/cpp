@@ -4,14 +4,14 @@
 using namespace std;
 const int MAX_SIZE = 51;
 
-int cache[MAX_SIZE] = { 0, };
+int root[MAX_SIZE] = { 0, };
 int N, cnt = 0;
 
 void solved(int s, int prev, int idx, int cd) {
 	if (idx < 0 || idx >= N) return;
-	if (prev >= cache[idx]) return;
+	if (prev >= root[idx]) return;
 	if (s != idx) cnt++;
-	solved(s, cache[idx], idx + cd, cd);
+	solved(s, root[idx], idx + cd, cd);
 }
 
 int main(void) {
@@ -21,7 +21,7 @@ int main(void) {
 
 	cin >> N;
 
-	for (int i = 0; i < N; i++) cin >> cache[i];
+	for (int i = 0; i < N; i++) cin >> root[i];
 
 	int res = 0;
 	for (int i = 0; i < N; i++) {

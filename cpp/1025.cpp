@@ -9,7 +9,7 @@ using namespace std;
 using ll = long long;
 const int MAX_SIZE = 10;
 
-vector<string> cache;
+vector<string> root;
 int N, M, cnt = -1;
 
 bool isPerfectSquare(int n) { return sqrt(n) == (int)sqrt(n); }
@@ -17,7 +17,7 @@ bool isPerfectSquare(int n) { return sqrt(n) == (int)sqrt(n); }
 void solved(int x, int y, string val, int xd, int yd) {
 	if (x < 0 || y < 0 || x >= N || y >= M) return;
 
-	val += cache[x][y];
+	val += root[x][y];
 
 	if (!val.empty()) {
 		int cur = stoi(val);
@@ -33,8 +33,8 @@ int main(void) {
 	cout.tie(NULL);
 
 	cin >> N >> M;
-	cache.resize(N, "");
-	for (int i = 0; i < N; i++) cin >> cache[i];
+	root.resize(N, "");
+	for (int i = 0; i < N; i++) cin >> root[i];
 
 	for (int x = 0; x < N; x++) {
 		for (int y = 0; y < M; y++) {
@@ -47,7 +47,7 @@ int main(void) {
 		}
 	}
 	
-	(N == 1 && M == 1) && isPerfectSquare(stoi(cache[0])) ? cout << cache[0] : cout << cnt;
+	(N == 1 && M == 1) && isPerfectSquare(stoi(root[0])) ? cout << root[0] : cout << cnt;
 	
 	return 0;
 }

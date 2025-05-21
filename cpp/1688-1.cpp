@@ -8,7 +8,7 @@ using pll = pair<ll, ll>;
 const ll INF = 1e9 + 7;
 const int MAX_SIZE = 10001;
 
-pll point[MAX_SIZE], cache[4];
+pll point[MAX_SIZE], root[4];
 
 int ccw(pll p1, pll p2, pll p3) {
 	ll tmp = (p2.first - p1.first) * (p3.second - p1.second) - (p2.second - p1.second) * (p3.first - p1.first);
@@ -48,13 +48,13 @@ int main() {
 
 	for (int i = 0; i < 3; i++) {
 		cin >> x >> y;
-		cache[i] = { x, y };
+		root[i] = { x, y };
 	}
 
 	for (int i = 0; i < 3; i++) {
 		int cnt = 0;
-		pll p1 = { cache[i].first, cache[i].second };
-		pll p2 = { cache[i].first + INF, cache[i].second + 1 };
+		pll p1 = { root[i].first, root[i].second };
+		pll p2 = { root[i].first + INF, root[i].second + 1 };
 
 		bool flag = 0;
 		for (int j = 0; j < N; j++) {

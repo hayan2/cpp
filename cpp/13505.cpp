@@ -7,7 +7,7 @@ const int DIGITS = 31;
 const int MAX_SIZE = 100001;
 const bool FINISHED = true;
 
-int N, cache[MAX_SIZE];
+int N, root[MAX_SIZE];
 
 struct Trie {
 	Trie* node[2];
@@ -64,12 +64,12 @@ int main() {
 	Trie* T = new Trie;
 
 	for (int i = 0; i < N; i++) {
-		cin >> cache[i];
-		T->add(cache[i], DIGITS);
+		cin >> root[i];
+		T->add(root[i], DIGITS);
 	}
 
 	int ret = 0;
-	for (int i = 0; i < N; i++) ret = max(ret, T->solved(cache[i], DIGITS));
+	for (int i = 0; i < N; i++) ret = max(ret, T->solved(root[i], DIGITS));
 
 	cout << ret;
 

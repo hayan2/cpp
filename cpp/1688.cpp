@@ -12,7 +12,7 @@ typedef struct pos {
 	void read() { cin >> x >> y; }
 }pos;
 
-pos point[MAX_SIZE], cache[5], s, e;
+pos point[MAX_SIZE], root[5], s, e;
 
 bool operator > (pos a, pos b) {
 	if (a.x == b.x) return a.y > b.y;
@@ -57,12 +57,12 @@ int main(void) {
 	cin >> N;
 
 	for (int i = 1; i <= N; i++) point[i].read();
-	for (int i = 1; i < 4; i++) cache[i].read();
+	for (int i = 1; i < 4; i++) root[i].read();
 
 	for (int i = 1; i < 4; i++) {
-		s = cache[i];
+		s = root[i];
 		e.x = INF;
-		e.y = cache[i].y + 1;
+		e.y = root[i].y + 1;
 
 		bool flag = false;
 		int cnt = 0;

@@ -6,7 +6,7 @@ using namespace std;
 
 const int MAX_N = 1507;
 
-int cache[MAX_N * MAX_N];
+int root[MAX_N * MAX_N];
 
 int main(void) {
 	ios::sync_with_stdio(false);
@@ -18,12 +18,12 @@ int main(void) {
 	cin >> N;
 
 	for (int i = 0; i < N * N; i++) {
-		cin >> cache[i];
+		cin >> root[i];
 	}
 
-	sort(cache, cache + N * N);
+	sort(root, root + N * N);
 
-	cout << cache[N * N - N];
+	cout << root[N * N - N];
 
 	return 0;
 }//

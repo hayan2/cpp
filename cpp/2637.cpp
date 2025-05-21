@@ -7,7 +7,7 @@ using namespace std;
 using pii = pair<int, int>;
 const int MAX_SIZE = 101;
 
-vector<pii> cache[MAX_SIZE];
+vector<pii> root[MAX_SIZE];
 vector<int> cnt;
 queue<int> q;
 int dp[MAX_SIZE] = { 0, }, indegree[MAX_SIZE] = { 0, };
@@ -23,7 +23,7 @@ int main(void) {
 	while (M--) {
 		cin >> X >> Y >> K;
 
-		cache[X].push_back({ Y, K });
+		root[X].push_back({ Y, K });
 		indegree[Y]++;
 	}
 
@@ -32,9 +32,9 @@ int main(void) {
 
 	while (!q.empty()) {
 		int cur = q.front(); q.pop();
-		if (cache[cur].empty()) cnt.push_back(cur);
+		if (root[cur].empty()) cnt.push_back(cur);
 
-		for (auto x : cache[cur]) {
+		for (auto x : root[cur]) {
 			int nxt = x.first;
 			int v = x.second;
 			dp[nxt] += dp[cur] * v;
