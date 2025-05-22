@@ -6,9 +6,9 @@ using namespace std;
 
 const int MAX_SIZE = 52;
 
-vector<int> cache[MAX_SIZE];
+vector<int> str[MAX_SIZE];
 int root[MAX_SIZE], t[MAX_SIZE] = { 0, };
-int N, M, K, x, p, res = 0;
+int N, M, K, x, p, cache = 0;
 
 int find(int x) {
 	if (root[x] == x) return x;
@@ -39,19 +39,19 @@ int main(void) {
 		cin >> p;
 		for (int j = 0; j < p; j++) {
 			cin >> x;
-			cache[i].push_back(x);
+			str[i].push_back(x);
 		}
 		for (int j = 1; j < p; j++)
-			unionSet(cache[i][j], cache[i][j - 1]);
+			unionSet(str[i][j], str[i][j - 1]);
 	}
 	for (int i = 0; i < M; i++) {
-		for (int cur = 0; cur < cache[i].size(); cur++) {
-			if (t[root[find(cache[i][cur])]] == 1) break;
-			if (cur == cache[i].size() - 1) res++;
+		for (int cur = 0; cur < str[i].size(); cur++) {
+			if (t[root[find(str[i][cur])]] == 1) break;
+			if (cur == str[i].size() - 1) cache++;
 		}
 	}
 
-	cout << res;
+	cout << cache;
 
 	return 0;
 }
