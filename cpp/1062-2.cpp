@@ -5,14 +5,14 @@ using namespace std;
 const int MAX_SIZE = 51;
 
 string str;
-int cache[MAX_SIZE] = { 0, };
+int c[MAX_SIZE] = { 0, };
 int N, K, res = 0;
 
 void solved(int x, int s, int state) {
 	if (!x) {
 		int cnt = 0;
 		for (int i = 0; i < N; i++) 
-			((cache[i] & state) == cache[i]) ? cnt++ : cnt;
+			((c[i] & state) == c[i]) ? cnt++ : cnt;
 		res = max(res, cnt);
 	}
 
@@ -37,7 +37,7 @@ int main(void) {
 		int n = 0;
 		for (int l = 0; l < str.length(); l++) 
 			n |= (1 << str[l] - 'a');
-		cache[i] = n;
+		c[i] = n;
 	}
 
 	if (K < 5) cout << "0";

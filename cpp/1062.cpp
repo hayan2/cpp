@@ -10,7 +10,7 @@ using pii = pair<int, int>;
 
 map<int, pii> m;
 vector<string> str;
-vector<pii> cache;
+vector<pii> c;
 int N, K, res = 0;
 
 bool cmp(pii a, pii b) {
@@ -60,13 +60,13 @@ int main(void) {
 	}
 
 	for (auto& x : m)
-		cache.push_back({ x.second.first, x.second.second });
-	sort(cache.begin(), cache.end(), &cmp);
-	for (auto x : cache) {
+		c.push_back({ x.second.first, x.second.second });
+	sort(c.begin(), c.end(), &cmp);
+	for (auto x : c) {
 		cout << x.first << " " << x.second << "\n";
 	}
 	K -= 5;
-	for (auto x : cache) {
+	for (auto x : c) {
 		if (K - x.second >= 0) {
 			res += x.first;
 			K -= x.second;

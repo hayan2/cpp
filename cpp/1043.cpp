@@ -8,7 +8,7 @@ const int MAX_SIZE = 52;
 
 vector<int> str[MAX_SIZE];
 int root[MAX_SIZE], t[MAX_SIZE] = { 0, };
-int N, M, K, x, p, cache = 0;
+int N, M, K, x, p, c = 0;
 
 int find(int x) {
 	if (root[x] == x) return x;
@@ -47,11 +47,11 @@ int main(void) {
 	for (int i = 0; i < M; i++) {
 		for (int cur = 0; cur < str[i].size(); cur++) {
 			if (t[root[find(str[i][cur])]] == 1) break;
-			if (cur == str[i].size() - 1) cache++;
+			if (cur == str[i].size() - 1) c++;
 		}
 	}
 
-	cout << cache;
+	cout << c;
 
 	return 0;
 }

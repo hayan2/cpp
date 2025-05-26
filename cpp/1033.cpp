@@ -11,7 +11,7 @@ typedef struct type {
 	ll x, p, q;
 }type;
 
-vector<type> cache[MAX_SIZE];
+vector<type> c[MAX_SIZE];
 ll res[MAX_SIZE] = { 0, };
 ll N, a, b, p, q, l = 1, g;
 
@@ -32,7 +32,7 @@ void solved(int s) {
 
 	while (!q.empty()) {
 		ll cur = q.front(); q.pop();
-		for (auto nxt : cache[cur]) {
+		for (auto nxt : c[cur]) {
 			if (res[nxt.x]) continue;
 			res[nxt.x] = res[cur] * nxt.q / nxt.p;
 			q.push(nxt.x);
@@ -53,8 +53,8 @@ int main(void) {
 
 	for (int i = 0; i < N - 1; i++) {
 		cin >> a >> b >> p >> q;
-		cache[a].push_back({ b, p, q });
-		cache[b].push_back({ a, q, p });
+		c[a].push_back({ b, p, q });
+		c[b].push_back({ a, q, p });
 		l *= lcm(p, q);
 	}
 
