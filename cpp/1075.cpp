@@ -15,11 +15,9 @@ int main(void) {
 	int r = N / 100;
 	int tmp = r * 100;
 		
-	while ((tmp % F) && tmp <= N) {
-		tmp++;
-	}
+	while ((tmp % F)) tmp++;
 
-	cout << tmp / 10 << tmp % 10;
+	cout << (tmp % 100) / 10 << tmp % 10;
 
 	return 0;
 }
