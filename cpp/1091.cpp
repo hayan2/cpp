@@ -16,7 +16,7 @@ bool cmp() {
 	return true;
 }
 
-void shuffle() {	
+void shuffle() {
 	if (cmp()) {
 		cout << cnt;
 		return;
