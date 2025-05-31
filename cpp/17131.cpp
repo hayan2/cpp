@@ -15,7 +15,7 @@ typedef pair<ll, ll> pll;
 vector<pll> root;
 vector<pll> batch;
 vector<ll> segmentTree;
-ll tmp[MAX_N];
+ll cache[MAX_N];
 ll N, x, y, cnt = 0, cnt = 0;
 
 ll query(ll node, ll low, ll high, ll s, ll e) {
@@ -53,9 +53,9 @@ int main(void) {
 
 	for (ll i = 0; i < N; i++) {
 		if (i > 0 && root[i].first != root[i - 1].first) cnt++;
-		tmp[i] = cnt;
+		cache[i] = cnt;
 	}
-	for (ll i = 0; i < N; i++) root[i].first = tmp[i];
+	for (ll i = 0; i < N; i++) root[i].first = cache[i];
 
 	sort(root.begin(), root.end(), [](pll& a, pll& b) {
 		return (a.second == b.second) ? a.first < b.first : a.second > b.second;
