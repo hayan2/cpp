@@ -195,5 +195,11 @@
     <ClCompile Include="1099.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="1100.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="address.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
