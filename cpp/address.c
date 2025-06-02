@@ -13,4 +13,4 @@ int main(void) {
 	printf("buf : %x\n", buf);
 
 	return 0;
-}
+} //
