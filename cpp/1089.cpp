@@ -10,7 +10,7 @@ const int MOD = 1 << 16;
 
 vector<int> res[MAX_SIZE];
 string str[5];
-int cache[MAX_SIZE] = { 0x7B6F, 0x4924, 0x73E7, 0x79E7, 0x49ED, 0x79CF, 0x7BCF, 0x4927, 0x7BEF, 0x79EF };
+int words[MAX_SIZE] = { 0x7B6F, 0x4924, 0x73E7, 0x79E7, 0x49ED, 0x79CF, 0x7BCF, 0x4927, 0x7BEF, 0x79EF };
 int n[MAX_SIZE] = { 0, };
 int N;
 
@@ -26,7 +26,7 @@ int getBit(int x, int y, int idx) {
 
 void solved(int idx) {
 	for (int i = 0; i < MAX_SIZE; i++) {
-		if ((cache[i] | n[idx]) == cache[i])
+		if ((words[i] | n[idx]) == words[i])
 			res[idx].push_back(i);
 	}
 }
