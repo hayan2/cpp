@@ -8,7 +8,7 @@ const int VISITED = 1;
 
 vector<int> c[MAX_SIZE];
 int visited[MAX_SIZE] = { 0, };
-int N, R, x, res = 0, cache, root;
+int N, R, x, res = 0, box, root;
 
 void solved(int cur) {
 	if (cur == R) return;

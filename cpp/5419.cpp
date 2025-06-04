@@ -11,7 +11,7 @@ using namespace std;
 typedef pair<ll, ll> pll;
 
 ll segmentTree[MAX_LEN * 4];
-ll cache[MAX_LEN];
+ll box[MAX_LEN];
 vector<pll> root;
 ll T, N, cnt = 0, cnt = 0, x, y;
 
@@ -48,9 +48,9 @@ int main() {
 		// coordinate compression
 		for (ll i = 0; i < N; i++) {
 			if (i > 0 && root[i].second != root[i - 1].second) cnt++;
-			cache[i] = cnt;
+			box[i] = cnt;
 		}
-		for (ll i = 0; i < N; i++) root[i].second = cache[i];
+		for (ll i = 0; i < N; i++) root[i].second = box[i];
 
 
 		sort(root.begin(), root.end(), [](pll& a, pll& b) {

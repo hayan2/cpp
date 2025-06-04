@@ -9,10 +9,10 @@ const int MAX_SIZE = 51;
 const int INF = 1e9 + 7;
 
 string str, words[MAX_SIZE];
-int dp[MAX_SIZE], cache[MAX_SIZE][MAX_SIZE], N;
+int dp[MAX_SIZE], box[MAX_SIZE][MAX_SIZE], N;
 
 int getCost(int s, int idx) {
-	int& ret = cache[s][idx];
+	int& ret = box[s][idx];
 	if (ret != -1) return ret;
 
 	string w = words[idx];
@@ -56,7 +56,7 @@ int main(void) {
 	cout.tie(NULL);
 
 	memset(dp, -1, sizeof dp);
-	memset(cache, -1, sizeof cache);
+	memset(box, -1, sizeof box);
 
 	cin >> str;
 	cin >> N;
