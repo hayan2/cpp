@@ -6,7 +6,7 @@
 using namespace std;
 using pii = pair<int, int>;
 const int INF = 1e9 + 7;
-const int MAX_SIZE = 1003;
+const int MAX_SIZE = 1233;
 
 vector<pii> cache;
 int dp[MAX_SIZE], C, N, res = INF;
