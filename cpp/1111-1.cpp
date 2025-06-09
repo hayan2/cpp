@@ -14,7 +14,7 @@ int main(void) {
 
 	cin >> N;
 	for (int i = 0; i < N; i++) cin >> cache[i];
-		
+		//
 	if (N == 1) {
 		cout << "A";
 		return 0;
