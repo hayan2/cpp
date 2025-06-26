@@ -24,7 +24,7 @@ int main(void) {
 	vector<bool> visited(K, false);
 	int cnt = 1;
 	ll cur = n;
-
+	//
 	while (cnt <= K) {
 		if (!cur) {
 			cout << cnt;
