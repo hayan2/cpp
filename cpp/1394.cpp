@@ -31,6 +31,7 @@ int main(void) {
 	for (char c : key) rank = (rank * M + cache[c]) % MOD;
 	res = (res + rank + 1) % MOD;
 	cout << res;
+	//
 
 	return 0;
 }
