@@ -47,7 +47,25 @@ int main(void) {
 		vector<vector<int>> dist(m, vector<int>(n, INF));
 		priority_queue<State, vector<State>, greater<State>> pq;
 
+		dist[sr][sc] = 0;
+		pq.push({ 0, sr, sc });
 
+		while (!pq.empty()) {
+			State cur = pq.top();
+			pq.pop();
+
+			int t = cur.t;
+			int r = cur.r;
+			int c = cur.c;
+
+			for (int i = 0; i < 4; i++) {				
+				int nr = r + dr[i];
+				int nc = c + dc[i];
+
+				if (nr < 0 || nr >= m || nc < 0 || nc >= m || cache[nr][nc] == '.') continue;
+
+			}
+		}
 	}
 
 	return 0;
