@@ -18,7 +18,7 @@ struct Light {
     int ns;
 };
 
-bool is_green(int time, const Light& light, int dir) {
+bool isGreen(int time, const Light& light, int dir) {
     int cycle = light.ew + light.ns;
     int tic = time % cycle;
 
@@ -95,7 +95,7 @@ void solve() {
                     int id = grid[nr][nc] - '0';
                     int dir = (abs(r - nr) == 1) ? 0 : 1;
 
-                    while (!is_green(current_time, lights[id], dir)) {
+                    while (!isGreen(current_time, lights[id], dir)) {
                         wt++;
                         current_time++;
                     }
@@ -115,7 +115,7 @@ void solve() {
         }
         else {
             cout << result << endl;
-        }
+        } //
     }
 }
 
