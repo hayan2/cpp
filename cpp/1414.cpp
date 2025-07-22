@@ -67,7 +67,7 @@ int main(void) {
 			cnt++;
 		}
 	}
-
+	//
 	cout << ((N > 1 && cnt < N - 1) ? -1 : tot - mst);
 	
 	return 0;
