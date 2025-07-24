@@ -39,7 +39,7 @@ int main(void) {
 		sr = max(l, 15LL);
 		cnt = solved(sr, r, 5);
 	}
-
+	//
 	cout << cnt;
 
 	return 0;
