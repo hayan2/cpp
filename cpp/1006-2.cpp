@@ -1,15 +1,15 @@
 #include <iostream>
 #include <algorithm>
-#include <string.h>
+#include <vector>
 
 using namespace std;
 
 const int MAX_N = 10001;
 const int INF = 1e9 + 7;
 
-int dp[MAX_N][3];
+int N, W;
 int cache[2][MAX_N];
-int T, N, W;
+int dp[MAX_N][3];
 
 void getResult() {
 	for (int i = 2; i <= N; i++) {
@@ -17,19 +17,15 @@ void getResult() {
 		bool outer = (cache[0][i - 1] + cache[0][i] <= W);
 		bool inner = (cache[1][i - 1] + cache[1][i] <= W);
 
-		int option1 = dp[i - 1][0] + (vertical ? 1 : 2);
-		int option2 = outer ? (dp[i - 1][1] + 1) : INF;
-		int option3 = inner ? (dp[i - 1][2] + 1) : INF;
-		int option4 = (outer && inner) ? (dp[i - 2][0] + 2) : INF;
+		dp[i][1] = dp[i - 1][0] + 1;
+		if (inner) dp[i][1] = min(dp[i][1], dp[i - 1][2] + 1);
 
-		dp[i][0] = min({ option1, option2, option3, option4 });
+		dp[i][2] = dp[i - 1][0] + 1;
+		if (outer) dp[i][2] = min(dp[i][2], dp[i - 1][1] + 1);
 
-		option1 = dp[i - 1][0] + 1;
-		option2 = inner ? (dp[i - 2][0] + 2) : INF;
-		option3 = outer ? (dp[i - 2][0] + 2) : INF;
-
-		dp[i][1] = min(option1, option2);
-		dp[i][2] = min(option1, option3);
+		dp[i][0] = min(dp[i][1] + 1, dp[i][2] + 1);
+		dp[i][0] = min(dp[i][0], dp[i - 1][0] + (vertical ? 1 : 2));
+		if (outer && inner) dp[i][0] = min(dp[i][0], dp[i - 2][0] + 2);
 	}
 }
 
@@ -43,6 +39,9 @@ void solve() {
 		return;
 	}
 
+	dp[0][0] = 0;
+	dp[0][1] = dp[0][2] = INF;
+
 	int res = INF;
 
 	dp[1][0] = (cache[0][1] + cache[1][1] <= W) ? 1 : 2;
@@ -51,37 +50,40 @@ void solve() {
 	res = min(res, dp[N][0]);
 
 	if (cache[0][1] + cache[0][N] <= W) {
-		dp[1][0] = dp[1][2] = INF;
+		dp[1][0] = 2;
 		dp[1][1] = 1;
+		dp[1][2] = 2;
 		getResult();
-		res = min(res, dp[N][2]);
+		res = min(res, dp[N - 1][2] + 1);
 	}
 
 	if (cache[1][1] + cache[1][N] <= W) {
-		dp[1][0] = dp[1][1] = INF;
+		dp[1][0] = 2;
+		dp[1][1] = 2;
 		dp[1][2] = 1;
 		getResult();
-		res = min(res, dp[N][1]);
+		res = min(res, dp[N - 1][1] + 1);
 	}
 
 	if (cache[0][1] + cache[0][N] <= W && cache[1][1] + cache[1][N] <= W) {
-		dp[1][0] = INF;
-		dp[1][1] = dp[1][2] = 1;
+		dp[1][0] = 2;
+		dp[1][1] = 1;
+		dp[1][2] = 1;
 		getResult();
-		res = min(res, dp[N - 1][0]);
+		res = min(res, dp[N - 2][0] + 2);
 	}
 
 	cout << res << "\n";
 }
 
-int main(void) {
-	ios::sync_with_stdio(false);
+int main() {
+	ios_base::sync_with_stdio(false);
 	cin.tie(NULL);
-	cout.tie(NULL);
-	
-	cin >> T;
 
+	int T;
+	cin >> T;
 	while (T--) solve();
+
 
 	return 0;
 }
