@@ -52,15 +52,15 @@ void solve() {
 	if (cache[0][1] + cache[0][N] <= W) {
 		dp[1][0] = 2;
 		dp[1][1] = 1;
-		dp[1][2] = 2;
+		dp[1][2] = 2;		
 		getResult();
-		res = min(res, dp[N - 1][2] + 1);
+		res = min(res, dp[N - 1][2] + 1);		
 	}
 
 	if (cache[1][1] + cache[1][N] <= W) {
 		dp[1][0] = 2;
 		dp[1][1] = 2;
-		dp[1][2] = 1;
+		dp[1][2] = 1;		
 		getResult();
 		res = min(res, dp[N - 1][1] + 1);
 	}
