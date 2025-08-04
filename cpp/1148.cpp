@@ -70,6 +70,6 @@ int main(void) {
 
 		cout << mns << " " << mn << " " << mxs << " " << mx << "\n";
 	}
-
+	//
 	return 0;
 }
