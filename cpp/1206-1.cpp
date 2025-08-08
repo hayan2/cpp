@@ -33,7 +33,7 @@ int main(void) {
                 pavg[avg] = true;
             }
         }
-
+        //
         bool flag = true;
         for (int x : ravg) {
             if (!pavg[x]) {
