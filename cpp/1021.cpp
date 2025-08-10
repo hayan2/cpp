@@ -14,8 +14,7 @@ int main(void) {
 	cin >> N >> M;
 
 	deque<int> dq;
-	for (int i = 1; i <= N; i++) dq.push_back(i);
-	
+	for (int i = 1; i <= N; i++) dq.push_back(i);	
 
 	int cnt = 0;
 	for (int i = 0; i < M; i++) {
