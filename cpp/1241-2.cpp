@@ -17,6 +17,7 @@ int main(void) {
 	cin >> N;
 
 	vector<int> cache(N);
+	//
 	int mx = 0;
 	for (int i = 0; i < N; i++) {
 		cin >> cache[i];		
