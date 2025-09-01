@@ -30,7 +30,7 @@ int main(void) {
 	for (int i = 0; i < B.size() - A.size() + 1; i++) {
 		res = min(res, solve(i));
 	}
-	//
+	///////
 	cout << res;
 
 	return 0;
