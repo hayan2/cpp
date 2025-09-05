@@ -38,7 +38,7 @@ int main(void) {
 		}
 		res = min(res, cache[i].second - s);
 	}
-
+	//
 	cout << res;
 
 	return 0;
