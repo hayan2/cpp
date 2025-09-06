@@ -34,6 +34,6 @@ int main() {
     }
     
     cout << ((lt >= 0) ? lt : -1);
-
+    //
     return 0;
 }
