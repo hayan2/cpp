@@ -24,7 +24,7 @@ int main(void) {
 	cout.tie(NULL);
 	
 	cin >> A >> B;
-
+	//
 	int res = INF;
 
 	for (int i = 0; i < B.size() - A.size() + 1; i++) {

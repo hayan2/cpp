@@ -27,7 +27,7 @@ int main() {
     sort(cache.begin(), cache.end(), cmp);
     
     int lt = cache[0].S;
-        
+    
     for (int i = 0; i < N; ++i) {    
         if (lt > cache[i].S) lt = cache[i].S;
         lt -= cache[i].T;
