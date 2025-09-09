@@ -16,7 +16,7 @@ int solve(int s) {
 	}
 
 	return ret;
-}
+}//
 //
 int main(void) {
 	ios::sync_with_stdio(false);
