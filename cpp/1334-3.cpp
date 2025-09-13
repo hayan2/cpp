@@ -20,7 +20,7 @@ void solve() {
         }
         cout << s << endl;
         return;
-    }
+    }//
     //
     string a = s;
     for (i = 0; i < len / 2; i++) {
