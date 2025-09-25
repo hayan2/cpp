@@ -18,6 +18,6 @@ int main(void) {
 	}
 
 	cout << res;
-
+	//
 	return 0;
 }
