@@ -19,7 +19,7 @@ void solve() {
             s += '0';
         }
         cout << s << endl;
-        return;
+        return;//
     }//
     //
     string a = s;
