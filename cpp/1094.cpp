@@ -16,7 +16,7 @@ int main(void) {
 		if (X & 1) res++;
 		X >>= 1;
 	}
-
+	//
 	cout << res;
 	//
 	return 0;
