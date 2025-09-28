@@ -11,7 +11,7 @@ int main(void) {
 	int X, res = 0;
 
 	cin >> X;
-
+	//
 	while (X) {
 		if (X & 1) res++;
 		X >>= 1;
