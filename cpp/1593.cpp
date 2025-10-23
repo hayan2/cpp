@@ -36,7 +36,7 @@ int main(void) {
 
 		if (wcnt == scnt) res++;
 	}
-
+	//
 	cout << res;
 
 	return 0;
