@@ -26,7 +26,7 @@ int main(void) {
 	
 	vector<int> scnt(52, 0);
 	for (int i = 0; i < g; i++) scnt[getCharIndex(S[i])]++;
-
+	//
 	int res = 0;
 	if (wcnt == scnt) res++;
 
