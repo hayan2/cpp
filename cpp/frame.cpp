@@ -6,8 +6,6 @@
 
 using namespace std;
 
-int wordCnt[52] = { 0, };
-
 int main(void) {
 	ios::sync_with_stdio(false);
 	cin.tie(NULL);
