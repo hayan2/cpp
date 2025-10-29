@@ -56,7 +56,7 @@ int main(void) {
 	vector<string> words;
 	int N;
 	cin >> N;
-
+	//
 	initRanks();
 
 	string str;
