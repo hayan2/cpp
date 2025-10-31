@@ -23,6 +23,7 @@ int main(void) {
 
 	while (true) {
 		r = (r * 10 + 1) % N;
+
 		if (rem[r]) {
 			cout << "-1";
 			break;
