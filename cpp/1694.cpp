@@ -13,8 +13,8 @@ const int COL = 8;
 void whitePawnAttacks(char board[ROW][COL], bool attacked[ROW][COL], int r, int c) {
 	const int MOVE = 2;
 	
-	int dr[MOVE] = { -1, 1 };
-	int dc[MOVE] = { 1, 1 };
+	int dr[MOVE] = { -1, -1 };
+	int dc[MOVE] = { -1, 1 };
 
 	for (int i = 0; i < MOVE; i++) {
 		int nr = r + dr[i];
@@ -27,27 +27,121 @@ void whitePawnAttacks(char board[ROW][COL], bool attacked[ROW][COL], int r, int 
 }
 
 void blackPawnAttacks(char board[ROW][COL], bool attacked[ROW][COL], int r, int c) {
+	const int MOVE = 2;
+
+	int dr[MOVE] = { 1, 1 };
+	int dc[MOVE] = { -1, 1 };
+
+	for (int i = 0; i < MOVE; i++) {
+		int nr = r + dr[i];
+		int nc = c + dc[i];
+
+		if (nr < 0 || nr >= ROW || nc < 0 || nc >= COL) continue;
+
+		attacked[nr][nc] = true;
+	}
 
 }
 
 void knightAttacks(char board[ROW][COL], bool attacked[ROW][COL], int r, int c) {
+	const int MOVE = 8;
 
+	int dr[MOVE] = { 2, 2, 1, -1, 1, -1, -2, -2 };
+	int dc[MOVE] = { -1, 1, 2, 2, -2, -2, -1, 1 };
+
+	for (int i = 0; i < MOVE; i++) {
+		int nr = r + dr[i];
+		int nc = c + dc[i];
+
+		if (nr < 0 || nr >= ROW || nc < 0 || nc >= COL) continue;
+
+		attacked[nr][nc] = true;
+	}
 }
 
 void bishopAttacks(char board[ROW][COL], bool attacked[ROW][COL], int r, int c) {
+	const int MOVE = 4;
 
+	int dr[MOVE] = { 1, 1, -1, -1 };
+	int dc[MOVE] = { -1, 1, 1, -1 };
+
+	for (int i = 0; i < MOVE; i++) {
+		int nr = r;
+		int nc = c;
+
+		while (1) {
+			nr += dr[i];
+			nc += dc[i];
+
+			if (nr < 0 || nr >= ROW || nc < 0 || nc >= COL) break;
+			
+			attacked[nr][nc] = true;
+
+			if (board[nr][nc] != '.') break;
+		}
+	}
 }
 
 void rookAttacks(char board[ROW][COL], bool attacked[ROW][COL], int r, int c) {
+	const int MOVE = 4;
+	
+	int dr[MOVE] = { 1, -1, 0, 0 };
+	int dc[MOVE] = { 0, 0, 1, -1 };
 
+	for (int i = 0; i < MOVE; i++) {
+		int nr = r;
+		int nc = c;
+
+		while (1) {
+			nr += dr[i];
+			nc += dc[i];
+
+			if (nr < 0 || nr >= ROW || nc < 0 || nc >= COL) break;
+
+			attacked[nr][nc] = true;
+
+			if (board[nr][nc] != '.') break;
+		}
+	}
 }
 
 void queenAttacks(char board[ROW][COL], bool attacked[ROW][COL], int r, int c) {
+	const int MOVE = 8;
 
+	int dr[MOVE] = { 1, 1, -1, -1, 1, -1, 0, 0 };
+	int dc[MOVE] = { -1, 1, 1, -1, 0, 0, 1, -1 };
+
+	for (int i = 0; i < MOVE; i++) {
+		int nr = r;
+		int nc = c;
+
+		while (1) {
+			nr += dr[i];
+			nc += dc[i];
+
+			if (nr < 0 || nr >= ROW || nc < 0 || nc >= COL) break;
+
+			attacked[nr][nc] = true;
+
+			if (board[nr][nc] != '.') break;
+		}
+	}
 }
 
 void kingAttacks(char board[ROW][COL], bool attacked[ROW][COL], int r, int c) {
+	const int MOVE = 8;
 
+	int dr[MOVE] = { 1, 1, 1, 0, 0, -1, -1, -1 };
+	int dc[MOVE] = { -1, 0, 1, 1, -1, -1, 0, 1 };
+
+	for (int i = 0; i < MOVE; i++) {
+		int nr = r + dr[i];
+		int nc = c + dc[i];
+
+		if (nr < 0 || nr >= ROW || nc < 0 || nc >= COL) continue;
+
+		attacked[nr][nc] = true;
+	}
 }
 
 int main(void) {
@@ -106,6 +200,16 @@ int main(void) {
 				}
 			}
 		}
+
+		int res = 0;
+
+		for (int i = 0; i < ROW; i++) {
+			for (int j = 0; j < COL; j++) {
+				if (board[i][j] == '.' && !attacked[i][j]) res++;
+			}
+		}
+
+		cout << res << "\n";
 	}
 
 	return 0;
