@@ -17,6 +17,7 @@ int main(void) {
 	cout.tie(NULL);
 
 	ll N, k;
+
 	cin >> N >> k;
 
 	ll d = 1, cnt = 9, s = 1;
@@ -24,12 +25,12 @@ int main(void) {
 	while (s <= N) {
 		ll cur = min((ll)N - s + 1, cnt);
 		len += cur * d;
-
+		
 		if (k <= len) break;
-		d++;
 
-		cnt *= 10;
+		d++;
 		s *= 10;
+		cnt *= 10;
 	}
 
 	if (k > len) {
@@ -40,12 +41,12 @@ int main(void) {
 
 	d = 1, cnt = 9, s = 1;
 	len = 0;
-
-	while (true) {
+	while (1) {
 		ll x = cnt * d;
-		if (k <= x) break;
 
+		if (k <= x) break;
 		k -= x;
+
 		d++;
 		cnt *= 10;
 		s *= 10;
