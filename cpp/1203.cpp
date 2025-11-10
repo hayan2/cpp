@@ -11,10 +11,10 @@ using ull = unsigned long long;
 using pii = pair<int, int>;
 
 const int INF = 1e9 + 7;
-const int MAX_N = 51;
+const int MAX_N = 52;
 
-double prob[MAX_N] = { 0.0, };
-int dp[MAX_N][];
+double p[MAX_N] = { 0.0, };
+double dp[MAX_N][MAX_N][2];
 int N, K;
 
 int main(void) {
@@ -23,10 +23,19 @@ int main(void) {
 	cout.tie(NULL);
 
 	cin >> N >> K;
+	for (int i = 0; i < N - 1; i++) cin >> p[i];
 
-	for (int i = 0; i < N - 1; i++) cin >> prob[i];
+	for (int i = 0; i < MAX_N; i++) {
+		for (int j = 0; j < MAX_N; j++) {
+			for (int k = 0; k < 2; k++) dp[i][j][k] = 0;
+		}
+	}
 
+	dp[1][K][0] = 1.0;
 
+	for (int len = 1; len <= N - 2; len++) {
+
+	}
 
 	return 0;
 }
