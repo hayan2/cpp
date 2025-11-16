@@ -27,6 +27,8 @@ int solve(vector<vector<int>>& man, vector<vector<int>>& woman) {
 		int cur = q.front();
 		q.pop();
 
+		if (refus[cur] >= P) continue;
+
 		int midx = woman[cur][refus[cur]];
 		refus[cur]++;
 		
@@ -62,16 +64,13 @@ int main(void) {
 			for (int j = 0; j < P; j++) {
 				int x;
 				cin >> x;
-
 				man[i][x - 6] = j;
 			}
 		}
-
 		for (int i = 0; i < P; i++) {
 			for (int j = 0; j < P; j++) {
 				int x;
 				cin >> x;
-
 				woman[i][j] = x - 1;
 			}
 		}
@@ -79,22 +78,22 @@ int main(void) {
 		int ret = solve(man, woman);
 		bool flag = false;
 
-		for (int i = 0; i < ret; i++) {
+		vector<int> p(P);
+		for (int i = 0; i < P; i++) p[i] = i;
+
+		do {
 			vector<int> ranks(P);
-			ranks[i] = 0;
-			int currentRank = 1;
-			for (int j = 0; j < P; j++) {
-				if (j == i) continue;
-				ranks[j] = currentRank++;
-			}
+			for (int i = 0; i < P; i++) ranks[p[i]] = i;
 
 			man[TAEHYEON] = ranks;
+
 			int newPartner = solve(man, woman);
-			if (newPartner == i) {
+
+			if (newPartner < ret) {
 				flag = true;
 				break;
 			}
-		}
+		} while (next_permutation(p.begin(), p.end()));
 
 		cout << (flag ? "YES\n" : "NO\n");
 	}
