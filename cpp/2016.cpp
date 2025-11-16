@@ -28,20 +28,15 @@ int solve(vector<vector<int>>& man, vector<vector<int>>& woman) {
 		q.pop();
 
 		int midx = woman[cur][refus[cur]];
-
-		// success
-		if (mpart[midx] == -1) {
-			mpart[midx] = cur;
-		}
-		// refusal
-		else {
-			// if man prefers current partner than current woman
+		refus[cur]++;
+		
+		if (mpart[midx] == -1) mpart[midx] = cur;
+		else {			
 			if (man[midx][cur] < man[midx][mpart[midx]]) {
 				q.push(mpart[midx]);
 				mpart[midx] = cur;
 			}
-			else {
-				refus[cur]++;
+			else {				
 				q.push(cur);
 			}
 		}
@@ -62,7 +57,6 @@ int main(void) {
 		vector<vector<int>> man(P, vector<int>(P));
 		vector<vector<int>> woman(P, vector<int>(P));
 
-		// man[][] = ranks
 		for (int i = 0; i < P; i++) man[TAEHYEON][i] = i;
 		for (int i = 1; i < P; i++) {
 			for (int j = 0; j < P; j++) {
