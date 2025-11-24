@@ -31,7 +31,7 @@ int main(void) {
 		vector<int> curMin(3), curMax(3);
 		int na, nb, nc;
 		cin >> na >> nb >> nc;
-
+		//
 		curMax[0] = max(mx[0], mx[1]) + na;
 		curMin[0] = min(mn[0], mn[1]) + na;
 		curMax[1] = max({ mx[0], mx[1], mx[2] }) + nb;
