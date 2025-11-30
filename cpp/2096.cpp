@@ -42,7 +42,7 @@ int main(void) {
 		mn = curMin;
 		mx = curMax;
 	}
-
+	//
 	cout << max({ mx[0], mx[1], mx[2] }) << " " << min({ mn[0], mn[1], mn[2] });
 
 	return 0;
