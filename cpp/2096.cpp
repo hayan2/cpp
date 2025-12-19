@@ -38,7 +38,7 @@ int main(void) {
 		curMin[1] = min({ mn[0], mn[1], mn[2] }) + nb;
 		curMax[2] = max(mx[1], mx[2]) + nc;
 		curMin[2] = min(mn[1], mn[2]) + nc;
-
+		//
 		mn = curMin;
 		mx = curMax;
 	}
