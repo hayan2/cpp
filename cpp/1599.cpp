@@ -19,7 +19,7 @@ void initRanks() {
 	ranks['s'] = 15, ranks['t'] = 16, ranks['u'] = 17, ranks['w'] = 18;
 	ranks['y'] = 19;
 }
-
+//
 bool compare(const string& s1, const string& s2) {
 	int i = 0, j = 0;
 	
